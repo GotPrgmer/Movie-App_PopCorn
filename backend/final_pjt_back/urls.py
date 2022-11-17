@@ -22,5 +22,4 @@ urlpatterns = [
     path('movies/', include('movies.urls')),
     # path('accounts/', include('accounts.urls')),
     # path('community/', include('community.urls')),
-
 ]

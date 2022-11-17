@@ -33,9 +33,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Django Apps
     'accounts',
+    'articles',
     'movies',
-    'reviews',
-    'community',
 
     'rest_framework',
 
@@ -65,6 +64,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+    ],
+
+#     # spectacular Settings
+#     # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -77,8 +94,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
+    'http://localhost:8080', 
 ]
+
+# CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:8080' ,'http://localhost:8080']
+# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'final_pjt_back.urls'
 
