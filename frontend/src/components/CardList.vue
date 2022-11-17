@@ -3,7 +3,6 @@
     <CardListItem 
       v-for="movie in movies" :key="movie.id"
       :movie="movie"
-     
     />
   </div>
 </template>

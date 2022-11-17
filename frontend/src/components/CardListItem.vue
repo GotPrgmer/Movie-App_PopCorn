@@ -1,5 +1,5 @@
 <template>
-  <div class="card_item">
+  <swiper-slide class="card_item">
 
     <router-link 
       :to="{ name: 'DetailView', params: { id: movie.id, movie: movie } }"
@@ -14,30 +14,31 @@
         <span>{{ movie?.movietitle }}</span>
         <span>{{ movie?.rate }}</span>
       </article>
-    </router-link>
 
-  </div>
+    </router-link>
+  </swiper-slide>
 </template>
 
 <script>
+ 
 export default {
   name: 'CardListItem',
   props: {
     movie: Object,
   },
   methods: {
-    mouseOverCard() {
-      const poster = document.querySelector('.poster')
-      const info = document.querySelector('.info')
-      poster.classList.add('hide_on_bush')
-      info.classList.remove('hide_on_bush')
-    },
-    mouseLeaveCard() {
-      const poster = document.querySelector('.poster')
-      const info = document.querySelector('.info')
-      poster.classList.remove('hide_on_bush')
-      info.classList.add('hide_on_bush')
-    },
+    // mouseOverCard() {
+    //   const poster = document.querySelector('.poster')
+    //   const info = document.querySelector('.info')
+    //   poster.classList.add('hide_on_bush')
+    //   info.classList.remove('hide_on_bush')
+    // },
+    // mouseLeaveCard() {
+    //   const poster = document.querySelector('.poster')
+    //   const info = document.querySelector('.info')
+    //   poster.classList.remove('hide_on_bush')
+    //   info.classList.add('hide_on_bush')
+    // },
   },
   // mounted() {
     
