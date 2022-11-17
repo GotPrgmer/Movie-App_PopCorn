@@ -19,6 +19,7 @@ export default new Vuex.Store({
     },
     userMovie: [],
     token: null,
+    userImg: '@/src/assets/logo.png'
   },
   getters: {
   //   isLogin(state) {

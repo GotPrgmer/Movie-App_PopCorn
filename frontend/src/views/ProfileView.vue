@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>프로필</h1>
-    <p>프로필 사진</p>
+    <img :src="userImg" alt="내사진">
+    <input type="file" name="" accept="image/*" id="" @change="getImageFile">
     <p>그래프</p>
     <p>소개글</p>
     <p>follow 버튼</p>
@@ -16,10 +17,17 @@ export default {
   components: {
     CardList,
   },
+  data() {
+    return {
+      userImg : this.$store.state.userImg
+    }
+  },
+  
   computed : {
     userMovie() {
       return this.$store.state.userMovie
-    }
+    },
+    
   },
   created() {
     this.getUserMovie()
@@ -27,6 +35,9 @@ export default {
   methods: {
     getUserMovie() {
       this.$store.dispatch('getUserMovie')
+    },
+    getImageFile(event) {
+      this.userImg = event.target.files
     }
   },
 }
