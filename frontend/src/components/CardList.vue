@@ -1,0 +1,22 @@
+<template>
+  <div class="box">
+    <CardListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>
+  </div>
+</template>
+
+<script>
+import CardListItem from "./CardListItem.vue"
+export default {
+  name: 'CardList',
+  components: {
+    CardListItem,
+  },
+  props: {
+    movies: Array,
+  },
+}
+</script>
+
+<style>
+
+</style>

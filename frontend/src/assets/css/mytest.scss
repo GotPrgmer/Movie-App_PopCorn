@@ -1,0 +1,18 @@
+.box {
+  border: 1px solid black;
+  width: 90%;
+  height: 50px;
+  padding: 50px;
+  margin: 50px;
+  color: $main-caramel;
+  
+//   .box_child {
+//     border: 1px dotted red;
+//     width: 50px;
+//     height: 50px;
+//     // .box_child_list_item를 &으로 줄일 수도 있긴 함 비추
+//     &_list_item { 
+//       color: $my-red;
+//     }
+//   }
+}
