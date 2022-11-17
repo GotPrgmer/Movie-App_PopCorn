@@ -2,15 +2,12 @@
   <div id="app">
     <nav>
       <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
-      <span> 검색 </span> | 
-      <router-link :to="{ name: 'ProfileView' }">프로필 사진 </router-link> | 
-      <router-link :to="{ name: 'ArticleView' }">전체 게시판</router-link> | 
-      <router-link :to="{ name: 'SignUpView' }">Sign Up</router-link> | 
-      <router-link :to="{ name: 'LogInView' }">Log In</router-link> | 
-      <button @click="logOut">Log Out</button>
-
-      
-    
+      <span> 검색  | </span>
+      <router-link v-if="isLogin" :to="{ name: 'ProfileView' }">프로필 사진 |  </router-link>
+      <router-link :to="{ name: 'ArticleView' }">전체 게시판 | </router-link>
+      <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }">Sign Up | </router-link>
+      <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">Log In | </router-link>
+      <button v-if="isLogin" @click="logOut">Log Out</button>
     </nav>
 
     <router-view/>
@@ -31,7 +28,7 @@ export default {
     logOut() {
       if (this.isLogin === true) {
         //로그아웃???
-        // this.$store.dispatch('logOut')
+        this.$store.dispatch('logOut')
         this.$router.push({ name: 'MainView'})
       } else {
         alert('로그인')

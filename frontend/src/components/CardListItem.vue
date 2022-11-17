@@ -1,10 +1,10 @@
 <template>
-  <swiper-slide class="card_item">
+  <div class="card_item">
 
     <router-link 
       :to="{ name: 'DetailView', params: { id: movie.id, movie: movie } }"
-      @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard"
     >
+      <!-- @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard" -->
       <!-- 두 가지 article이 번갈아 보여진다 기본 : poster, 마우스호버 : info -->
       <article class="poster">
       <img class="posterimg" :src="`https://image.tmdb.org/t/p/w500/${movie.posterpath}`" :alt="movie.title">
@@ -16,7 +16,7 @@
       </article>
 
     </router-link>
-  </swiper-slide>
+  </div>
 </template>
 
 <script>

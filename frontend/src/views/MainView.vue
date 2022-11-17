@@ -3,8 +3,8 @@
     <div>
       <h1>메인</h1>
     </div>
-    <div>
-      <router-link :to="{ name: 'ProfileView' }"> <ProfilePreview/> </router-link>
+    <div >
+      <router-link v-if="isLogin" :to="{ name: 'ProfileView' }"> <ProfilePreview/> </router-link>
     </div>
     <article class="box">
       <router-link :to="{ name: 'GameActorView' }"> 취향을 찾아보자 </router-link>
@@ -28,6 +28,9 @@ export default {
     CardList
   },
   computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    },
     movieList() {
       return this.$store.state.movieList
     }

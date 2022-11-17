@@ -2,7 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-// import router from '@/router'
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -17,14 +17,15 @@ export default new Vuex.Store({
       totalMovie: ['영화1', '영화2', '전체영화'],
       popularMovie:['인기영화', '인기영화', '인기영화'],
     },
-    userMovie: [],
+    userInfo: null,
+    userMovie: '영화 급구',
     token: null,
     userImg: '@/src/assets/logo.png'
   },
   getters: {
-  //   isLogin(state) {
-  //     return state.token ? true : false
-  //   }
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
     GET_TOTAL_MOVIE(state, totalMovie) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     GET_POPULAR_MOVIE(state, popularMovie) {
       state.movieList.popularMovie = popularMovie
+    },
+    GET_USER_INFO(state, userInfo) {
+      state.userInfo = userInfo
     },
     // GET_USER_MOVIE(state, userMovie) {
     //   state.movieList.userMovie = userMovie
@@ -41,18 +45,22 @@ export default new Vuex.Store({
   //   },
     SAVE_TOKEN(state, token) {
       state.token = token
-      // router.push({ name: 'ArticleView' })
+      router.push({ name: 'MainView' })
     },
-
+    LOGOUT(state) {
+      localStorage.removeItem('User')
+      state.token = null
+      router.push({ name: 'MainView' })
+    }
   },
   actions: {
     getTotalMovie(context) {
       axios({
         method: 'get',
         url: `${API_URL}/movies/total_movie/`,
-        headers: {
-          Authorization: `Token ${context.state.token}`
-        }
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // }
       })
         .then((res) => {
           context.commit('GET_TOTAL_MOVIE', res.data)
@@ -65,12 +73,27 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `${API_URL}/movies/total_movie/`,
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // }
+      })
+        .then((res) => {
+          context.commit('GET_POPULAR_MOVIE', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    getUserInfo(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user`,
         headers: {
           Authorization: `Token ${context.state.token}`
         }
       })
         .then((res) => {
-          context.commit('GET_POPULAR_MOVIE', res.data)
+          context.commit('GET_USER_INFO', res.data)
         })
         .catch((err) => {
           console.log(err)
@@ -95,10 +118,10 @@ export default new Vuex.Store({
     //   axios({
     //     method: 'get',
     //     url: `${API_URL}/reviews/`,
-    //     headers: {
-    //       Authorization: `Token ${context.state.token}`
-    //     }
-    //   })
+  //  //     headers: {
+  //  //       Authorization: `Token ${context.state.token}`
+  //  //     }
+  //  //   })
     //     .then((res) => {
     //       // console.log(res, context)
     //       context.commit('GET_ARTICLES', res.data)
@@ -107,40 +130,43 @@ export default new Vuex.Store({
     //       console.log(err)
     //     })
     // },
-    // signUp(context, payload) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/signup/`,
-    //     data: {
-    //       username: payload.username,
-    //       password1: payload.password1,
-    //       password2: payload.password2,
-    //     }
-    //   })
-    //     .then((res) => {
-    //       // console.log(res)
-    //       context.commit('SAVE_TOKEN', res.data.key)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
-    // logIn(context, payload) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/login/`,
-    //     data: {
-    //       username: payload.username,
-    //       password: payload.password,
-    //     }
-    //   })
-    //     .then((res) => {
-    //       context.commit('SAVE_TOKEN', res.data.key)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
+    signUp(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          username: payload.username,
+          password1: payload.password1,
+          password2: payload.password2,
+        }
+      })
+        .then((res) => {
+          // console.log(res)
+          context.commit('SAVE_TOKEN', res.data.key)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    logIn(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          username: payload.username,
+          password: payload.password,
+        }
+      })
+        .then((res) => {
+          context.commit('SAVE_TOKEN', res.data.key)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    logOut(context) {
+      context.commit('LOGOUT')
+    },
   },
   modules: {
   }

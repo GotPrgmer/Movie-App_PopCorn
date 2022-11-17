@@ -1,12 +1,15 @@
 <template>
   <div>
     <h1>프로필</h1>
-    <img :src="userImg" alt="내사진">
+    <div><img :src="userInfo.userimg" alt="내 사진"></div>
     <input type="file" name="" accept="image/*" id="" @change="getImageFile">
-    <p>그래프</p>
-    <p>소개글</p>
-    <p>follow 버튼</p>
-    <CardList :movies="movies"/>
+    <p>그래프 {{userInfo?.bedge}}</p>
+    <p>안녕/ 난 지니쓰</p>
+    <button @click="clickFollow">팔로우</button>
+    <router-link></router-link>
+    <CardList
+      :movie="userMovie"
+    />
   </div>
 </template>
 
@@ -17,27 +20,40 @@ export default {
   components: {
     CardList,
   },
-  data() {
-    return {
-      userImg : this.$store.state.userImg
-    }
-  },
-  
+  // data() {
+  //   return {
+  //     userImg : '@/src/assets/logo.png'
+  //   }
+  // },
   computed : {
+    userInfo() {
+      return this.$store.state.userInfo
+    },
+    userImg() {
+      return this.$store.state.userImg
+    },
     userMovie() {
       return this.$store.state.userMovie
     },
     
   },
   created() {
+    this.getUserInfo()
     this.getUserMovie()
   },
   methods: {
+    getUserInfo() {
+      this.$store.dispatch('getUserInfo')
+    },
     getUserMovie() {
       this.$store.dispatch('getUserMovie')
     },
     getImageFile(event) {
-      this.userImg = event.target.files
+      console.log(event)
+      // this.$store.dispatch('getImageFile', event)
+    },
+    clickFollow() {
+      
     }
   },
 }

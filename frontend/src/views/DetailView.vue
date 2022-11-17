@@ -3,7 +3,7 @@
     <article>
       <h1>Detail</h1>
       <img :src="`https://image.tmdb.org/t/p/w500/${movie.posterpath}`" :alt="movie.title">
-      <p>영화 제목 : {{ movie?.movie_title }}</p>
+      <p>영화 제목 : {{ movie?.movietitle }}</p>
       <p>평점 : {{ movie?.rate }}</p>
       <p>줄거리 : {{ movie?.overview }}</p>
       <p>개봉일 : {{ movie?.released_data }}</p>

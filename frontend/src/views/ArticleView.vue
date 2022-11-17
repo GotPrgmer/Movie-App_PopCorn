@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Article Page</h1>
-    <router-link :to="{ name: 'CreateView' }">[Create]</router-link>
+    <router-link v-if="isLogin" :to="{ name: 'CreateView' }">[Create]</router-link>
+    <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">로그인하고 리뷰 쓰기</router-link>
     <ReviewList/>
-    <hr>
   </div>
 </template>
 
@@ -25,12 +25,12 @@ export default {
   // },
   methods: {
     getArticles() {
-      if (this.isLogin === true) {
-        this.$store.dispatch('getArticles')
-      } else {
-        alert('로그인')
-        this.$router.push({ name: 'LogInView'})
-      }
+      // if (this.isLogin === true) {
+      this.$store.dispatch('getArticles')
+      // } else {
+        // alert('로그인')
+        // this.$router.push({ name: 'LogInView'})
+      // }
 
     }
   }
