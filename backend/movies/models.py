@@ -16,9 +16,12 @@ class Movie(models.Model):
     overview = models.TextField()
     posterpath = models.TextField()
     genres = models.ManyToManyField( Genre , related_name='genre')
+    userslike = models.ManyToManyField( settings.AUTH_USER_MODEL , related_name='userlike')
 
 
 
-class Genrescore(models.Model):
-    users = models.ManyToManyField( settings.AUTH_USER_MODEL , related_name='genrescore')
+
+class Score(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     score = models.IntegerField()
