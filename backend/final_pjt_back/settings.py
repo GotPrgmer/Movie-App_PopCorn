@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'movies',
 
     'rest_framework',
+    'imagekit',
 
     # CORS policy
     "corsheaders",
@@ -178,3 +179,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'accounts.User'
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomUserSerializer',
+}
+
+ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
