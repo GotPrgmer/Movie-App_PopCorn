@@ -52,6 +52,7 @@ const routes = [
     path: '/:id',
     name: 'DetailView',
     component: DetailView,
+    props: true
   },
   // {
   //   path: '/about',

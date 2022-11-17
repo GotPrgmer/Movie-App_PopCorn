@@ -1,25 +1,24 @@
-// import axios from 'axios'
+import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import axios from 'axios'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 // import router from '@/router'
 
 Vue.use(Vuex)
 
-// const API_URL = 'http://127.0.0.1:8000'
+const API_URL = 'http://127.0.0.1:8000'
 
 export default new Vuex.Store({
-  // plugins: [
-  //   createPersistedState()
-  // ],
+  plugins: [
+    createPersistedState()
+  ],
   state: {
     movieList: {
-      totalMovie: ['전체영화', '전체영화', '전체영화'],
+      totalMovie: ['영화1', '영화2', '전체영화'],
       popularMovie:['인기영화', '인기영화', '인기영화'],
     },
     userMovie: [],
-    // token: null,
+    token: null,
   },
   getters: {
   //   isLogin(state) {
@@ -27,55 +26,55 @@ export default new Vuex.Store({
   //   }
   },
   mutations: {
-    // GET_TOTAL_MOVIE(state, totalMovie) {
-    //   state.movieList.totalMovie = totalMovie
-    // },
-    // GET_POPULAR_MOVIE(state, popularMovie) {
-    //   state.movieList.popularMovie = popularMovie
-    // },
+    GET_TOTAL_MOVIE(state, totalMovie) {
+      state.movieList.totalMovie = totalMovie
+    },
+    GET_POPULAR_MOVIE(state, popularMovie) {
+      state.movieList.popularMovie = popularMovie
+    },
     // GET_USER_MOVIE(state, userMovie) {
     //   state.movieList.userMovie = userMovie
     // },
   //   GET_ARTICLES(state, articles) {
   //     state.articles = articles
   //   },
-  //   SAVE_TOKEN(state, token) {
-  //     state.token = token
-  //     router.push({ name: 'ArticleView' })
-  //   },
+    SAVE_TOKEN(state, token) {
+      state.token = token
+      // router.push({ name: 'ArticleView' })
+    },
 
   },
   actions: {
-    // getTotalMovie(context) {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/totla_movie/`,
-    //     headers: {
-    //       Authorization: `Token ${context.state.token}`
-    //     }
-    //   })
-    //     .then((res) => {
-    //       context.commit('GET_TOTAL_MOVIE', res.data)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
-    // getPopularMovie(context) {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/popular_movie/`,
-    //     headers: {
-    //       Authorization: `Token ${context.state.token}`
-    //     }
-    //   })
-    //     .then((res) => {
-    //       context.commit('GET_POPULAR_MOVIE', res.data)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
+    getTotalMovie(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/total_movie/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          context.commit('GET_TOTAL_MOVIE', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    getPopularMovie(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/total_movie/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          context.commit('GET_POPULAR_MOVIE', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     // getUserMovie(context) {
       //   axios({
       //     method: 'get',
