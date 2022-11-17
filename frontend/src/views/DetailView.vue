@@ -2,11 +2,11 @@
   <div>
     <article>
       <h1>Detail</h1>
-      <!-- <img :src="movie.posterpath" :alt="movie.title"> -->
-      <p>영화 제목 : {{ movie?.title }}</p>
+      <img :src="`https://image.tmdb.org/t/p/w500/${movie.posterpath}`" :alt="movie.title">
+      <p>영화 제목 : {{ movie?.movie_title }}</p>
       <p>평점 : {{ movie?.rate }}</p>
-      <p>줄거리 : {{ movie?.content }}</p>
-      <p>개봉일 : {{ movie?.created_at }}</p>
+      <p>줄거리 : {{ movie?.overview }}</p>
+      <p>개봉일 : {{ movie?.released_data }}</p>
       <hr>
     </article>
     <aside>
@@ -32,28 +32,32 @@ export default {
     ReviewList,
     VideoList,
   },
-  data() {
-    return {
-      movie: null,
-    }
+  props: {
+    movie: Object,
   },
-  // created() {
-    // this.getMovieDetail()
+  // data() {
+  //   return {
+  //     movie: null,
+  //   }
   // },
-  methods: {
-    // getMovieDetail() {
-      // axios({
-      //   method: 'get',
-      //   url: `${API_URL}/total_movie/${this.$route.params}/`
-      // })
-      //   .then((res) => {
-      //     console.log(res)
-      //     this.movie = res.data
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //   })
-    // }
-  }
+  // created() {
+  //   this.getMovieDetail()
+  //   console.log(movie)
+  // },
+  // methods: {
+  //   getMovieDetail() {
+  //     axios({
+  //       method: 'get',
+  //       url: `${API_URL}/movies/total_movie/${this.$route.params}/`
+  //     })
+  //       .then((res) => {
+  //         console.log(res)
+  //         this.movie = res.data
+  //       })
+  //       .catch((err) => {
+  //         console.log(err)
+  //       })
+  //   }
+  // }
 }
 </script>

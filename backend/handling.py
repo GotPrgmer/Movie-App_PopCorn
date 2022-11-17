@@ -150,7 +150,7 @@ for i in range(1,10):
         continue
       else:
           json_data.append(e)
-  with open("./movies/fixtures/movie_data.json", "w", encoding="utf-8") as w:
+  with open("./backend/movies/fixtures/movie_data.json", "w", encoding="utf-8") as w:
           json.dump(json_data, w, indent="\t", ensure_ascii=False)
 
 

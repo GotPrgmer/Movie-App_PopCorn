@@ -37,8 +37,8 @@ export default {
   },
   methods: {
     getMovies() {
-      // this.$store.dispatch('getTotalMovie')
-      // this.$store.dispatch('getPopularMovie')
+      this.$store.dispatch('getTotalMovie')
+      this.$store.dispatch('getPopularMovie')
     }
   },
 }

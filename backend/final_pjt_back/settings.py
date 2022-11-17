@@ -31,11 +31,32 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django Apps
     'accounts',
     'movies',
     'reviews',
-    'rest_framework',
     'community',
+
+    'rest_framework',
+
+    # CORS policy
+    'corsheaders',
+
+    # Auth
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+
+    # registration
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+
+#     # OpenAPI 3.0
+#     'drf_spectacular',
+
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,11 +68,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
 ]
 
 ROOT_URLCONF = 'final_pjt_back.urls'
