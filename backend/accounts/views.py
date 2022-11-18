@@ -35,11 +35,26 @@ def personarticle(request, user_id):
   return Response(serializer.data)
 
 #장르별 점수
-# def mygenrescore(request, user_pk):
-#   # user = User.objects.get(pk=user_pk)
-#   mygenreIntances = Score.filter(users=user_pk)
-#   for mygenres in mygenreIntances:
-#     mygenres.genre_name
-#             mygenreIntances.genres
+def mygenrescore(request, user_id):
+  user = User.objects.get(pk=user_id)
+  #score접근
+  score = user.user_genre.filter(users=user.id)
+  # print(score[1].genres.genre_name)
+  #genre별 점수 호출
+  scorebygenre = {}
+  # genreName = score.genrename.filter(pk=score.genres)
+  for e in score:
+    scorebygenre[e.genres.genre_name] = e.score
+  genre_check = ['모험','판타지','애니메이션','드라마','공포','액션','코미디','역사','서부','스릴러','범죄','다큐멘터리','SF','미스터리','음악','로맨스','가족','전쟁','TV 영화']
+  for check in genre_check:
+    scorebygenre[check] = scorebygenre.get(check,0)
+  context = [{
+    'user':user_id,
+    'score' : scorebygenre
+  }]
+  print(context)
+  return JsonResponse(context, safe=False)
+  # score = Score.filter(users=user_pk)
+
 
 
