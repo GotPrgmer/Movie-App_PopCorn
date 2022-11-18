@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .serializers import  OtherArticleSerializer, MyArticleSerializer
+from articles.serializers import  OtherArticleSerializer, MyArticleSerializer
 
 # Create your views here.
 
@@ -35,6 +35,7 @@ def personarticle(request, user_id):
   return Response(serializer.data)
 
 #장르별 점수
+@api_view(['GET'])
 def mygenrescore(request, user_id):
   user = User.objects.get(pk=user_id)
   #score접근

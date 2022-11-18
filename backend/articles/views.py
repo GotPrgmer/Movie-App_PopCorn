@@ -14,7 +14,22 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
 # from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer
-# from .models import Article, Comment
+from .models import Review
+from accounts.models import User
+from .serializers import ReviewLikeSerializer, UserLikeSerializer
+
+@api_view(['GET'])
+def onereviewlike(request,review_id):
+    review = Review.objects.get(pk=review_id)
+    serializer = ReviewLikeSerializer(review)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def onepersonlike(request,user_id):
+    user = User.objects.get(pk=user_id)
+    serializer = UserLikeSerializer(user)
+    return Response(serializer.data)
 
 
 

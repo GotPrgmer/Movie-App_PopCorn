@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .models import Movie
 from accounts.models import User
 from movies.models import Score
+from accounts.serializers import UserSerializer
+from articles.serializers import ReviewSerializer
+
 
 #영화 리스트
 class MovieListSerializer(serializers.ModelSerializer):
@@ -16,6 +19,20 @@ class MovieSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 #특정영화 코멘트
+class SpecificMovieReviewSerializer(serializers.ModelSerializer):
+
+  movie_reviews = ReviewSerializer(many=True, read_only=True)
+
+  class Meta:
+    model = Movie
+    fields = ('id','movie_reviews')
+
+
+
+
+
+
+
 #사용자가 좋아요한 영화들
 class WatchSerializer(serializers.ModelSerializer):
 
@@ -24,6 +41,15 @@ class WatchSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = ('id','userlike')
+
+#한 영화에 좋아요한 사람들
+class OneMovieChosenSerializer(serializers.ModelSerializer):
+
+  userslike = UserSerializer(many=True)
+  
+  class Meta:
+    model = Movie
+    fields = ('id','userslike')
 
 
 #스코어점수 시리얼라이즈
