@@ -48,10 +48,10 @@ def mygenrescore(request, user_id):
   genre_check = ['모험','판타지','애니메이션','드라마','공포','액션','코미디','역사','서부','스릴러','범죄','다큐멘터리','SF','미스터리','음악','로맨스','가족','전쟁','TV 영화']
   for check in genre_check:
     scorebygenre[check] = scorebygenre.get(check,0)
-  context = [{
+  context = {
     'user':user_id,
     'score' : scorebygenre
-  }]
+  }
   print(context)
   return JsonResponse(context, safe=False)
   # score = Score.filter(users=user_pk)
