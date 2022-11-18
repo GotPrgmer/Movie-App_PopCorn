@@ -22,6 +22,6 @@ class Movie(models.Model):
 
 
 class Score(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    users = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_genre")
+    genres = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="genrename")
     score = models.IntegerField()

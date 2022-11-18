@@ -1,0 +1,16 @@
+[
+    {
+        "model": "articles.review",
+        "pk": 1,
+        "fields": {
+            "movie": 505642,
+            "review_title": "내용없음",
+            "review_content": "Tonight free why name break. Fine receive become fear. Really break good executive something improve. Later month star now purpose loss with.",
+            "user": 1,
+            "like_users":[1],
+            "created_at": "1975-12-07T13:38:25Z",
+            "updated_at": "1991-01-16T06:45:10Z"
+        }
+    }
+]
+    
