@@ -4,35 +4,25 @@
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
       ref="card">
-    <router-link 
-      :to="{ name: 'DetailView', params: { id: movie.id, movie: movie } }">
-      <card class="card"
+      <div class="card"
         :style="cardStyle">
-        <!-- @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard" -->
-        <!-- 두 가지 div가 번갈아 보여진다 기본 : poster, 마우스호버 : info -->
-        <article class="card-bg" :style="[cardBgTransform, cardBgImage]"></article>
-        <article class="card-info">
-          <slot name="header">{{ movie?.movietitle }}</slot>
-          <slot name="content">{{ movie?.rate }}</slot>
-        </article>
-      </card>
-    </router-link>
+        <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
+        <div class="card-info">
+          <slot name="header"></slot>
+          <slot name="content"></slot>
+        </div>
+      </div>
   </div>
-
 </template>
-<!--<img :src="`https://image.tmdb.org/t/p/w500/${movie.posterpath}`" :alt="movie.title">-->
+
 <script>
- 
 export default {
-  name: 'CardListItem',
-  props: {
-    movie: Object,
-  },
-  mounted() {
+    name:'Card',
+    mounted() {
     this.width = this.$refs.card.offsetWidth;
     this.height = this.$refs.card.offsetHeight;
   },
-  //props: ['dataImage'],
+  props: ['dataImage'],
   data: () => ({
     width: 0,
     height: 0,
@@ -63,7 +53,7 @@ export default {
     },
     cardBgImage() {
       return {
-        backgroundImage: `url(https://image.tmdb.org/t/p/w500/${this.movie.posterpath})`
+        backgroundImage: `url('https://t1.daumcdn.net/cfile/tistory/2166AE4E5849926901')`
       }
     }
   },
@@ -84,25 +74,8 @@ export default {
   }
 
 }
-  // methods: {
-    // mouseOverCard() {
-    //   const poster = document.querySelector('.poster')
-    //   const info = document.querySelector('.info')
-    //   poster.classList.add('hide_on_bush')
-    //   info.classList.remove('hide_on_bush')
-    // },
-    // mouseLeaveCard() {
-    //   const poster = document.querySelector('.poster')
-    //   const info = document.querySelector('.info')
-    //   poster.classList.remove('hide_on_bush')
-    //   info.classList.add('hide_on_bush')
-    // },
-  //},
-  // mounted() {
-    
-  // }
-
 </script>
+
 <style>
 
 </style>

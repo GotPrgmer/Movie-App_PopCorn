@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import CardListItem from "./CardListItem.vue"
+import CardListItem from "@/components/CardListItem"
+
 export default {
   name: 'CardList',
   components: {
