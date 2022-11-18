@@ -6,7 +6,7 @@
       ref="card">
     <router-link 
       :to="{ name: 'DetailView', params: { id: movie.id, movie: movie } }">
-      <card class="card"
+      <article class="card"
         :style="cardStyle">
         <!-- @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard" -->
         <!-- 두 가지 div가 번갈아 보여진다 기본 : poster, 마우스호버 : info -->
@@ -15,7 +15,7 @@
           <slot name="header">{{ movie?.movietitle }}</slot>
           <slot name="content">{{ movie?.rate }}</slot>
         </article>
-      </card>
+      </article>
     </router-link>
   </div>
 

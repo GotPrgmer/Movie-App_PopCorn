@@ -22,6 +22,7 @@ export default new Vuex.Store({
     userInfo: null,
     userMovie: '영화 급구',
     token: null,
+
     userImg: '@/src/assets/logo.png',
     // 게임 정보
     
@@ -50,10 +51,10 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_TOTAL_MOVIE(state, totalMovie) {
-      state.movieList.totalMovie = totalMovie
+      state.movieList.totalMovie = totalMovie.splice(0, 10)
     },
     GET_POPULAR_MOVIE(state, popularMovie) {
-      state.movieList.popularMovie = popularMovie
+      state.movieList.popularMovie = popularMovie.splice(11, 21)
     },
     GET_USER_INFO(state, userInfo) {
       state.userInfo = userInfo

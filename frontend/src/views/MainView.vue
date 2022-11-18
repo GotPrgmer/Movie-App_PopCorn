@@ -7,7 +7,7 @@
       <router-link v-if="isLogin" :to="{ name: 'ProfileView' }"> <ProfilePreview/> </router-link>
     </div>
     <article class="box">
-      <router-link v-if="!isLogin" :to="{ name: 'GameActorView' }"> 취향을 찾아보자 </router-link>
+      <router-link v-if="isLogin" :to="{ name: 'GameActorView' }"> 취향을 찾아보자 </router-link>
       <router-link v-if="!isLogin" :to="{ name: 'LogInView' }"> 회원이 되어 함께 취향을 찾아봐요! </router-link>
       
     </article>
