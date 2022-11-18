@@ -1,0 +1,21 @@
+[
+    {
+        "model": "movies.score",
+        "pk": 1,
+        "fields": {
+            "users": 1,
+            "genres":12,
+            "score":13
+        }
+    },
+    {
+        "model": "movies.score",
+        "pk": 2,
+        "fields": {
+            "users": 1,
+            "genres":14,
+            "score":100
+        }
+    }
+]
+    
