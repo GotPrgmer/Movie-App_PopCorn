@@ -7,10 +7,17 @@ import MainView from '@/views/MainView'
 import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
+import GameResultView from '@/views/GameResultView'
+import CardCard from '@/components/CardCard'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {path: '/cardcard',
+  name: 'CardCard',
+  component: CardCard
+
+  },
   {
     path: '/',
     name: 'MainView',
@@ -31,13 +38,19 @@ const routes = [
     name: 'ArticleView',
     component: () => import('@/views/ArticleView')
   },
+  
+  // 로그인이 필요한 페이지
   {
     path: '/actorgame',
     name: 'GameActorView',
     component: () => import('@/views/GameActorView')
   },
-  
-  // 로그인이 필요한 페이지
+  {
+    path: '/game/result',
+    name: 'GameResultView',
+    component: GameResultView,
+    props: true
+  },
   {
     path: '/profile',
     name: 'ProfileView',
@@ -49,7 +62,7 @@ const routes = [
     component: () => import('@/views/CreateView')
   },
   {
-    path: '/:id',
+    path: '/movies/:id',
     name: 'DetailView',
     component: DetailView,
     props: true
@@ -61,7 +74,12 @@ const routes = [
   //   // this generates a separate chunk (about.[hash].js) for this route
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  // },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound')
+  }
 ]
 
 const router = new VueRouter({

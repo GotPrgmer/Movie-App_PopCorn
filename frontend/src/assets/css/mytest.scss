@@ -41,22 +41,12 @@ nav {
 .card_container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  // justify-content: space-evenly;
 }
 
-.card_item {
-  // align-items: center;
-  width: 111px;
-  height: 200px;
-  object-fit: cover;
-}
 
-.hide_on_bush {
-  display: none
-}
-
-.posterimg {
-  width: 111px;
-  height: 200px;
-  object-fit: cover;
+.actor {
+  width: 600px;
+  height: 500px;
+  object-fit: contain;
 }
