@@ -9,6 +9,8 @@ from .serializers import MovieSerializer, WatchSerializer, OneMovieChosenSeriali
 from articles.serializers import ReviewSerializer
 from .models import Movie
 from articles.models import Review
+from django.http import JsonResponse
+
 
 
 # Create your views here.
@@ -68,6 +70,31 @@ def moviereviewsedit(request,review_id):
     elif request.method == 'DELETE':
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def movieclicklike(request,user_id,movie_id):
+    User = get_user_model()
+    user = User.objects.get(pk=user_id)
+    movie = Movie.objects.get(id=movie_id)
+
+    if movie.userslike.filter(pk=user_id).exists():
+        movie.userslike.remove(user)
+        is_liked = False
+    else:
+        movie.userslike.add(user)
+        is_liked = True
+    users = movie.userslike.all()
+    likepeople = []
+    for e in users:
+        likepeople.append(e.username)
+    context = {
+        'is_liked':is_liked,
+        'likepeople': likepeople,
+        'likecnt': movie.userslike.count()
+    }
+    return JsonResponse(context)
 
 #     article = get_object_or_404(Article, pk=article_pk)
 #     serializer = CommentSerializer(data=request.data)
