@@ -8,7 +8,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
-        read_only_fields = ('user','movie')
+        read_only_fields = ('user','movie','like_users')
 #한 리뷰에 좋아요한 사람들
 class ReviewLikeSerializer(serializers.ModelSerializer):
     like_users = UserSerializer(many=True, read_only=True)

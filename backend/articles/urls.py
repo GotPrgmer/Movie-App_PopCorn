@@ -6,7 +6,7 @@ app_name = 'articles'
 
 urlpatterns = [
     path('like/<int:review_id>/',views.onereviewlike),
-    path('onepersonlike/<int:user_id>/', views.onepersonlike),
+    path('onepersonlike/<str:user_name>/', views.onepersonlike),
     # path('', views.article_list),
     # path('<int:article_pk>/', views.article_detail),
     # path('comments/', views.comment_list),

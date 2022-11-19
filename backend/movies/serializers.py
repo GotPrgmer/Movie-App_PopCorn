@@ -17,8 +17,10 @@ class MovieSerializer(serializers.ModelSerializer):
   class Meta:
     model = Movie
     fields = '__all__'
+    read_only_fields = ('userslike','genres')
 
-#특정영화 코멘트
+
+#특정영화 코멘트들
 class SpecificMovieReviewSerializer(serializers.ModelSerializer):
 
   movie_reviews = ReviewSerializer(many=True, read_only=True)
@@ -50,6 +52,7 @@ class OneMovieChosenSerializer(serializers.ModelSerializer):
   class Meta:
     model = Movie
     fields = ('id','userslike')
+    read_only_fields = ('userslike')
 
 
 #스코어점수 시리얼라이즈

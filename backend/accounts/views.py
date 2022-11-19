@@ -11,10 +11,10 @@ from articles.serializers import  OtherArticleSerializer, MyArticleSerializer
 # Create your views here.
 
 #내가 어떤사람을 눌렀을 때 그 사람이 팔로잉한 사람
-def follow(request, user_pk):
+def follow(request, username):
   #로그인한 사용자
   #(내가 누른 사람)
-  person = User.objects.get(pk=user_pk)
+  person = User.objects.get(user=username)
   like_users = person.followers.all()
   context = {
     'like_users' : like_users,
@@ -24,10 +24,10 @@ def follow(request, user_pk):
 #유저정보
 #인증된 사용자만 들어오게함
 @api_view(['GET'])
-def personarticle(request, user_id):
+def personarticle(request, username):
   User = get_user_model()
   me = request.user
-  you = User.objects.get(pk=user_id)
+  you = User.objects.get(username=username)
   if me != you:
     serializer = OtherArticleSerializer(you)
   else:
@@ -36,8 +36,8 @@ def personarticle(request, user_id):
 
 #장르별 점수
 @api_view(['GET'])
-def mygenrescore(request, user_id):
-  user = User.objects.get(pk=user_id)
+def mygenrescore(request, username):
+  user = User.objects.get(username=username)
   #score접근
   score = user.user_genre.filter(users=user.id)
   # print(score[1].genres.genre_name)
