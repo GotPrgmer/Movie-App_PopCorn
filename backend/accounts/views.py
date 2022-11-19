@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404, get_list_or_404
+
 
 from articles.serializers import  OtherArticleSerializer, MyArticleSerializer
 from .serializers import UserSerializer
@@ -12,13 +14,32 @@ from .serializers import UserSerializer
 # Create your views here.
 
 #내가 어떤사람을 눌렀을 때 그 사람이 팔로잉한 사람
-def follow(request, username):
+@api_view(['GET'])
+def followingusers(request, username):
   #로그인한 사용자
   #(내가 누른 사람)
-  person = User.objects.get(user=username)
-  like_users = person.followers.all()
+  person = get_object_or_404(User,username=username)
+  like_users = person.followings.all()
+  followingusers = []
+  for e in like_users:
+    followingusers.append(e.username)
   context = {
-    'like_users' : like_users,
+    'followingusers' : followingusers,
+    }
+  return JsonResponse(context)
+
+#나를 팔로잉한 사람들
+@api_view(['GET'])
+def followerusers(request, username):
+  #로그인한 사용자
+  #(내가 누른 사람)
+  person = get_object_or_404(User,username=username)
+  like_users = person.followers.all()
+  followerusers = []
+  for e in like_users:
+    followerusers.append(e.username)
+  context = {
+    'followerusers' : followerusers,
     }
   return JsonResponse(context)
 
@@ -27,7 +48,7 @@ def follow(request, username):
 def personarticle(request, username):
   User = get_user_model()
   me = request.user
-  you = User.objects.get(username=username)
+  you = get_object_or_404(User,username=username)
   if me != you:
     serializer = OtherArticleSerializer(you)
   else:
@@ -37,14 +58,14 @@ def personarticle(request, username):
 @api_view(['GET'])
 def userinfo(request,username):
   User = get_user_model()
-  user = User.objects.get(username=username)
+  user = get_object_or_404(User,username=username)
   serializer = UserSerializer(user)
   return Response(serializer.data)
 
 #장르별 점수
 @api_view(['GET'])
 def mygenrescore(request, username):
-  user = User.objects.get(username=username)
+  user = get_object_or_404(User,username=username)
   #score접근
   score = user.user_genre.filter(users=user.id)
   # print(score[1].genres.genre_name)
@@ -62,7 +83,30 @@ def mygenrescore(request, username):
   }
   print(context)
   return JsonResponse(context, safe=False)
-  # score = Score.filter(users=user_pk)
 
+#내가 다른 사용자의 팔로우 버튼을 눌렀을 때
+@api_view(['POST'])
+def followclick(request, myname, user_pk):
+  you = get_object_or_404(get_user_model(), pk=user_pk)
+  me = get_object_or_404(get_user_model(), username=myname)
+  if me != you:
+      if me.followings.filter(pk=you.pk).exists():
+          me.followings.remove(you)
+          is_followed = False
+      else:
+          me.followings.add(you)
+          is_followed = True
+      followings = []
+      followers = []
+      myfollowers = me.followers.all()
+      myfollowings = me.followings.all()
+      # for e in users:
+      #     likepeople.append(e.username)
+      context = {
+          'is_followed': is_followed,
+          'followersCnt': len(myfollowers),
+          'followingsCnt': len(myfollowings),
+      }
+      return JsonResponse(context)
 
 

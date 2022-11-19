@@ -16,5 +16,5 @@ class User(AbstractUser):
     #     format='JPEG',
     #     options={'quality': 70},
     # )
-    followers = models.ManyToManyField("self", symmetrical=False,related_name='followings')
+    followings = models.ManyToManyField("self", symmetrical=False,related_name='followers')
 

@@ -1,23 +1,19 @@
-from django.shortcuts import render
 
 # Create your views here.
 
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-# Authentication Decorators
-# from rest_framework.decorators import authentication_classes
-
-# permission Decorators
-from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
-from django.http import JsonResponse
-
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.response import Response
 from rest_framework import status
+
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.http import JsonResponse
+from django.shortcuts import render
+
 # from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer
-from .models import Review
-from accounts.models import User
 from .serializers import ReviewLikeSerializer, UserLikeSerializer
+from accounts.models import User
+from .models import Review
 
 @api_view(['GET'])
 def onereviewlike(request,review_id):
@@ -33,7 +29,7 @@ def onepersonlike(request,username):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def clicklike(request,user_id,review_id):
+def reviewclicklike(request,user_id,review_id):
     user = User.objects.get(pk=user_id)
     review = Review.objects.get(id=review_id)
 
