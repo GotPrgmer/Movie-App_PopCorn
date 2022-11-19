@@ -31,7 +31,8 @@ const routes = [
   {
     path: '/login',
     name: 'LogInView',
-    component: LogInView
+    component: LogInView,
+    
   },
   {
     path: '/article',

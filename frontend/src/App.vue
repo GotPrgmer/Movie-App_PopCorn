@@ -9,8 +9,6 @@
       <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">Log In | </router-link>
       <button v-if="isLogin" @click="logOut">Log Out</button>
 
-
-
       <!-- <body id="body" class="light-mode">
       <h1>Dark &amp; Light Mode Switcher</h1>
       
@@ -33,9 +31,17 @@ import "./assets/css/index.scss"
 
 export default {
   name: 'App',
+  data() {
+    return {
+      userInfo: null
+    }
+  },
   computed:{
     isLogin() {
       return this.$store.getters.isLogin
+    },
+    userName() {
+      return this.$store.state.username
     }
   },
   methods: {
@@ -49,7 +55,15 @@ export default {
         this.$router.push({ name: 'LogInView'})
       }
     },
-
+    getUserInfo() {
+      if (this.isLogin === true) {
+        this.$store.dispatch('getUserInfo')
+      }
+    }
+  },
+  created() {
+    getUserInfo()
+  }
 //     toggleLight() {
 //     var body = document.getElementById("body");
 //     var currentClass = body.className;
@@ -65,7 +79,6 @@ export default {
 //   $(".btn-group > .btn").removeClass("active");
 //   $(this).addClass("active");
 // });
-}
 }
 </script>
 <style>

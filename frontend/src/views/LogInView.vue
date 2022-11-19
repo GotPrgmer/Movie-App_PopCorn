@@ -1,7 +1,7 @@
 <template>
     <div class="form" id="loginform">
       <h1> Login </h1>
-      <form novalidate @submit.prevent="logIn">
+      <form novalidate @submit.prevent="logIn" >
         <p class="email">
           <label for="email">ID <span>*</span></label>
           <input class="input" required type="text" id="email" name="email" v-model="username"/>
@@ -36,6 +36,7 @@ export default {
     return {
       username: null,
       password: null,
+      formIsValid : true,
     }
   },
   methods: {
@@ -50,43 +51,45 @@ export default {
       this.$store.dispatch('logIn', payload)
     }
   },
+    // validateThisField (field) {
+    //   if (field.required && field.value === '') {
+    //     field.classList.add('required');
+    //     this.formIsValid = false;
+    //   }
+    //   if (field.pattern
+    //       && !(new RegExp(field.pattern).exec(field.value) !== null) ) {
+    //     field.classList.add('invalid');
+    //     this.formIsValid = false;
+    //   }
+    // },
+    // logIn() {
+    //   const fields = form.querySelectorAll('input')
+    // 	Array.prototype.forEach.call(this.fields, validateThisField);
+    //   	// also have a global state on the form
+    // 	if (!this.formIsValid) {
+    //     const form = document.getElementById('loginform')
+    //     form.classList.remove('errors');
+    //         setTimeout(function() {form.classList.add('errors');}, 0)
+    //   } else {
+    //     const username = this.username
+    //     const password = this.password
 
-//   function validateThisField (field) {
-// 	if (field.required && field.value === '') {
-// 		field.classList.add('required');
-// 		formIsValid = false;
-// 	}
-// 	if (field.pattern
-// 			&& !(new RegExp(field.pattern).exec(field.value) !== null) ) {
-// 		field.classList.add('invalid');
-// 		formIsValid = false;
-// 	}
-
-// }
-
-// var form = document.getElementById('loginform');
-// var fields = form.querySelectorAll('input');
-// var formIsValid = true;
-
-// form.addEventListener('submit', function (e) {
-// 	e.preventDefault();
-// 	Array.prototype.forEach.call(fields, validateThisField);
-//   	// also have a global state on the form
-// 	if (!formIsValid) {
-//     form.classList.remove('errors');
-//         setTimeout(function() {form.classList.add('errors');}, 0);
-//     }
-// });
-// /*
-//  form.addEventListener('focus', function (e) {
-// 	e.target.classList.remove('required');
-// 	e.target.classList.remove('invalid');
-// }, true); */
-
-// form.addEventListener('blur', function (e) {
-//   e.target.classList.remove('required');
-// 	e.target.classList.remove('invalid');
-// 	validateThisField(e.target);
-// }, true);
+    //     const payload = {
+    //       username,
+    //       password,
+    //     }
+    //     this.$store.dispatch('logIn', payload)
+    //   }
+    // },
+    //  focusInput(e) {
+    // 	e.target.classList.remove('required');
+    // 	e.target.classList.remove('invalid');
+    // },
+    // blurInput(e) {
+    //   e.target.classList.remove('required');
+    // 	e.target.classList.remove('invalid');
+    // 	validateThisField(e.target);
+    // },
+  // },
 }
 </script>
