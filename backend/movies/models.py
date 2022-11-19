@@ -12,12 +12,11 @@ class Movie(models.Model):
     actors = models.TextField()
     director = models.CharField(max_length=20)
     rate = models.FloatField()
-    released_data = models.DateField(auto_now=False, auto_now_add=False)
+    released_date = models.DateField(auto_now=False, auto_now_add=False)
     overview = models.TextField()
     posterpath = models.TextField()
     genres = models.ManyToManyField( Genre , related_name='genre')
     userslike = models.ManyToManyField( settings.AUTH_USER_MODEL , related_name='userlike')
-
 
 
 

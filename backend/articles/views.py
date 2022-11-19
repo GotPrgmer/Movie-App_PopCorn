@@ -26,15 +26,15 @@ def onereviewlike(request,review_id):
 
 
 @api_view(['GET'])
-def onepersonlike(request,user_id):
-    user = User.objects.get(pk=user_id)
+def onepersonlike(request,user_name):
+    user = User.objects.get(username=user_id)
     serializer = UserLikeSerializer(user)
     return Response(serializer.data)
 
 
 
 # @api_view(['GET', 'POST'])
-# #인증된 경우만 실행한다
+#인증된 경우만 실행한다
 # @permission_classes([IsAuthenticated])
 # def article_list(request):
 #     if request.method == 'GET':
@@ -42,6 +42,7 @@ def onepersonlike(request,user_id):
 #         articles = get_list_or_404(Article)
 #         serializer = ArticleListSerializer(articles, many=True)
 #         return Response(serializer.data)
+
 
 #     elif request.method == 'POST':
 #         serializer = ArticleSerializer(data=request.data)

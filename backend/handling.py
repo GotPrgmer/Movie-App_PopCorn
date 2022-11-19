@@ -97,9 +97,9 @@ for i in range(1,10):
       rate = obj.get('vote_average',0)
 
       if obj.get('release_date',):
-        released_data = obj.get('release_date',)
+        released_date = obj.get('release_date',)
       else:
-        released_data = '1900-01-01'
+        released_date = '1900-01-01'
 
       overview = obj.get('overview','')
       posterpath = obj.get('poster_path','')
@@ -140,13 +140,13 @@ for i in range(1,10):
         'actors' : actors,
         'director' : director,
         'rate' : rate,
-        'released_data': released_data,
+        'released_date': released_date,
         'overview': overview,
         'posterpath': posterpath,
         'genres': genre_ids,
         }
       }
-      if '' in e['fields'].values() or e['fields']['released_data'] == '1900-01-01':
+      if '' in e['fields'].values() or e['fields']['released_date'] == '1900-01-01':
         continue
       else:
           json_data.append(e)
