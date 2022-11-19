@@ -26,8 +26,8 @@ def onereviewlike(request,review_id):
 
 
 @api_view(['GET'])
-def onepersonlike(request,user_name):
-    user = User.objects.get(username=user_id)
+def onepersonlike(request,username):
+    user = User.objects.get(username=username)
     serializer = UserLikeSerializer(user)
     return Response(serializer.data)
 
