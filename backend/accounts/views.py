@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from articles.serializers import  OtherArticleSerializer, MyArticleSerializer
+from .serializers import UserSerializer
 
 # Create your views here.
 
@@ -21,7 +22,6 @@ def follow(request, username):
     }
   return JsonResponse(context)
 
-#유저정보
 #인증된 사용자만 들어오게함
 @api_view(['GET'])
 def personarticle(request, username):
@@ -32,6 +32,13 @@ def personarticle(request, username):
     serializer = OtherArticleSerializer(you)
   else:
     serializer = MyArticleSerializer(me)
+  return Response(serializer.data)
+
+@api_view(['GET'])
+def userinfo(request,username):
+  User = get_user_model()
+  user = User.objects.get(username=username)
+  serializer = UserSerializer(user)
   return Response(serializer.data)
 
 #장르별 점수

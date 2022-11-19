@@ -19,10 +19,10 @@ def total(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def watchlist(request,user_name):
+def watchlist(request,username):
     User = get_user_model()
     print(User)
-    user = User.objects.get(user=user_name)
+    user = User.objects.get(user=username)
     print(user.nickname)
     serializer = WatchSerializer(user)
     return Response(serializer.data)
@@ -33,7 +33,7 @@ def chosenmovie(request,movie_id):
     serializer = OneMovieChosenSerializer(movie)
     return Response(serializer.data)
 
-@api_view(['GET','POST','PUT'])
+@api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def moviereviews(request,movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
@@ -53,7 +53,7 @@ def moviereviews(request,movie_id):
             serializer.save(movie=movie,user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-#하나로 빼기 
+#하나로 빼기
 #후기 수정 및 삭제
 @api_view(['PUT','DELETE'])
 @permission_classes([IsAuthenticated])
