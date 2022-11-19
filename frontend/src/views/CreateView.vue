@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>게시글 작성</h1>
+    <h1>{{ movie.movietitle }}</h1>
     <form @submit.prevent="createArticle">
       <label for="title">제목 : </label>
       <input type="text" id="title" v-model.trim="title"><br>
@@ -19,43 +19,67 @@ const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'CreateView',
+  props: {
+    movie: Object,
+  },
   data() {
     return {
       title: null,
       content: null,
+      user : this.$store.getters.isUserInfo.id,
+      movieId : this.movie.id,
     }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    },
   },
   methods: {
     createArticle() {
-      const title = this.title
-      const content = this.content
+      console.log(this.movie)
+      const review_title = this.title
+      const review_content = this.content
+      const user = this.user
+      const movieId = this.movieId
+      const movie = this.movie
       if (!title) {
-        alert('제목')
+        alert('제목을 작성해주세요.')
         return
       } else if (!content) {
-        alert('내용')
+        alert('내용을 작성해주세요.')
         return
       }
+      
       axios({
         method: 'post',
-        url: `${API_URL}/articles/`,
+        url: `${API_URL}/movies/reviews/${movieId}/`,
         data: {
-          title: title,
-          content: content,
+          review_title : review_title,
+          review_content : review_content,
+          user : user,
+          movie : movieId,
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`
         }
       })
         .then((res) => {
-          console.log(res)
-          this.$router.push({ name: 'ArticleView' })
+          console.log(movie)
+          this.$router.push({ name: 'DetailView', params: { id: movieId, movie: movie } })
+          
         })
         .catch((err) => {
+          console.log(movieId)
           console.log(err)
         })
     }
   },
+  created() {
+    if (!this.$store.getters.isLogin) {
+      this.$router.push({ name: 'LogInView'})
+    }
+  }
 }
 </script>
 

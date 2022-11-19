@@ -28,7 +28,7 @@ export default new Vuex.Store({
     //GET_USER_LIKES
     userLikes: null,
 
-    userImg: '@/src/assets/logo.png',
+    userImg: '@/assets/logo.png',
     // 리뷰 정보
     //GET_ARTICLES
     articles: null,
@@ -63,7 +63,7 @@ export default new Vuex.Store({
     },
     SAVE_TOKEN(state, res) {
       state.token = res.data.key
-      state.username = res.config.data.username
+      state.username = JSON.parse(res.config.data).username
       router.push({ name: 'MainView' })
     },
     LOGOUT(state) {
@@ -73,7 +73,7 @@ export default new Vuex.Store({
       state.userInfo = null
       state.userLikes = null
       state.userImg = '@/src/assets/logo.png'
-      router.push({ name: 'MainView' })
+      router.push({ name: 'MainView' }).catch(()=>{}) // 메인뷰인 채로 로그아웃하면 redirection오류가 생기는데 .catch로 무시했음
     }
   },
   actions: {
@@ -188,8 +188,7 @@ export default new Vuex.Store({
       })
         .then((res) => {
           // console.log(res)
-          
-          console.log(res.config.data.username)
+          // console.log(JSON.parse(res.config.data).username)
           context.commit('SAVE_TOKEN', res)
         })
         .catch((err) => {
