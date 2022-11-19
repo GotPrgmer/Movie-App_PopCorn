@@ -39,13 +39,13 @@ export default {
   },
   created() {
     this.getUserInfo()
-    this.getUserMovie()
+    this.getUserLikes()
   },
   methods: {
     getUserInfo() {
       this.$store.dispatch('getUserInfo')
     },
-    getUserMovie() {
+    getUserLikes() {
       this.$store.dispatch('getUserMovie')
     },
     getImageFile(event) {
