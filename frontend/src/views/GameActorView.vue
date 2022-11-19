@@ -52,7 +52,7 @@ export default {
       console.log(this.actorGame)
     },
     fiveSecond() {
-      this.timerFlag = setInterval(this.selectAcotr, 3000)
+      this.timerFlag = setInterval(this.selectAcotr, 4000)
     },
     startGame() {
       this.isStarted = true

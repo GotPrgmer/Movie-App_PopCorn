@@ -9,6 +9,7 @@ import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import GameResultView from '@/views/GameResultView'
 import CardCard from '@/components/CardCard'
+import GameView from '@/views/GameView'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const routes = [
     component: () => import('@/views/GameActorView')
   },
   {
+    path: '/game',
+    name: 'GameView',
+    component: GameView,
+  },
+  {
     path: '/game/result',
     name: 'GameResultView',
     component: GameResultView,
@@ -58,9 +64,10 @@ const routes = [
     component: () => import('@/views/ProfileView')
   },
   {
-    path: '/create',
+    path: '/create/:id',
     name: 'CreateView',
-    component: () => import('@/views/CreateView')
+    component: () => import('@/views/CreateView'),
+    props: true
   },
   {
     path: '/movies/:id',

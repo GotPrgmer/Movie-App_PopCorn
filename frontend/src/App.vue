@@ -49,7 +49,6 @@ export default {
       if (this.isLogin === true) {
         //로그아웃???
         this.$store.dispatch('logOut')
-        this.$router.push({ name: 'MainView'})
       } else {
         alert('로그인')
         this.$router.push({ name: 'LogInView'})

@@ -9,8 +9,26 @@
       <p>개봉일 : {{ movie?.released_date }}</p>
       <hr>
     </article>
-    <aside>
-      <ReviewList/>
+
+    <button 
+      v-if="isLogin && !isCreate"
+      @click="createMethod" 
+    >리뷰 작성하기</button>
+    <button 
+      v-if="!isLogin && !isCreate" 
+      @click="createMethod"
+    >로그인하고 리뷰 쓰기</button>
+    <button
+      v-if="isCreate"
+      @click="createMethod">
+      리뷰 보기
+    </button>
+
+    <aside v-if="isCreate">
+      <CreateView :movie="movie"/>
+    </aside>
+    <aside v-if="!isCreate">
+      <ArticleView :movie="movie"/>
     </aside>
     <aside>
       <VideoList/>
@@ -21,7 +39,8 @@
 
 <script>
 // import axios from 'axios'
-import ReviewList from '@/components/ReviewList'
+import ArticleView from '@/views/ArticleView'
+import CreateView from '@/views/CreateView'
 import VideoList from '@/components/VideoList'
 
 // const API_URL = 'http://127.0.0.1:8000'
@@ -29,17 +48,33 @@ import VideoList from '@/components/VideoList'
 export default {
   name: 'DetailView',
   components: {
-    ReviewList,
+    ArticleView,
     VideoList,
+    CreateView,
   },
   props: {
     movie: Object,
   },
-  // data() {
-  //   return {
-  //     movie: null,
-  //   }
-  // },
+  data() {
+    return {
+      isCreate: false
+    }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    },
+  },
+  methods: {
+    createMethod() {
+      if (this.isCreate) {
+        this.isCreate = false
+      } else {
+        this.isCreate = true
+      }
+    }
+  }
+}
   // created() {
   //   this.getMovieDetail()
   //   console.log(movie)
@@ -59,5 +94,4 @@ export default {
   //       })
   //   }
   // }
-}
 </script>
