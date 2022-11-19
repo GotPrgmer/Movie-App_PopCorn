@@ -14,16 +14,24 @@ export default new Vuex.Store({
   ],
   state: {
     // 영화 정보
+    //GET_TOTAL_MOVIE
     movieList: {
       totalMovie: ['영화1', '영화2', '전체영화'],
       popularMovie:['인기영화', '인기영화', '인기영화'],
     },
-    // 유저 정보
+    //SAVE_TOKEN, LOGOUT
     username: null,
-    userLikes: null,
     token: null,
+    // 유저 정보
+    //GET_USER_INFO
+    userInfo: null,
+    //GET_USER_LIKES
+    userLikes: null,
 
     userImg: '@/src/assets/logo.png',
+    // 리뷰 정보
+    //GET_ARTICLES
+    articles: null,
     // 게임 정보
     
     
@@ -31,7 +39,11 @@ export default new Vuex.Store({
   getters: {
     isLogin(state) {
       return state.token ? true : false
+    },
+    isUserInfo(state) {
+      return state.userInfo
     }
+
   },
   mutations: {
     GET_TOTAL_MOVIE(state, totalMovie) {
@@ -57,6 +69,10 @@ export default new Vuex.Store({
     LOGOUT(state) {
       localStorage.removeItem('User')
       state.token = null
+      state.username = null
+      state.userInfo = null
+      state.userLikes = null
+      state.userImg = '@/src/assets/logo.png'
       router.push({ name: 'MainView' })
     }
   },
@@ -91,41 +107,41 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    getUserInfo(context) {
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/written/${context.state.username}`,
-        headers: {
-          Authorization: `Token ${context.state.token}`
-        }
-      })
-        .then((res) => {
-          console.log(res)
-          context.commit('GET_USER_INFO', res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    getUserLikes(context) {
-        axios({
-          method: 'post',
-          url: `${API_URL}/movies/like/${context.state.user_id}/`,
-          headers: {
-            Authorization: `Token ${context.state.token}`
-          }
-        })
-          .then((res) => {
-            context.commit('GET_USER_LIKES', res.data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      },
+    // getUserInfo(context) {
+    //   axios({
+    //     method: 'post',
+    //     url: `${API_URL}/accounts/written/${context.state.username}`,
+    //     headers: {
+    //       Authorization: `Token ${context.state.token}`
+    //     }
+    //   })
+    //     .then((res) => {
+    //       console.log(res)
+    //       context.commit('GET_USER_INFO', res)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // },
+    // getUserLikes(context) {
+    //     axios({
+    //       method: 'post',
+    //       url: `${API_URL}/movies/like/${context.state.user_id}/`,
+    //       headers: {
+    //         Authorization: `Token ${context.state.token}`
+    //       }
+    //     })
+    //       .then((res) => {
+    //         context.commit('GET_USER_LIKES', res.data)
+    //       })
+    //       .catch((err) => {
+    //         console.log(err)
+    //       })
+    //   },
     getArticles(context) {
       axios({
         method: 'get',
-        url: `${API_URL}/reviews/`,
+        url: `${API_URL}/movies/reviews/${movie_id}`,
    //     headers: {
    //       Authorization: `Token ${context.state.token}`
    //     }
@@ -172,6 +188,8 @@ export default new Vuex.Store({
       })
         .then((res) => {
           // console.log(res)
+          
+          console.log(res.config.data.username)
           context.commit('SAVE_TOKEN', res)
         })
         .catch((err) => {

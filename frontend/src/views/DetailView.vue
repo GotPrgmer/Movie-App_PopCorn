@@ -6,7 +6,7 @@
       <p>영화 제목 : {{ movie?.movietitle }}</p>
       <p>평점 : {{ movie?.rate }}</p>
       <p>줄거리 : {{ movie?.overview }}</p>
-      <p>개봉일 : {{ movie?.released_data }}</p>
+      <p>개봉일 : {{ movie?.released_date }}</p>
       <hr>
     </article>
     <aside>

@@ -55,14 +55,6 @@ export default {
         this.$router.push({ name: 'LogInView'})
       }
     },
-    getUserInfo() {
-      if (this.isLogin === true) {
-        this.$store.dispatch('getUserInfo')
-      }
-    }
-  },
-  created() {
-    getUserInfo()
   }
 //     toggleLight() {
 //     var body = document.getElementById("body");

@@ -3,6 +3,9 @@
     <div>
       <h1>메인</h1>
     </div>
+    <!-- <div>
+      {{userInfo}}
+    </div> -->
     <div >
       <router-link v-if="isLogin" :to="{ name: 'ProfileView' }"> <ProfilePreview/> </router-link>
     </div>
@@ -38,16 +41,25 @@ export default {
     },
     movieList() {
       return this.$store.state.movieList
-    }
+    },
+    // userInfo() {
+    //   return this.$store.getters.isUserInfo
+    // }
   },
   created() {
     this.getMovies()
+    // this.getUserInfo()
   },
   methods: {
     getMovies() {
       this.$store.dispatch('getTotalMovie')
       this.$store.dispatch('getPopularMovie')
-    }
+    },
+    // getUserInfo() {
+    //   if (this.isLogin === true) {
+    //     this.$store.dispatch('getUserInfo')
+    //   }
+    // }
   },
 }
 
