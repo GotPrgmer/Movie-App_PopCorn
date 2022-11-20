@@ -18,6 +18,7 @@ export default {
   },
   computed: {
     articles() {
+      // console.log(this.$store.state.articles)
       return this.$store.state.articles
     }
   }

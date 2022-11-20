@@ -138,17 +138,21 @@ export default new Vuex.Store({
     //         console.log(err)
     //       })
     //   },
-    getArticles(context) {
+    getArticles(context, movieId) {
+      // console.log(movieId)
       axios({
         method: 'get',
-        url: `${API_URL}/movies/reviews/${movie_id}`,
-   //     headers: {
-   //       Authorization: `Token ${context.state.token}`
-   //     }
+        url: `${API_URL}/movies/reviews/${movieId}/`,
+        // data: {
+        //   movieId
+        // }
+       headers: {
+         Authorization: `Token ${context.state.token}`
+       }
      })
         .then((res) => {
-          // console.log(res, context)
-          context.commit('GET_ARTICLES', res.data)
+          // console.log(res.data)
+          context.commit('GET_ARTICLES', res.data.movie_reviews)
         })
         .catch((err) => {
           console.log(err)

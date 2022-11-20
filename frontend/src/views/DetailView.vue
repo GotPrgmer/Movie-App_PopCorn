@@ -29,7 +29,7 @@
       <CreateView :movie="movie"/>
     </aside>
     <aside v-if="!isCreate">
-      <ArticleView :movie="movie"/>
+      <ArticleView :movieId="movie.id"/>
     </aside>
     <aside>
       <VideoList/>
