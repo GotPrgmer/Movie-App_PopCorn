@@ -4,7 +4,7 @@
       <h1>Detail</h1>
       <img :src="`https://image.tmdb.org/t/p/w500/${movie?.posterpath}`" :alt="movie.title">
       <p>영화 제목 : {{ movie?.movietitle }}</p>
-      <a class="button" v-if="isLogin" @click="clickLikeBtn">
+      <a class="movie-like-button" v-if="isLogin" @click="clickLikeBtn">
         <div class="heart" ></div>
         <div class="likes">{{ likes }}</div>
       </a>
@@ -84,7 +84,7 @@ export default {
       if (this.isClicked) {
         // 버튼 컬러 변환 좋아요 > 취소
         document.querySelector('.heart').removeAttribute('id');
-        document.querySelector('.button').removeAttribute('id');
+        document.querySelector('.movie-like-button').removeAttribute('id');
         this.isClicked = false
         // 화면에 보여지는 데이터 변화
         this.likes -= 1
@@ -92,7 +92,7 @@ export default {
       } else {
         // 버튼 컬러 변환 취소 > 좋아요
         document.querySelector('.heart').id = 'heart';
-        document.querySelector('.button').id = 'button';
+        document.querySelector('.movie-like-button').id = 'button';
         this.isClicked = true
         // 화면에 보여지는 데이터 변화
         this.likes += 1

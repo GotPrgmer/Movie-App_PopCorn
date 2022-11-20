@@ -47,7 +47,7 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_TOTAL_MOVIE(state, totalMovie) {
-      state.movieList.totalMovie = totalMovie.splice(0, 10)
+      state.movieList.totalMovie = totalMovie
     },
     GET_POPULAR_MOVIE(state, popularMovie) {
       state.movieList.popularMovie = popularMovie.splice(11, 10)
