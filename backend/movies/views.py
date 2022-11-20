@@ -30,9 +30,9 @@ def moviedetail(request, movie_id):
 @api_view(['GET'])
 def watchlist(request,username):
     User = get_user_model()
-    print(User)
+    # print(User)
     user = User.objects.get(user=username)
-    print(user.nickname)
+    # print(user.nickname)
     serializer = WatchSerializer(user)
     return Response(serializer.data)
 
@@ -46,13 +46,40 @@ def chosenmovie(request,movie_id):
 @permission_classes([IsAuthenticated])
 def moviereviews(request,movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
-    # reviews = Review.objects.filter(movie=movie_id)
+    User = get_user_model()
     user = request.user
-    print(request.data)
+    # print(request.data)
     if request.method == 'GET':
         #한영화에 해당되는 모든 리뷰들 다 보여주기
-        serializer = SpecificMovieReviewSerializer(movie)
-        return Response(serializer.data)
+        reviews = Review.objects.filter(movie=movie_id).order_by('-like_users','-updated_at')
+        # reviews = Review.objects.()
+        # print(len(reviews))
+        username_list = []
+        for i in reviews:
+
+            print(i.user_id)
+            user = User.objects.get(pk=i.user_id)
+            likeusers = []
+            for j in i.like_users.all():
+                print(j.id)
+                likeusers.append(j.id)
+
+            review_info = {
+                "id" : i.id,
+                "review_title" : i.review_title,
+                "review_content" : i.review_content,
+                "created_at" : i.created_at,
+                "updated_at" : i.updated_at,
+                "user" : i.user_id,
+                "username" : user.username,
+                "movie" : i.movie_id,
+                "like_users" :  likeusers
+
+            }
+            username_list.append(review_info)
+        # serializer = SpecificMovieReviewSerializer(movie)
+        # return Response(serializer.data)
+        return JsonResponse(username_list,  safe=False)
 
     elif request.method == 'POST':
         serializer = ReviewSerializer(data=request.data)
