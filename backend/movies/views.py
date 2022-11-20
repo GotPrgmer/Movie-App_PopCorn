@@ -12,6 +12,7 @@ from articles.models import Review
 from django.http import JsonResponse
 
 
+
 # Create your views here.
 @api_view(['GET'])
 def total(request):
