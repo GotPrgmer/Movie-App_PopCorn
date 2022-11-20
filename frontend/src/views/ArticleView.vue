@@ -6,36 +6,56 @@
 </template>
 
 <script>
+import axios from 'axios'
 import ReviewList from '@/components/ReviewList'
-
+const API_URL = 'http://127.0.0.1:8000'
 export default {
   name: 'ArticleView',
   components: {
     ReviewList,
   },
+  data() {
+    return {
+      movie: {}
+    }
+  },
   props: {
-    movie: Object,
+    movieId: Number,
   },
   computed:{
     isLogin() {
       return this.$store.getters.isLogin
     }
   },
-  // created() {
-  //   this.getArticles()
-  // },
   methods: {
     getArticles() {
-      // if (this.isLogin === true) {
-      this.$store.dispatch('getArticles')
-      // } else {
-        // alert('로그인')
-        // this.$router.push({ name: 'LogInView'})
-      // }
-
+      if (this.isLogin === true) {
+        const movieId = this.movie.id
+      // console.log(movieId)
+      this.$store.dispatch('getArticles', movieId)
+      } else {
+        alert('로그인')
+        this.$router.push({ name: 'LogInView'})
+      }
+    },
+    getMovieDetail() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/total_movie/${this.$route.params.id}/`
+      })
+        .then((res) => {
+          this.movie = res.data
+          this.getArticles()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
+  },
+  created() {
+    this.getMovieDetail()
+  },
   }
-}
 </script>
 
 <style>

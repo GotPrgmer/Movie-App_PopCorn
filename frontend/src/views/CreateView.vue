@@ -26,7 +26,7 @@ export default {
     return {
       title: null,
       content: null,
-      user : this.$store.getters.isUserInfo.id,
+      // user : this.$store.getters.isUserInfo.id,
       movieId : this.movie.id,
     }
   },
@@ -40,9 +40,9 @@ export default {
       console.log(this.movie)
       const review_title = this.title
       const review_content = this.content
-      const user = this.user
+      // const user = this.user
       const movieId = this.movieId
-      const movie = this.movie
+      // const movie = this.movie
       if (!title) {
         alert('제목을 작성해주세요.')
         return
@@ -54,23 +54,24 @@ export default {
       axios({
         method: 'post',
         url: `${API_URL}/movies/reviews/${movieId}/`,
-        data: {
-          review_title : review_title,
-          review_content : review_content,
-          user : user,
-          movie : movieId,
-        },
+        // data: {
+        //   review_title : review_title,
+        //   review_content : review_content,
+        //   user : user,
+        //   movie : movieId,
+        // },
+        data: {review_title, review_content},
         headers: {
           Authorization: `Token ${this.$store.state.token}`
         }
       })
         .then((res) => {
-          console.log(movie)
-          this.$router.push({ name: 'DetailView', params: { id: movieId, movie: movie } })
+          // console.log(movie)
+          this.$router.go({ name: 'DetailView', params: { id: movieId } })
           
         })
         .catch((err) => {
-          console.log(movieId)
+          // console.log(movieId)
           console.log(err)
         })
     }
