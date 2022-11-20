@@ -19,6 +19,13 @@ def total(request):
     movies = Movie.objects.all()
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
+    
+# 개별 영화 정보
+@api_view(['GET'])
+def moviedetail(request, movie_id):
+    movie = get_object_or_404(Movie,pk=movie_id)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def watchlist(request,username):
