@@ -1,24 +1,18 @@
 <template>
-  <div class="card-wrap"
-      @mousemove="handleMouseMove"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave"
-      ref="card">
-    <router-link 
-      :to="{ name: 'DetailView', params: { id: movie.id } }">
-      <article class="card"
-        :style="cardStyle">
-        <!-- @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard" -->
-        <!-- 두 가지 div가 번갈아 보여진다 기본 : poster, 마우스호버 : info -->
-        <article class="card-bg" :style="[cardBgTransform, cardBgImage]"></article>
-        <article class="card-info">
-          <slot name="header">{{ movie?.movietitle }}</slot>
-          <slot name="content">{{ movie?.rate }}</slot>
-        </article>
-      </article>
-    </router-link>
-  </div>
-
+  <router-link
+    class="poster-content" 
+    :to="{ name: 'DetailView', params: { id: movie.id } }">
+    <div class="poster-card">
+        <div class="poster-front" :style="cardBgImage">
+        </div>
+        <div class="poster-back" :style="cardBgImage">
+          <div>
+            <p class="poster-header">{{ movie?.movietitle }}</p>
+            <p class="poster-content">{{ movie?.rate }}</p>
+          </div>
+        </div>
+    </div>
+  </router-link>
 </template>
 <!--<img :src="`https://image.tmdb.org/t/p/w500/${movie.posterpath}`" :alt="movie.title">-->
 <script>
@@ -28,39 +22,39 @@ export default {
   props: {
     movie: Object,
   },
-  mounted() {
-    this.width = this.$refs.card.offsetWidth;
-    this.height = this.$refs.card.offsetHeight;
-  },
-  //props: ['dataImage'],
-  data: () => ({
-    width: 0,
-    height: 0,
-    mouseX: 0,
-    mouseY: 0,
-    mouseLeaveDelay: null
-  }),
+  // mounted() {
+  //   this.width = this.$refs.card.offsetWidth;
+  //   this.height = this.$refs.card.offsetHeight;
+  // },
+  // //props: ['dataImage'],
+  // data: () => ({
+  //   width: 0,
+  //   height: 0,
+  //   mouseX: 0,
+  //   mouseY: 0,
+  //   mouseLeaveDelay: null
+  // }),
   computed: {
-    mousePX() {
-      return this.mouseX / this.width;
-    },
-    mousePY() {
-      return this.mouseY / this.height;
-    },
-    cardStyle() {
-      const rX = this.mousePX * 30;
-      const rY = this.mousePY * -30;
-      return {
-        transform: `rotateY(${rX}deg) rotateX(${rY}deg)`
-      };
-    },
-    cardBgTransform() {
-      const tX = this.mousePX * -40;
-      const tY = this.mousePY * -40;
-      return {
-        transform: `translateX(${tX}px) translateY(${tY}px)`
-      }
-    },
+  //   mousePX() {
+  //     return this.mouseX / this.width;
+  //   },
+  //   mousePY() {
+  //     return this.mouseY / this.height;
+  //   },
+  //   cardStyle() {
+  //     const rX = this.mousePX * 30;
+  //     const rY = this.mousePY * -30;
+  //     return {
+  //       transform: `rotateY(${rX}deg) rotateX(${rY}deg)`
+  //     };
+  //   },
+  //   cardBgTransform() {
+  //     const tX = this.mousePX * -40;
+  //     const tY = this.mousePY * -40;
+  //     return {
+  //       transform: `translateX(${tX}px) translateY(${tY}px)`
+  //     }
+  //   },
     cardBgImage() {
       return {
         backgroundImage: `url(https://image.tmdb.org/t/p/w500/${this.movie.posterpath})`
@@ -68,19 +62,19 @@ export default {
     }
   },
   methods: {
-    handleMouseMove(e) {
-      this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width/2;
-      this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height/2;
-    },
-    handleMouseEnter() {
-      clearTimeout(this.mouseLeaveDelay);
-    },
-    handleMouseLeave() {
-      this.mouseLeaveDelay = setTimeout(()=>{
-        this.mouseX = 0;
-        this.mouseY = 0;
-      }, 1000);
-    }
+    // handleMouseMove(e) {
+    //   this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width/2;
+    //   this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height/2;
+    // },
+    // handleMouseEnter() {
+    //   clearTimeout(this.mouseLeaveDelay);
+    // },
+    // handleMouseLeave() {
+    //   this.mouseLeaveDelay = setTimeout(()=>{
+    //     this.mouseX = 0;
+    //     this.mouseY = 0;
+    //   }, 1000);
+    // }
   }
 
 }

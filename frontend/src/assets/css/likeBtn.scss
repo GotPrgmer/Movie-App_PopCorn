@@ -8,17 +8,17 @@
     --button-height: 50px; // 125 / 5 * 2
     --heart-size: 16px; // 40 / 5 * 2
   }
-  * {
-    padding: 0;
-    margin: 0;
-  }
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  // * {
+  //   padding: 0;
+  //   margin: 0;
+  // }
+  // body {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  // }
   
-  .button {
+  .movie-like-button {
     width: var(--button-width);
     height: var(--button-height);
     border-radius: 15px;
@@ -34,7 +34,7 @@
     margin-left: 47%; // 대충 가운데로 맞춰놓음
     margin-bottom: 10px;
   }
-  .button:active {
+  .movie-like-button:active {
     background: var(--yellow);
     box-shadow: var(--dark-yellow) 0 5px 0 0;
     transform: translateY(5px); // 10
@@ -50,10 +50,10 @@
     display: flex;
     transition: 0.2s ease-in;
   }
-  .button:hover > .heart {
+  .movie-like-button:hover > .heart {
     background: var(--dark-grey);
   }
-  .button:active > .heart {
+  .movie-like-button:active > .heart {
     background: #F07B3F;
   }
   .heart::before,
