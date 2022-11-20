@@ -5,7 +5,7 @@
       @mouseleave="handleMouseLeave"
       ref="card">
     <router-link 
-      :to="{ name: 'DetailView', params: { id: movie.id, movie: movie } }">
+      :to="{ name: 'DetailView', params: { id: movie.id } }">
       <article class="card"
         :style="cardStyle">
         <!-- @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard" -->

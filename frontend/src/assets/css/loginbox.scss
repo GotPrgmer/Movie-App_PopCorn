@@ -139,10 +139,10 @@ p.remember {
 
   &:active,
   &:focus {
-    /* position: relative;
-        top: 1px; */
-    // outline: none;
-    //  background: darken($primary, 10%);
+     position: relative;
+        top: 1px; 
+     outline: none;
+      background: darken($primary, 10%);
   }
 }
 
