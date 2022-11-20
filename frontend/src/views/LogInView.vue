@@ -49,6 +49,7 @@ export default {
         password,
       }
       this.$store.dispatch('logIn', payload)
+      this.$store.dispatch('getUserInfo', payload.username)
     }
   },
     // validateThisField (field) {

@@ -4,10 +4,15 @@
       <h1>Detail</h1>
       <img :src="`https://image.tmdb.org/t/p/w500/${movie?.posterpath}`" :alt="movie.title">
       <p>영화 제목 : {{ movie?.movietitle }}</p>
-      <a class="button" @click="clickLikeBtn"><span class="heart" ></span></a>
+      <a class="button" v-if="isLogin" @click="clickLikeBtn">
+        <div class="heart" ></div>
+        <div class="likes">{{ likes }}</div>
+      </a>
       <p>평점 : {{ movie?.rate }}</p>
       <p>줄거리 : {{ movie?.overview }}</p>
       <p>개봉일 : {{ movie?.released_date }}</p>
+      <p>감독 : {{ movie?.director }}</p>
+      <p>출연진 : {{ actors }}</p>
       <hr>
     </article>
 
@@ -58,6 +63,8 @@ export default {
       isCreate: false,
       isClicked: false,
       movie: {},
+      actors: [],
+      likes: 0,
     }
   },
   computed: {
@@ -75,22 +82,33 @@ export default {
     },
     clickLikeBtn() {
       if (this.isClicked) {
+        // 버튼 컬러 변환 좋아요 > 취소
         document.querySelector('.heart').removeAttribute('id');
         document.querySelector('.button').removeAttribute('id');
         this.isClicked = false
+        // 화면에 보여지는 데이터 변화
+        this.likes -= 1
+
       } else {
+        // 버튼 컬러 변환 취소 > 좋아요
         document.querySelector('.heart').id = 'heart';
         document.querySelector('.button').id = 'button';
         this.isClicked = true
+        // 화면에 보여지는 데이터 변화
+        this.likes += 1
       }
     },
     getMovieDetail() {
       axios({
         method: 'get',
-        url: `${API_URL}/movies/total_movie/${this.$route.params.id}/`
+        url: `${API_URL}/movies/total_movie/${this.$route.params.id}/`,
+        
       })
         .then((res) => {
           this.movie = res.data
+          this.actors = this.movie.actors
+          this.likes = this.movie.userslike.length
+          // console.log(this.movie)
         })
         .catch((err) => {
           console.log(err)
@@ -100,6 +118,25 @@ export default {
   created() {
     this.getMovieDetail()
   },
+  watch: {
+    likes() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/clicklike/${this.$store.state.userId}/${this.$route.params.id}/`,
+        // data: { likes },
+        headers: {
+         Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then((res) => {
+          console.log('성공')
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('실패')
+        })
+    }
+  }
 }
 </script>
 

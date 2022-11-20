@@ -8,7 +8,7 @@
       <input type="text" id="title" v-model.trim="title"><br>
       <label for="content">내용 : </label>
       <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
-      <input type="submit" id="submit">
+      <input type="submit" id="yellow-box">
     </form>
   </div>
 </template>
@@ -26,7 +26,6 @@ export default {
     return {
       title: null,
       content: null,
-      // user : this.$store.getters.isUserInfo.id,
       movieId : this.movie.id,
     }
   },
@@ -37,43 +36,33 @@ export default {
   },
   methods: {
     createArticle() {
-      console.log(this.movie)
+      // console.log(this.movie)
       const review_title = this.title
       const review_content = this.content
-      // const user = this.user
       const movieId = this.movieId
-      // const movie = this.movie
-      if (!title) {
+      if (!review_title) {
         alert('제목을 작성해주세요.')
         return
-      } else if (!content) {
+      } else if (!review_content) {
         alert('내용을 작성해주세요.')
         return
+      } else {
+        axios({
+          method: 'post',
+          url: `${API_URL}/movies/reviews/${movieId}/`,
+          data: {review_title, review_content},
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          }
+        })
+          .then((res) => {
+            this.$router.go({ name: 'DetailView', params: { id: movieId } })
+            
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
-      
-      axios({
-        method: 'post',
-        url: `${API_URL}/movies/reviews/${movieId}/`,
-        // data: {
-        //   review_title : review_title,
-        //   review_content : review_content,
-        //   user : user,
-        //   movie : movieId,
-        // },
-        data: {review_title, review_content},
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        }
-      })
-        .then((res) => {
-          // console.log(movie)
-          this.$router.go({ name: 'DetailView', params: { id: movieId } })
-          
-        })
-        .catch((err) => {
-          // console.log(movieId)
-          console.log(err)
-        })
     }
   },
   created() {

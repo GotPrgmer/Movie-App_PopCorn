@@ -77,6 +77,7 @@ export default {
         // email
       }
       this.$store.dispatch('signUp', payload)
+      this.$store.dispatch('getUserInfo', payload.username)
     }
   }
 }

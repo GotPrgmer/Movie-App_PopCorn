@@ -19,19 +19,23 @@ export default new Vuex.Store({
       totalMovie: ['영화1', '영화2', '전체영화'],
       popularMovie:['인기영화', '인기영화', '인기영화'],
     },
-    //SAVE_TOKEN, LOGOUT
-    username: null,
-    token: null,
+
     // 유저 정보
     //GET_USER_INFO
-    userInfo: null,
+    username: null,
+    userId: null,
+    nickname: null,
+    //SAVE_TOKEN, LOGOUT
+    token: null,
     //GET_USER_LIKES
     userLikes: null,
 
     userImg: '@/assets/logo.png',
+
     // 리뷰 정보
     //GET_ARTICLES
     articles: null,
+    
     // 게임 정보
     
     
@@ -40,10 +44,6 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.token ? true : false
     },
-    isUserInfo(state) {
-      return state.userInfo
-    }
-
   },
   mutations: {
     GET_TOTAL_MOVIE(state, totalMovie) {
@@ -53,7 +53,8 @@ export default new Vuex.Store({
       state.movieList.popularMovie = popularMovie.splice(11, 10)
     },
     GET_USER_INFO(state, userInfo) {
-      state.userInfo = userInfo
+      state.userId = userInfo.id
+      state.nickname = userInfo.nickname
     },
     GET_USER_LIKES(state, userLikes) {
       state.movieList.userLikes = userLikes
@@ -70,7 +71,8 @@ export default new Vuex.Store({
       localStorage.removeItem('User')
       state.token = null
       state.username = null
-      state.userInfo = null
+      state.userId = null
+      state.nickname = null
       state.userLikes = null
       state.userImg = '@/src/assets/logo.png'
       router.push({ name: 'MainView' }).catch(()=>{}) // 메인뷰인 채로 로그아웃하면 redirection오류가 생기는데 .catch로 무시했음
@@ -107,22 +109,22 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    // getUserInfo(context) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/written/${context.state.username}`,
-    //     headers: {
-    //       Authorization: `Token ${context.state.token}`
-    //     }
-    //   })
-    //     .then((res) => {
-    //       console.log(res)
-    //       context.commit('GET_USER_INFO', res)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
+    getUserInfo(context, username) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accountsinfo/${username}/`,
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // }
+      })
+        .then((res) => {
+          console.log(res)
+          context.commit('GET_USER_INFO', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     // getUserLikes(context) {
     //     axios({
     //       method: 'post',
@@ -146,9 +148,9 @@ export default new Vuex.Store({
         // data: {
         //   movieId
         // }
-       headers: {
-         Authorization: `Token ${context.state.token}`
-       }
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        },
      })
         .then((res) => {
           // console.log(res.data)

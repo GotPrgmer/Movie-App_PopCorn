@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Article Page</h1>
     <ReviewList/>
   </div>
 </template>
@@ -29,14 +28,14 @@ export default {
   },
   methods: {
     getArticles() {
-      if (this.isLogin === true) {
-        const movieId = this.movie.id
+      // if (this.isLogin === true) {
+      const movieId = this.movie.id
       // console.log(movieId)
       this.$store.dispatch('getArticles', movieId)
-      } else {
-        alert('로그인')
-        this.$router.push({ name: 'LogInView'})
-      }
+      // } else {
+      //   alert('로그인')
+      //   this.$router.push({ name: 'LogInView'})
+      // }
     },
     getMovieDetail() {
       axios({
