@@ -4,7 +4,7 @@
     --dark-yellow: #E0A21C; //#EA5455
     --light-grey: #f3f3f3;
     --dark-grey: #cecece;
-    --button-width: 60px; // 150 / 5 * 2
+    --button-width: 80px; // 150 / 5 * 2
     --button-height: 50px; // 125 / 5 * 2
     --heart-size: 16px; // 40 / 5 * 2
   }
@@ -26,9 +26,10 @@
     box-shadow: var(--dark-grey) 0 6px 0 0; // 15 / 5 * 2
     border: 0;
     outline: none;
-    display: flex;
+    display: flex; //inline-flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     transition: 0.2s ease-in;
     margin-left: 47%; // 대충 가운데로 맞춰놓음
     margin-bottom: 10px;
@@ -44,7 +45,7 @@
     height: var(--heart-size);
     transform: rotate(45deg);
     background: var(--dark-grey);
-    top: 5px;
+    top: 3px;
     position: relative;
     display: flex;
     transition: 0.2s ease-in;
@@ -71,14 +72,86 @@
     top: -50%;
   }
   //
-  #button:hover > #heart {
-    background: var(--pink);
+  .review-like-button {
+    width: var(--button-width);
+    height: var(--button-height);
+    border-radius: 15px;
+    background: var(--light-grey);
+    box-shadow: var(--dark-grey) 0 6px 0 0; // 15 / 5 * 2
+    border: 0;
+    outline: none;
+    display: flex; //inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: 0.2s ease-in;
+    margin-left: 47%; // 대충 가운데로 맞춰놓음
+    margin-bottom: 10px;
   }
-  #button:active > #heart {
-    background: #F07B3F;
-  }
-  #button:active {
+  .review-like-button:active {
     background: var(--yellow);
     box-shadow: var(--dark-yellow) 0 5px 0 0;
     transform: translateY(5px); // 10
+  }
+  
+  .review-like-heart {
+    width: var(--heart-size);
+    height: var(--heart-size);
+    transform: rotate(45deg);
+    background: var(--dark-grey);
+    top: 3px;
+    position: relative;
+    display: flex;
+    transition: 0.2s ease-in;
+  }
+  .review-like-button:hover > .review-like-heart {
+    background: var(--dark-grey);
+  }
+  .review-like-button:active > .review-like-heart {
+    background: #F07B3F;
+  }
+  .review-like-heart::before,
+  .review-like-heart::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    position: absolute;
+  }
+  .review-like-heart::before {
+    left: -50%;
+  }
+  .review-like-heart::after {
+    top: -50%;
+  }
+  //
+  // .review-like-button:hover > #heart {
+  //   background: var(--pink);
+  // }
+  // #button:active > #heart {
+  //   background: #F07B3F;
+  // }
+  // #button:active {
+  //   background: var(--yellow);
+  //   box-shadow: var(--dark-yellow) 0 5px 0 0;
+  //   transform: translateY(5px); // 10
+  // }
+  .likes {
+    color: $main-dark;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+  }
+  .review-like-btn {
+    width: 50px;
+    height: 25px;
+  }
+  .review-like-heart {
+    width: 8px;
+    height: 8px;
+  }
+  #review-like-text {
+    font-size:small;
   }

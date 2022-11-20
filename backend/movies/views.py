@@ -78,7 +78,6 @@ def moviereviewsedit(request,review_id):
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
 def movieclicklike(request,user_id,movie_id):
