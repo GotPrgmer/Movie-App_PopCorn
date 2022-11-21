@@ -9,12 +9,13 @@ from django.core.validators import MinValueValidator
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=30,null=True)
-    # profile_image = ProcessedImageField(
-    #     blank=True,
-    #     upload_to='profile_image/%Y/%m',
-    #     processors=[ResizeToFill(300, 300)],
-    #     format='JPEG',
-    #     options={'quality': 70},
-    # )
+    profile_image = ProcessedImageField(
+
+        blank=True,
+        upload_to=f'profile_image/%Y/%m',
+        processors=[ResizeToFill(300, 300)],
+        format='JPEG',
+        options={'quality': 70},
+    )
     followings = models.ManyToManyField("self", symmetrical=False,related_name='followers')
 

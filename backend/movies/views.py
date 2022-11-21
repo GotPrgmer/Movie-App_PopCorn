@@ -1,3 +1,6 @@
+from django.shortcuts import render
+
+# Create your views here.
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
@@ -14,12 +17,27 @@ from django.http import JsonResponse
 
 
 # Create your views here.
+#전체영화를 평점순으로
 @api_view(['GET'])
 def total(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.all().order_by('-rate')
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
-    
+
+#전체영화를 개봉순, 평점순으로
+@api_view(['GET'])    
+def nowplaying(request):
+    movies = Movie.objects.all().order_by('-released_date','-rate')
+    serializer = MovieSerializer(movies,many=True)
+    return Response(serializer.data)
+
+#전체영화를 장르별 평점순, 개봉일자 순으로
+@api_view(['GET'])    
+def moviebygenre(request,genre_id):
+    movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')
+    serializer = MovieSerializer(movies,many=True)
+    return Response(serializer.data)
+
 # 개별 영화 정보
 @api_view(['GET'])
 def moviedetail(request, movie_id):
