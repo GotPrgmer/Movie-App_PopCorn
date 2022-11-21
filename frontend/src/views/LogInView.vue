@@ -4,13 +4,14 @@
       <form novalidate @submit.prevent="logIn" >
         <p class="email">
           <label for="email">ID <span>*</span></label>
-          <input class="input" required type="text" id="email" name="email" v-model="username"/>
+          <input class="input" required type="text" id="email" name="email" v-model="username" @focus="focusInput" @blur="blurInput"/>
           <span class="validation error"> Please enter a valid id</span>
           <span class="validation req"> This field is required</span>
         </p>
         <p class="password">
           <label for="password">Password <span>*</span></label>
-          <input class="input" required type="password" id="password" name="password" v-model="password"/>
+          <input class="input" required type="password" id="password" name="password" 
+            v-model="password" @focus="focusInput" @blur="blurInput" @keyup.enter="logIn"/>
           <span class="validation req"> This field is required</span>
         </p>
         <!-- <p class="remember">
@@ -40,57 +41,67 @@ export default {
     }
   },
   methods: {
-    logIn() {
-      const username = this.username
-      const password = this.password
-
-      const payload = {
-        username,
-        password,
-      }
-      this.$store.dispatch('logIn', payload)
-      this.$store.dispatch('getUserInfo', payload.username)
-    }
-  },
-    // validateThisField (field) {
-    //   if (field.required && field.value === '') {
-    //     field.classList.add('required');
-    //     this.formIsValid = false;
-    //   }
-    //   if (field.pattern
-    //       && !(new RegExp(field.pattern).exec(field.value) !== null) ) {
-    //     field.classList.add('invalid');
-    //     this.formIsValid = false;
-    //   }
-    // },
     // logIn() {
-    //   const fields = form.querySelectorAll('input')
-    // 	Array.prototype.forEach.call(this.fields, validateThisField);
-    //   	// also have a global state on the form
-    // 	if (!this.formIsValid) {
-    //     const form = document.getElementById('loginform')
-    //     form.classList.remove('errors');
-    //         setTimeout(function() {form.classList.add('errors');}, 0)
-    //   } else {
-    //     const username = this.username
-    //     const password = this.password
+    //   const username = this.username
+    //   const password = this.password
 
-    //     const payload = {
-    //       username,
-    //       password,
-    //     }
-    //     this.$store.dispatch('logIn', payload)
+    //   const payload = {
+    //     username,
+    //     password,
     //   }
-    // },
-    //  focusInput(e) {
-    // 	e.target.classList.remove('required');
-    // 	e.target.classList.remove('invalid');
-    // },
-    // blurInput(e) {
-    //   e.target.classList.remove('required');
-    // 	e.target.classList.remove('invalid');
-    // 	validateThisField(e.target);
-    // },
-  // },
+    //   this.$store.dispatch('logIn', payload)
+    //   .then((res) => {
+    //         this.$store.dispatch('getUserInfo', payload.username)
+    //       })
+    // }
+    validateThisField (field) {
+      if (field.required && field.value === '') {
+        field.classList.add('required');
+        this.formIsValid = false;
+      }
+      if (field.pattern
+          && !(new RegExp(field.pattern).exec(field.value) !== null) ) {
+        field.classList.add('invalid');
+        this.formIsValid = false;
+      }
+    },
+    logIn(event) {
+      // const haochi = documents.getAttribute('form')
+      // console.log('haochi')
+      // const fields = document.querySelectorAll('.form.input')
+    	// Array.prototype.forEach.call(this.fields, this.validateThisField);
+      	// also have a global state on the form
+    	if (!this.formIsValid) {
+        const form = document.getElementById('loginform')
+        form.classList.remove('errors');
+            setTimeout(function() {form.classList.add('errors');}, 0)
+        this.formIsValid = true
+      } else {
+        const username = this.username
+        const password = this.password
+        // console.log(this.username)
+        const payload = {
+          username,
+          password,
+        }
+        this.$store.dispatch('logIn', payload)
+        .then((res) => {
+            this.$store.dispatch('getUserInfo', payload.username)
+          })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+    },
+    focusInput(e) {
+    	e.target.classList.remove('required');
+    	e.target.classList.remove('invalid');
+    },
+    blurInput(e) {
+      e.target.classList.remove('required');
+    	e.target.classList.remove('invalid');
+    	this.validateThisField(e.target);
+    },
+  },
 }
 </script>

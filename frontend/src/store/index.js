@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
 import router from '@/router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -65,6 +66,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, res) {
       state.token = res.data.key
       state.username = JSON.parse(res.config.data).username
+      console.log(state.username)
       router.push({ name: 'MainView' })
     },
     LOGOUT(state) {
@@ -154,10 +156,11 @@ export default new Vuex.Store({
      })
         .then((res) => {
           // console.log(res.data)
-          context.commit('GET_ARTICLES', res.data.movie_reviews)
+          context.commit('GET_ARTICLES', res.data)
         })
         .catch((err) => {
           console.log(err)
+          console.log('게시글에러')
         })
     },
     signUp(context, payload) {
@@ -199,7 +202,21 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err)
-          alert('존재하지 않는 정보입니다ㅜ0ㅜ')
+          const Swal = require('sweetalert2')
+          Swal.fire({
+            title: '삐빅-',
+            text: '저희가 가진 정보와 다른데요!?',
+            width: 600,
+            padding: '3em',
+            color: '#fff',
+            background: '#fff url(https://media.tenor.com/2roX3uxz_68AAAAM/cat-space.gif)',
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("")
+              left top
+              no-repeat
+            `
+          })
         })
     },
     logOut(context) {
