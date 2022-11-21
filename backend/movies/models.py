@@ -15,6 +15,7 @@ class Movie(models.Model):
     released_date = models.DateField(auto_now=False, auto_now_add=False)
     overview = models.TextField()
     posterpath = models.TextField()
+    backdrop = models.TextField()
     genres = models.ManyToManyField( Genre , related_name='genre')
     userslike = models.ManyToManyField( settings.AUTH_USER_MODEL , related_name='userlike')
 

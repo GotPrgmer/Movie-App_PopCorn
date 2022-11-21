@@ -103,6 +103,7 @@ for i in range(1,10):
 
       overview = obj.get('overview','')
       posterpath = obj.get('poster_path','')
+      backdrop = obj.get('backdrop_path','')
       pk = obj.get('id','')
 
       url_credit = f'https://api.themoviedb.org/3/movie/{pk}/credits'
@@ -143,6 +144,7 @@ for i in range(1,10):
         'released_date': released_date,
         'overview': overview,
         'posterpath': posterpath,
+        'backdrop': backdrop,
         'genres': genre_ids,
         }
       }
@@ -150,7 +152,7 @@ for i in range(1,10):
         continue
       else:
           json_data.append(e)
-  with open("./backend/movies/fixtures/movie_data.json", "w", encoding="utf-8") as w:
+  with open("./movies/fixtures/movie_popular.json", "w", encoding="utf-8") as w:
           json.dump(json_data, w, indent="\t", ensure_ascii=False)
 
 
