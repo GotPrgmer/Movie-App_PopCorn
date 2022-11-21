@@ -66,7 +66,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, res) {
       state.token = res.data.key
       state.username = JSON.parse(res.config.data).username
-      console.log(state.username)
+      // console.log(state.username)
       router.push({ name: 'MainView' })
     },
     LOGOUT(state) {
@@ -76,7 +76,7 @@ export default new Vuex.Store({
       state.userId = null
       state.nickname = null
       state.userLikes = null
-      state.userImg = '@/src/assets/logo.png'
+      state.userImg = '@/assets/logo.png'
       router.push({ name: 'MainView' }).catch(()=>{}) // 메인뷰인 채로 로그아웃하면 redirection오류가 생기는데 .catch로 무시했음
     }
   },
@@ -120,7 +120,7 @@ export default new Vuex.Store({
         // }
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           context.commit('GET_USER_INFO', res.data)
         })
         .catch((err) => {
@@ -172,6 +172,7 @@ export default new Vuex.Store({
           nickname: payload.nickname,
           password1: payload.password1,
           password2: payload.password2,
+          profile_image: payload.profileimg
           // first_name: payload.firstname,
           // last_name: payload.lastname,
           // email: payload.email,
@@ -207,10 +208,11 @@ export default new Vuex.Store({
             title: '삐빅-',
             text: '저희가 가진 정보와 다른데요!?',
             width: 600,
-            padding: '3em',
+            padding: 'em',
             color: '#fff',
+            className: "alert-text",
             background: '#fff url(https://media.tenor.com/2roX3uxz_68AAAAM/cat-space.gif)',
-            backdrop: `
+            backdrop:`
               rgba(0,0,123,0.4)
               url("")
               left top

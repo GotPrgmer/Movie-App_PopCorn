@@ -4,7 +4,7 @@
     <form @submit.prevent="signUp">
       <p class="username">
         <label for="username">ID <span>*</span></label>
-        <input class="input" required type="text" id="username" name="email" v-model="username"/>
+        <input class="input" required type="text" id="username" name="username" v-model="username"/>
         <span class="validation error"> Please enter a valid id</span>
         <span class="validation req"> This field is required</span>
       </p>
@@ -24,18 +24,14 @@
         <input class="input" required type="password" id="password2" name="password2" v-model="password2"/>
         <span class="validation req"> This field is required</span>
       </p>
-      <!-- <p class="firstname">
-        <label for="firstname">firstname</label>
-        <input class="input" type="text" id="firstname" name="firstname" v-model="firstname"/>
+      <p class="profileimg">
+        <label for="password2">profile image <span>*</span></label>
+        <input
+          class="file" required id="profileimg" name="profileimg"
+          type="file" @change="previewFile" ref="profileimg" accept="image/*"/>
+        <span><img src="" height="200" alt="이미지 미리보기"></span>
+        <span class="validation req"> This field is required</span>
       </p>
-      <p class="lastname">
-        <label for="lastname">lastname </label>
-        <input class="input" type="text" id="lastname" name="lastname" v-model="lastname"/>
-      </p>
-      <p class="email">
-        <label for="email">email</label>
-        <input class="input" type="email" id="email" name="email" pattern="@" v-model="email"/>
-      </p> -->
       <p class="login">
         <input type="submit" value="회원 가입 완료하기" />
       </p>
@@ -44,6 +40,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'SignUpView',
   data() {
@@ -52,9 +49,8 @@ export default {
       nickname: null,
       password1: null,
       password2: null,
-      // firstname: null,
-      // lastname: null,
-      // email: null,
+      profileimg: null,
+      checkimg: null,
     }
   },
   methods: {
@@ -63,24 +59,48 @@ export default {
       const nickname = this.nickname
       const password1 = this.password1
       const password2 = this.password2
-      // const firstname = this.firstname
-      // const lastname = this.lastname
-      // const email = this.email
+      const profileimg = this.profileimg
 
       const payload = {
         username,
         nickname,
         password1,
         password2,
-        // firstname,
-        // lastname,
-        // email
+        profileimg,
       }
       this.$store.dispatch('signUp', payload)
       .then((res) => {
             this.$store.dispatch('getUserInfo', payload.username)
           })
       
+    },
+    previewFile() {
+      // 1. axios 요청 보낼 데이터
+      this.profileimg = this.$refs.profileimg.files
+      console.log(this.$refs.profileimg.files[0])
+
+      // 2. 이미지 미리보기
+  //     const preview = document.querySelector('img');
+  //     const file = document.querySelector('input[type=file]').files[0];
+  //     const reader = new FileReader();
+  //     reader.addEventListener(
+  //       'load',
+  //       function () {
+  //         preview.src = reader.result;
+  //       },
+  //       false
+  //     );
+
+  //     if (file) {
+  //       reader.readAsDataURL(file);
+  //     }
+  //   },
+  //   resize() {
+  //     canvas.width = '50px';
+  //     canvas.height = '50px';
+  //     canvas.getContext("2d").drawImage(image, 0, 0, 50, 50);
+  //     const dataUrl = canvas.toDataURL("image/jpeg");
+  //     return dataURItoBlob(dataUrl);
     }
   }
 }

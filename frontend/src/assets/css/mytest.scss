@@ -81,3 +81,8 @@ nav {
       background: darken($primary, 10%);
   }
 }
+
+.alert-text {
+  text-shadow:1px 1px 1px $primary;
+  font-weight: bold;
+}
