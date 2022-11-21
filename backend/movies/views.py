@@ -69,7 +69,7 @@ def moviereviews(request,movie_id):
     # print(request.data)
     if request.method == 'GET':
         #한영화에 해당되는 모든 리뷰들 다 보여주기
-        reviews = Review.objects.filter(movie=movie_id).order_by('-like_users','-updated_at')
+        reviews = Review.objects.filter(movie_id=movie_id).order_by('-updated_at')
         # reviews = Review.objects.()
         # print(len(reviews))
         username_list = []
