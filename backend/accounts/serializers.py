@@ -6,7 +6,7 @@ from .models import User
 class CustomUserSerializer(RegisterSerializer):
     # 기본 설정 필드: username, password, email
     # 추가 설정 필드: profile_image
-    profile_image = serializers.ImageField(use_url=True)
+    profile_image = serializers.ImageField(use_url=True,required=False)
     nickname = serializers.CharField(max_length=30)
 
     def get_cleaned_data(self):
