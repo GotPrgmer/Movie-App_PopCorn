@@ -12,12 +12,12 @@
       <p>줄거리 : {{ movie?.overview }}</p>
       <p>개봉일 : {{ movie?.released_date }}</p>
       <p>감독 : {{ movie?.director }}</p>
-      <p>출연진 : {{ actors }}</p>
+      <p v-if="actors.length">출연진 : {{ actors }}</p>
       <hr>
     </article>
 
     <button 
-      v-if="isLogin && !isCreate"
+      v-if="(isLogin && !isCreate)"
       @click="createMethod" 
     >리뷰 작성하기</button>
     <button 

@@ -57,6 +57,7 @@ $orange: hsl(50,80%,50%);
   @include mobile (500px) {
     width: 100%;
   }
+  background-size: cover;
 }
 
 .poster-front,

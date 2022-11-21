@@ -7,21 +7,34 @@
 </template>
 
 <script>
+// import axios from 'axios'
 import ReviewListItem from '@/components/ReviewListItem'
 
+// const API_URL = 'http://127.0.0.1:8000'
+
 export default {
-
-
   name: 'ReviewList',
   components: {
     ReviewListItem,
   },
+  // data() {
+  //   return {
+  //     userLikedList: []
+  //   }
+  // },
   computed: {
     articles() {
       // console.log(this.$store.state.articles)
       return this.$store.state.articles
     }
-  }
+  },
+  // methods: {
+    
+  // },
+  // mounted() {
+  //   // console.log('마운티드')
+  //   this.getUserLikedList()
+  // },
 }
 </script>
 

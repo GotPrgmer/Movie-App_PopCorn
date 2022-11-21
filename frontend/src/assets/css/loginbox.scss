@@ -13,33 +13,33 @@ Also note that  ***/
 /* let's animate the transition on the checkbox background */
 
 /* "normal" state */
-.checkbox + label:before {
-  background: rgb(255, 255, 255);
-  border: 1px solid rgb(216, 216, 216);
-}
+// .checkbox + label:before {
+//   background: rgb(255, 255, 255);
+//   border: 1px solid rgb(216, 216, 216);
+// }
 
-/* transitionned state when checked */
-.checkbox:checked + label:before {
-  background: $complementary;
-  border-color: $complementary;
-}
+// /* transitionned state when checked */
+// .checkbox:checked + label:before {
+//   background: $complementary;
+//   border-color: $complementary;
+// }
 
-/* applying transition */
-.checkbox + label:before {
-  transition: background 0.2s, border-color 0.2s;
-  /* double transition, yup ! */
-}
+// /* applying transition */
+// .checkbox + label:before {
+//   transition: background 0.2s, border-color 0.2s;
+//   /* double transition, yup ! */
+// }
 
-/* Let's animate the mark */
-.checkbox:not(:checked) + label:after {
-  transform: scale(0);
-}
-.checkbox:checked + label:after {
-  transform: scale(1);
-}
-.checkbox + label:after {
-  transition: transform 0.4s;
-}
+// /* Let's animate the mark */
+// .checkbox:not(:checked) + label:after {
+//   transform: scale(0);
+// }
+// .checkbox:checked + label:after {
+//   transform: scale(1);
+// }
+// .checkbox + label:after {
+//   transition: transform 0.4s;
+// }
 
 /****** 2. Let's shake this form  ******/
 
