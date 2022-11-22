@@ -137,7 +137,7 @@ export default {
           this.movie = res.data
           this.actors = this.movie.actors
           this.likes = this.movie.userslike.length
-          // console.log(this.movie)
+          console.log(this.likes,'likes')
         })
         .catch((err) => {
           console.log(err)

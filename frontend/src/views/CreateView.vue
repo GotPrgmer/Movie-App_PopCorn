@@ -56,6 +56,7 @@ export default {
           }
         })
           .then((res) => {
+            
             this.$router.go({ name: 'DetailView', params: { id: movieId } })
             
           })

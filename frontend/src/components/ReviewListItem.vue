@@ -61,6 +61,7 @@ export default {
         // 버튼 컬러 변환 좋아요 > 취소
         heart.removeAttribute('id');
         this.isClicked = false
+        this.isClicked = !this.isClicked
         // 화면에 보여지는 데이터 변화
         this.likes -= 1
 

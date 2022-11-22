@@ -11,7 +11,7 @@
       <p class="nickname">
         <label for="nickname">nickname <span>*</span></label>
         <input class="input" required type="text" id="nickname" name="nickname" v-model="nickname"/>
-        <span class="validation error"> Please enter a valid id</span>
+        <span class="validation error"> Please enter a valid id</span>0
         <span class="validation req"> This field is required</span>
       </p>
       <p class="password">
@@ -28,10 +28,12 @@
         <label for="profileimg">profile image </label>
         <input
           class="file" id="profileimg" name="profileimg"
-          type="file" @change="previewFile" ref="profileimg" accept="image/*"/> -->
+
+          type="file" @change="previewFile()" ref="profileimg" accept="image/*">
         <!-- <span><img src="" height="200" alt="이미지 미리보기"></span> -->
         <!-- <span class="validation req"> This field is required</span> -->
-      <!-- </p> -->
+      </p>
+
       <p class="login">
         <input type="submit" value="회원 가입 완료하기" />
       </p>
@@ -59,23 +61,43 @@ export default {
       const nickname = this.nickname
       const password1 = this.password1
       const password2 = this.password2
-      // const profileimg = this.profileimg
 
-      const payload = {
+      const profileimg = this.profileimg
+      
+      
+      // const firstname = this.firstname
+      // const last_name = this.lastname
+      // const email = this.email
+
+
+      let payload = {}
+      if (profileimg) {
+        payload = {
         username,
         nickname,
         password1,
         password2,
         // profileimg,
       }
+      } else {
+        payload = {
+        username,
+        nickname,
+        password1,
+        password2,
+      }
+      }
       this.$store.dispatch('signUp', payload)
       .then((res) => {
-            
+
+            this.$store.dispatch('getUserInfo', payload.username)
+            console.log(1)
+
           })
     },
     previewFile() {
       // 1. axios 요청 보낼 데이터
-      this.profileimg = this.$refs.profileimg.files
+      this.profileimg = this.$refs.profileimg.files[0]
       console.log(this.$refs.profileimg.files[0])
       // 2. 이미지 미리보기
   //     const preview = document.querySelector('img');
