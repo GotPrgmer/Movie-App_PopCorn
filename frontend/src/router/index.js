@@ -7,6 +7,7 @@ import LogInView from '@/views/LogInView'
 import GameResultView from '@/views/GameResultView'
 // import CardCard from '@/components/CardCard'
 import GameView from '@/views/GameView'
+import ProfileView from '@/views/ProfileView'
 
 Vue.use(VueRouter)
 
@@ -30,15 +31,15 @@ const routes = [
   // 로그인이 필요한 페이지
   // 메뉴
   {
-    path: '/create/:id',
-    name: 'CreateView',
-    component: () => import('@/views/CreateView'),
-    props: true
-  },
-  {
     path: '/movies/:id',
     name: 'DetailView',
     component: DetailView,
+    props: true
+  },
+  {
+    path: '/create/:id',
+    name: 'CreateView',
+    component: () => import('@/views/CreateView'),
     props: true
   },
   // 게임
@@ -59,15 +60,10 @@ const routes = [
     props: true
   },
   // 프로필
-  // {
-  //   path: '/profile',
-  //   name: 'ProfileView',
-  //   component: () => import('@/views/ProfileView')
-  // },
   {
     path: '/profile/:username',
     name: 'ProfileView',
-    component: () => import('@/views/ProfileView')
+    component: ProfileView,
   },
   // {
   //   path: '/about',

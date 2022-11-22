@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card/>
+    <Card :movie="movie"/>
   </div>
 </template>
 
