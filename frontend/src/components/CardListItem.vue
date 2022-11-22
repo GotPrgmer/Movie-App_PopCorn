@@ -8,7 +8,7 @@
         <div class="poster-back" :style="cardBgImage">
           <div>
             <p class="poster-header">{{ movie?.movietitle }}</p>
-            <p class="poster-content">{{ movie?.rate }}</p>
+            <!-- <p class="poster-content">{{ movie?.rate }}</p> -->
           </div>
         </div>
     </div>

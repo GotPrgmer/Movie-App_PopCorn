@@ -49,7 +49,7 @@ def moviedetail(request, movie_id):
 def watchlist(request,username):
     User = get_user_model()
     # print(User)
-    user = User.objects.get(user=username)
+    user = User.objects.get(username=username)
     # print(user.nickname)
     serializer = WatchSerializer(user)
     return Response(serializer.data)

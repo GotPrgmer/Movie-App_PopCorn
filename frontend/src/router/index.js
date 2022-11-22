@@ -1,24 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainView from '@/views/MainView'
-// import ProfileView from '@/views/ProfileView'
-// import ArticleView from '@/views/ArticleView'
-// import CreateView from '@/views/CreateView'
 import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import GameResultView from '@/views/GameResultView'
-import CardCard from '@/components/CardCard'
+// import CardCard from '@/components/CardCard'
 import GameView from '@/views/GameView'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {path: '/cardcard',
-  name: 'CardCard',
-  component: CardCard
-
-  },
   {
     path: '/',
     name: 'MainView',
@@ -34,35 +26,9 @@ const routes = [
     name: 'LogInView',
     component: LogInView,
     
-  },
-  {
-    path: '/article',
-    name: 'ArticleView',
-    component: () => import('@/views/ArticleView')
-  },
-  
+  },  
   // 로그인이 필요한 페이지
-  {
-    path: '/actorgame',
-    name: 'GameActorView',
-    component: () => import('@/views/GameActorView')
-  },
-  {
-    path: '/game',
-    name: 'GameView',
-    component: GameView,
-  },
-  {
-    path: '/game/result',
-    name: 'GameResultView',
-    component: GameResultView,
-    props: true
-  },
-  {
-    path: '/profile',
-    name: 'ProfileView',
-    component: () => import('@/views/ProfileView')
-  },
+  // 메뉴
   {
     path: '/create/:id',
     name: 'CreateView',
@@ -74,6 +40,34 @@ const routes = [
     name: 'DetailView',
     component: DetailView,
     props: true
+  },
+  // 게임
+  {
+    path: '/game',
+    name: 'GameView',
+    component: GameView,
+  },
+  {
+    path: '/game/actorgame',
+    name: 'GameActorView',
+    component: () => import('@/views/GameActorView')
+  },
+  {
+    path: '/game/result',
+    name: 'GameResultView',
+    component: GameResultView,
+    props: true
+  },
+  // 프로필
+  // {
+  //   path: '/profile',
+  //   name: 'ProfileView',
+  //   component: () => import('@/views/ProfileView')
+  // },
+  {
+    path: '/profile/:username',
+    name: 'ProfileView',
+    component: () => import('@/views/ProfileView')
   },
   // {
   //   path: '/about',

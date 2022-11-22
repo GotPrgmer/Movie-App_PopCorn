@@ -7,7 +7,7 @@
       {{userInfo}}
     </div> -->
     <div >
-      <router-link v-if="isLogin" :to="{ name: 'ProfileView' }"> <ProfilePreview/> </router-link>
+      <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: { username: username } }"> <ProfilePreview/> </router-link>
     </div>
     <article class="box">
       <router-link v-if="isLogin" :to="{ name: 'GameView' }"> 취향을 찾아보자 </router-link>
@@ -42,9 +42,9 @@ export default {
     movieList() {
       return this.$store.state.movieList
     },
-    // userInfo() {
-    //   return this.$store.getters.isUserInfo
-    // }
+    username() {
+      return this.$store.state.username
+    }
   },
   created() {
     this.getMovies()

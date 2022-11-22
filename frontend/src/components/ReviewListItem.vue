@@ -1,16 +1,15 @@
 <template>
   <article>
-
     <aside v-if="!isedit">
-      <p>제목 : {{ article?.review_title }}</p>
-      <p>내용 : {{ article?.review_content }}</p>
-      <p>글쓴이 : {{ article?.username }}</p>
+      <p style="font-weight:bold;">{{ article?.review_title }}</p>
+      <p>{{ article?.review_content }}</p>
+      <router-link :to="{ name: 'ProfileView', params: { username: article.username } }">작성자 : {{ article?.username }}</router-link>
       <p>마지막 수정 : {{ article?.updated_at }}</p>
       <a v-if="isLogin" class="review-like-button" @click="clickLikeBtn">
         <div :class="`review-like-heart ${articleId}`" ></div>
         <div class="likes" id="review-like-text">{{ likes }}</div>
       </a>
-      <button v-if="isMyReview" @click="editReview">리뷰 수정</button>
+      <button v-if="isMyReview" @click="editReview">리뷰 수정</button> | 
       <button v-if="isMyReview" @click="deleteReview">리뷰 삭제</button>
     </aside>
 
@@ -39,6 +38,7 @@ export default {
   data() {
     return {
       articleId : this.article.id,
+      articles: this.$store.state.articles,
 
       likes: this.article.like_users.length,
       isClicked: false,

@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <nav>
+    <!-- <nav>
       <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
       <span> 검색  | </span>
       <router-link v-if="isLogin" :to="{ name: 'ProfileView' }">프로필 사진 |  </router-link>
-      <router-link :to="{ name: 'ArticleView' }">전체 게시판 | </router-link>
       <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }">Sign Up | </router-link>
       <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">Log In | </router-link>
-      <button v-if="isLogin" @click="logOut">Log Out</button>
+      <button v-if="isLogin" @click="logOut">Log Out</button> -->
 
       <!-- <body id="body" class="light-mode">
       <h1>Dark &amp; Light Mode Switcher</h1>
@@ -20,8 +19,20 @@
       <p>Press the button above to toggle.</p>
     </body> -->
 
+    <!-- </nav> -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+      <div class="container-fluid justify-content-start">
+        <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
+        <router-link v-if="isLogin" :to="{ name: 'ProfileView' }" style="color:white; margin-left:10px;">프로필 사진 |  </router-link>
+        <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }" style="color:white; margin-left:10px;">Sign Up | </router-link>
+        <router-link v-if="!isLogin" :to="{ name: 'LogInView' }" style="color:white; margin-left:10px;">Log In | </router-link>
+        <button v-if="isLogin" @click="logOut" style="color:white; margin-left:10px;">Log Out</button>
+        <form class="d-flex ms-5" role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
     </nav>
-
     <router-view/>
   </div>
 </template>
