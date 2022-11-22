@@ -1,35 +1,40 @@
 <template>
-  <router-link
-      :to="{ name: 'DetailView', params: { id: movie.id } }">
-    <div class="card-wrap"
+  <div class="card-wrap"
         @mousemove="handleMouseMove"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
         ref="card">
-        <div class="card"
-          :style="cardStyle">
-          <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
-          <div class="card-info">
-            <slot name="header">{{movie.movietitle}}</slot>
-            <slot name="content"></slot>
-          </div>
-        </div>
-    </div>
-  </router-link>
+    <router-link 
+      :to="{ name: 'DetailView', params: { id: movie.id } }">
+      <card class="card"
+        :style="cardStyle">
+        <!-- @mouseover="mouseOverCard" @mouseleave="mouseLeaveCard" -->
+        <!-- 두 가지 div가 번갈아 보여진다 기본 : poster, 마우스호버 : info -->
+        <article class="card-bg" :style="[cardBgTransform, cardBgImage]"></article>
+        <article class="card-info">
+          <slot name="header">{{ movie?.movietitle }}</slot>
+          <slot name="content">{{ movie?.rate }}</slot>
+        </article>
+      </card>
+    </router-link>
+  </div>
 </template>
-
+<!--<img :src="`https://image.tmdb.org/t/p/w500/${movie.posterpath}`" :alt="movie.title">-->
 <script>
+
 export default {
-    name:'Card',
-    mounted() {
-    this.width = this.$refs.card.offsetWidth;
-    this.height = this.$refs.card.offsetHeight;
-  },
-  // props: ['dataImage'],
+  name: 'Card',
   props: {
     movie: Object,
   },
+  mounted() {
+    console.log(this.$refs.card.offsetWidth)
+    this.width = this.$refs.card.offsetWidth;
+    this.height = this.$refs.card.offsetHeight;
+  },
+  //props: ['dataImage'],
   data: () => ({
+    movieId: null,
     width: 0,
     height: 0,
     mouseX: 0,
@@ -77,9 +82,12 @@ export default {
         this.mouseY = 0;
       }, 1000);
     }
+  },
+  created() {
+    this.movieId = this.movie.id
   }
-
 }
+
 </script>
 
 <style>

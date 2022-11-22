@@ -24,16 +24,13 @@
         <input class="input" required type="password" id="password2" name="password2" v-model="password2" />
         <span class="validation req"> This field is required</span>
       </p>
-      <!-- <p class="profileimg">
+      <p class="profileimg">
         <label for="profileimg">profile image </label>
         <input
           class="file" id="profileimg" name="profileimg"
-
           type="file" @change="previewFile()" ref="profileimg" accept="image/*">
         <!-- <span><img src="" height="200" alt="이미지 미리보기"></span> -->
-        <!-- <span class="validation req"> This field is required</span> -->
       </p>
-
       <p class="login">
         <input type="submit" value="회원 가입 완료하기" />
       </p>
@@ -61,38 +58,29 @@ export default {
       const nickname = this.nickname
       const password1 = this.password1
       const password2 = this.password2
-
       const profileimg = this.profileimg
       
-      
-      // const firstname = this.firstname
-      // const last_name = this.lastname
-      // const email = this.email
-
-
       let payload = {}
       if (profileimg) {
         payload = {
-        username,
-        nickname,
-        password1,
-        password2,
-        // profileimg,
-      }
+          username,
+          nickname,
+          password1,
+          password2,
+          profileimg,
+        }
       } else {
         payload = {
-        username,
-        nickname,
-        password1,
-        password2,
-      }
+          username,
+          nickname,
+          password1,
+          password2,
+        }
       }
       this.$store.dispatch('signUp', payload)
       .then((res) => {
-
-            this.$store.dispatch('getUserInfo', payload.username)
+            this.$store.dispatch('getUserInfo', this.username)
             console.log(1)
-
           })
     },
     previewFile() {

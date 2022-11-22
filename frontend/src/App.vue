@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <!-- <nav>
+    <nav>
       <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
       <span> 검색  | </span>
-      <router-link v-if="isLogin" :to="{ name: 'ProfileView' }">프로필 사진 |  </router-link>
+      <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: { username: username } }">프로필 사진 |  </router-link>
       <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }">Sign Up | </router-link>
       <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">Log In | </router-link>
-      <button v-if="isLogin" @click="logOut">Log Out</button> -->
+      <button v-if="isLogin" @click="logOut">Log Out</button>
 
       <!-- <body id="body" class="light-mode">
       <h1>Dark &amp; Light Mode Switcher</h1>
@@ -19,8 +19,8 @@
       <p>Press the button above to toggle.</p>
     </body> -->
 
-    <!-- </nav> -->
-    <nav class="navbar navbar-dark bg-dark fixed-top">
+    </nav>
+    <!-- <nav class="navbar navbar-dark bg-dark fixed-top">
       <div class="container-fluid justify-content-start">
         <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
         <router-link v-if="isLogin" :to="{ name: 'ProfileView' }" style="color:white; margin-left:10px;">프로필 사진 |  </router-link>
@@ -32,7 +32,7 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
-    </nav>
+    </nav> -->
     <router-view/>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   name: 'App',
   data() {
     return {
-      userInfo: null
+      username : this.$store.state.username
     }
   },
   computed:{

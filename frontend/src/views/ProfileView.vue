@@ -6,30 +6,25 @@
       <div><img :src="test" alt="내 사진"></div>
       <!-- <input type="file" name="" accept="image/*" id="" @change="getImageFile"> -->
       <BedgeGraph/>
-      <button type="submit" @click="clickFollow">팔로우</button>
+      <button v-if="!isMyProfile" type="submit" @click="clickFollow">팔로우</button>
+      <button v-if="isMyProfile" type="submit" >친구</button>
     </div>
-      <button @click="toReview">좋아요한 영화</button> | 
-      <button @click="toMovie">내가 쓴 리뷰</button>
-    <div>
-      <span
-        v-for="movie in movies"
-        :key="movie.id">
-        <Card :movie="movie"/>
-      </span>
-    </div>
-    <div>
-      <span
-        v-for="review in reviews"
-        :key="review.id">
-        <Card :review="review"/>
-      </span>      
-    </div>
+      <button @click="toReview">영화</button> | 
+      <button @click="toMovie">리뷰</button>
+      <article v-if="show">
+        <CardList :movies="movies"/>
+      </article>
+      <article v-if="!show">
+        <ReviewListItem v-for="review in reviews" :key="review.id" :article="review"/>
+    </article>  
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Card from '@/components/Card.vue'
+import CardList from '@/components/CardList.vue'
+import ReviewListItem from '@/components/ReviewListItem'
 import BedgeGraph from '@/components/BedgeGraph.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -39,13 +34,16 @@ name: 'FriendProfile',
 components: {
     Card,
     BedgeGraph,
+    CardList,
+    ReviewListItem,
   },
 data() {
   return {
     nickname: this.$store.state.nickname,
     // show: true,
     test: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0HhhQ-N7_AmPj4ExJoue4xxXdMGcvXWfMrfC0XcDGg&s',
-    show: true
+    show: true,
+    isMyProfile: (this.$route.params.username === this.$store.state.username) ? true : flase,
   }
 },
 computed: {
@@ -65,24 +63,16 @@ computed: {
 methods: {
   toReview() {
     console.log(this.show)
-    if (this.show) {
-      this.show = false
-    } else {
       this.show = true
-    }
+      console.log(this.reviews)
   },
   toMovie() {
-    if (this.show) {
-      this.show = true
-    } else {
-      this.show = true
-    }
+      this.show = false
   },
   getfriend() {
     axios({
       method: 'get',
       url: `${API_URL}/accountsinfo/${this.$route.params.username}/`,
-      
     })
       .then((res) => {
         this.info = res.data
@@ -96,11 +86,27 @@ methods: {
     },
   getUserReview() {
     this.$store.dispatch('getUserReview')
+    console.log(this.reviews)
+  },
+  clickFollow() {
+    // axios({
+    //   method: 'put',
+    //   url: `${API_URL}/accountsinfo/${this.$route.params.username}/`,
+    // })
+    //   .then((res) => {
+    //     console.log(res.data)
+    //     console.log('팔로우 성공')
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //     console.log('팔로우 에러')
+    //   })
   }
 },
 created() {
   this.getfriend()
   this.getUserMovie()
+  this.getUserReview()
 },
 }
 </script>

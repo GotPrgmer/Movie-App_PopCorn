@@ -3,7 +3,7 @@
     <aside v-if="!isedit">
       <p style="font-weight:bold;">{{ article?.review_title }}</p>
       <p>{{ article?.review_content }}</p>
-      <router-link :to="{ name: 'ProfileView', params: { username: article.username } }">작성자 : {{ article?.username }}</router-link>
+      <router-link :to="{ name: 'ProfileView', params: { username: article.username } }">{{ article?.username }}</router-link>
       <p>마지막 수정 : {{ article?.updated_at }}</p>
       <a v-if="isLogin" class="review-like-button" @click="clickLikeBtn">
         <div :class="`review-like-heart ${articleId}`" ></div>

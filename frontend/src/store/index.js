@@ -155,13 +155,14 @@ export default new Vuex.Store({
     getUserReview(context) {
       axios({
         method: 'get',
-        url: `${API_URL}accountsinfo/written/${context.state.username}/`,
+        url: `${API_URL}/accountsinfo/written/${context.state.username}/`,
         headers: {
           Authorization: `Token ${context.state.token}`
         }
       })
         .then((res) => {
           context.commit('GET_USER_REVIEW', res.data.user_reviews)
+          // console.log(res.data.user_reviews)
         })
         .catch((err) => {
           console.log(err)

@@ -44,19 +44,21 @@ $orange: hsl(50,80%,50%);
 .poster-card {
   color: inherit;
   cursor: pointer;
-  width: calc(33% - 2rem);
-  min-width: calc(33% - 2rem);
-  height: 400px;
+  // width: calc(33% - 2rem);
+  // min-width: calc(33% - 2rem);
+  min-width: 240px;
+  // height: 400px;
   min-height: 400px;
   perspective: 1000px;
   margin: 1rem;
+  // margin-left: 5px;
   position: relative;
-  @include mobile (800px) {
-    width: calc(50% - 2rem);
-  }
-  @include mobile (500px) {
-    width: 100%;
-  }
+  // @include mobile (800px) {
+    // width: calc(50% - 2rem);
+  // }
+  // @include mobile (500px) {
+    // width: 100%;
+  // }
   background-size: cover;
 }
 
@@ -76,14 +78,15 @@ $orange: hsl(50,80%,50%);
   backface-visibility: hidden;
   transform-style: preserve-3d;
   transition: ease-in-out 600ms;
-  // overflow: hidden;
+  overflow: hidden;
 }
 
 .poster-front {
   background-size: cover;
-  // background-blend-mode: overlay;
+  background-blend-mode: overlay;
   padding: 2rem;
   font-size: 1.618rem;
+  // font-size: 50px;
   font-weight: 600;
   color: #fff;
   overflow: hidden;
