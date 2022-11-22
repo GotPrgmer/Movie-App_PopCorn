@@ -1,18 +1,21 @@
 <template>
-  <div class="card-wrap"
-      @mousemove="handleMouseMove"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave"
-      ref="card">
-      <div class="card"
-        :style="cardStyle">
-        <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
-        <div class="card-info">
-          <slot name="header"></slot>
-          <slot name="content"></slot>
+  <router-link
+      :to="{ name: 'DetailView', params: { id: movie.id } }">
+    <div class="card-wrap"
+        @mousemove="handleMouseMove"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        ref="card">
+        <div class="card"
+          :style="cardStyle">
+          <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
+          <div class="card-info">
+            <slot name="header">{{movie.movietitle}}</slot>
+            <slot name="content"></slot>
+          </div>
         </div>
-      </div>
-  </div>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -22,7 +25,10 @@ export default {
     this.width = this.$refs.card.offsetWidth;
     this.height = this.$refs.card.offsetHeight;
   },
-  props: ['dataImage'],
+  // props: ['dataImage'],
+  props: {
+    movie: Object,
+  },
   data: () => ({
     width: 0,
     height: 0,
@@ -53,7 +59,7 @@ export default {
     },
     cardBgImage() {
       return {
-        backgroundImage: `url('https://t1.daumcdn.net/cfile/tistory/2166AE4E5849926901')`
+        backgroundImage: `url(https://image.tmdb.org/t/p/w500/${this.movie.posterpath})`
       }
     }
   },

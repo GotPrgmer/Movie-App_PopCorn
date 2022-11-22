@@ -21,17 +21,19 @@
       </p>
       <p class="password">
         <label for="password2">password 2 <span>*</span></label>
-        <input class="input" required type="password" id="password2" name="password2" v-model="password2"/>
+        <input class="input" required type="password" id="password2" name="password2" v-model="password2" />
         <span class="validation req"> This field is required</span>
       </p>
-      <p class="profileimg">
-        <label for="password2">profile image <span>*</span></label>
+      <!-- <p class="profileimg">
+        <label for="profileimg">profile image </label>
         <input
           class="file" id="profileimg" name="profileimg"
+
           type="file" @change="previewFile()" ref="profileimg" accept="image/*">
         <!-- <span><img src="" height="200" alt="이미지 미리보기"></span> -->
         <!-- <span class="validation req"> This field is required</span> -->
       </p>
+
       <p class="login">
         <input type="submit" value="회원 가입 완료하기" />
       </p>
@@ -59,12 +61,14 @@ export default {
       const nickname = this.nickname
       const password1 = this.password1
       const password2 = this.password2
+
       const profileimg = this.profileimg
       
       
       // const firstname = this.firstname
       // const last_name = this.lastname
       // const email = this.email
+
 
       let payload = {}
       if (profileimg) {
@@ -73,7 +77,7 @@ export default {
         nickname,
         password1,
         password2,
-        profileimg,
+        // profileimg,
       }
       } else {
         payload = {
@@ -85,16 +89,16 @@ export default {
       }
       this.$store.dispatch('signUp', payload)
       .then((res) => {
+
             this.$store.dispatch('getUserInfo', payload.username)
             console.log(1)
+
           })
-      
     },
     previewFile() {
       // 1. axios 요청 보낼 데이터
       this.profileimg = this.$refs.profileimg.files[0]
       console.log(this.$refs.profileimg.files[0])
-
       // 2. 이미지 미리보기
   //     const preview = document.querySelector('img');
   //     const file = document.querySelector('input[type=file]').files[0];
