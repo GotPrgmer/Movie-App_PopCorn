@@ -16,6 +16,7 @@ class User(AbstractUser):
         processors=[ResizeToFill(300, 300)],
         format='JPEG',
         options={'quality': 70},
+        default = 'default_image.jpg'
     )
     followings = models.ManyToManyField("self", symmetrical=False,related_name='followers')
 
