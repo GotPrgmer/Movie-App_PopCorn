@@ -17,17 +17,16 @@ export default {
   components: {
     ReviewListItem,
   },
-  // data() {
-  //   return {
-  //     userLikedList: []
-  //   }
+  // props: {
+  //   articles: Array
   // },
-  computed: {
-    articles() {
-      // console.log(this.$store.state.articles)
-      return this.$store.state.articles
+  data() {
+    return {
+      articles: this.$store.state.articles
+      // userLikedList: []
     }
   },
+  
   // methods: {
     
   // },

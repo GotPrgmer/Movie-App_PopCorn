@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/logo.png" alt="로딩중">
+    <!-- <img src="../assets/logo.png" alt="로딩중"> -->
   </div>
 </template>
 

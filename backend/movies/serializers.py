@@ -52,7 +52,7 @@ class OneMovieChosenSerializer(serializers.ModelSerializer):
   class Meta:
     model = Movie
     fields = ('id','userslike')
-    read_only_fields = ('userslike')
+    read_only_fields = ('userslike',)
 
 
 #스코어점수 시리얼라이즈

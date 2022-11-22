@@ -34,7 +34,7 @@
       <CreateView :movie="movie"/>
     </aside>
     <aside v-if="!isCreate">
-      <ArticleView :movieId="movie.id"/>
+      <ArticleView v-if="isLogin" :movieId="movie.id"/>
     </aside>
     <aside>
       <VideoList/>
@@ -64,7 +64,7 @@ export default {
       isClicked: false,
       movie: {},
       actors: [],
-      likes: 0,
+      likes: 0
     }
   },
   computed: {
@@ -84,18 +84,47 @@ export default {
       if (this.isClicked) {
         // 버튼 컬러 변환 좋아요 > 취소
         document.querySelector('.heart').removeAttribute('id');
-        document.querySelector('.movie-like-button').removeAttribute('id');
+        // document.querySelector('.movie-like-button').removeAttribute('id');
         this.isClicked = false
-        // 화면에 보여지는 데이터 변화
         this.likes -= 1
-
+        // DB 변경 요청
+        axios({
+          method: 'post',
+          url: `${API_URL}/movies/clicklike/${this.$store.state.userId}/${this.$route.params.id}/`,
+          // data: { likes },
+          headers: {
+          Authorization: `Token ${this.$store.state.token}`
+          },
+        })
+          .then((res) => {
+            console.log('좋아요 요청 성공')
+          })
+          .catch((err) => {
+            console.log(err)
+            console.log('좋아요 요청 실패')
+          })
       } else {
         // 버튼 컬러 변환 취소 > 좋아요
         document.querySelector('.heart').id = 'heart';
-        document.querySelector('.movie-like-button').id = 'button';
+        // document.querySelector('.movie-like-button').id = 'button';
         this.isClicked = true
-        // 화면에 보여지는 데이터 변화
         this.likes += 1
+        // DB 변경 요청
+        axios({
+          method: 'post',
+          url: `${API_URL}/movies/clicklike/${this.$store.state.userId}/${this.$route.params.id}/`,
+          // data: { likes },
+          headers: {
+          Authorization: `Token ${this.$store.state.token}`
+          },
+        })
+          .then((res) => {
+            console.log('성공')
+          })
+          .catch((err) => {
+            console.log(err)
+            console.log('실패')
+          })
       }
     },
     getMovieDetail() {
@@ -113,30 +142,40 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    // getArticles() {
+    //   if (this.isLogin === true) {
+    //     this.$store.dispatch('getArticles', this.$route.params.id)
+    //   }
+    // },
+    getLikes() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/manylikemovie/${this.$route.params.id}/`,
+        
+      })
+        .then((res) => {
+          // console.log(res.data.userslike) // 리스트
+          const likesList = res.data.userslike
+          this.likes = likesList.length
+          for ( const user of likesList ) {
+            if ( user.username === this.$store.state.username ) {
+              document.querySelector('.heart').id = 'heart';
+              // document.querySelector('.movie-like-button').id = 'button';
+              this.isClicked = true
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created() {
     this.getMovieDetail()
+    this.getArticles()
+    this.getLikes()
   },
-  watch: {
-    likes() {
-      axios({
-        method: 'post',
-        url: `${API_URL}/movies/clicklike/${this.$store.state.userId}/${this.$route.params.id}/`,
-        // data: { likes },
-        headers: {
-         Authorization: `Token ${this.$store.state.token}`
-        },
-      })
-        .then((res) => {
-          console.log('성공')
-        })
-        .catch((err) => {
-          console.log(err)
-          console.log('실패')
-        })
-    }
-  }
 }
 </script>
 

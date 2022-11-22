@@ -30,9 +30,9 @@ export default new Vuex.Store({
     token: null,
     //GET_USER_LIKES
     userLikes: null,
-
-    userImg: '@/assets/logo.png',
-
+    userImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0HhhQ-N7_AmPj4ExJoue4xxXdMGcvXWfMrfC0XcDGg&s',
+    usermovie: [],
+    userreviews: [],
     // 리뷰 정보
     //GET_ARTICLES
     articles: null,
@@ -60,11 +60,18 @@ export default new Vuex.Store({
     GET_USER_LIKES(state, userLikes) {
       state.movieList.userLikes = userLikes
     },
+    GET_USER_MOVIE(state, usermovie) {
+      state.usermovie = usermovie
+    },
+    GET_USER_REVIEW(state, reviews) {
+      state.userreviews = reviews
+    },
     GET_ARTICLES(state, articles) {
       state.articles = articles
     },
     SAVE_TOKEN(state, res) {
       state.token = res.data.key
+      console.log(state.token)
       state.username = JSON.parse(res.config.data).username
       // console.log(state.username)
       router.push({ name: 'MainView' })
@@ -76,7 +83,7 @@ export default new Vuex.Store({
       state.userId = null
       state.nickname = null
       state.userLikes = null
-      state.userImg = '@/assets/logo.png'
+      state.userImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0HhhQ-N7_AmPj4ExJoue4xxXdMGcvXWfMrfC0XcDGg&s'
       router.push({ name: 'MainView' }).catch(()=>{}) // 메인뷰인 채로 로그아웃하면 redirection오류가 생기는데 .catch로 무시했음
     }
   },
@@ -127,6 +134,39 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    getUserMovie(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/like/${context.state.username}/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          // console.log(res.data.userlike)
+          context.commit('GET_USER_MOVIE', res.data.userlike)
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('좋아요한 영화들')
+        })
+    },
+    getUserReview(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}accountsinfo/written/${context.state.username}/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          context.commit('GET_USER_REVIEW', res.data.user_reviews)
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('내 리뷰들 실패')
+        })
+    },
     // getUserLikes(context) {
     //     axios({
     //       method: 'post',
@@ -172,19 +212,32 @@ export default new Vuex.Store({
           nickname: payload.nickname,
           password1: payload.password1,
           password2: payload.password2,
-          profile_image: payload.profileimg
-          // first_name: payload.firstname,
-          // last_name: payload.lastname,
-          // email: payload.email,
+          // profile_image: payload.profileimg
         }
       })
         .then((res) => {
           // console.log(res.data)
           context.commit('SAVE_TOKEN', res)
+          context.dispatch('getUserInfo', payload.username)
         })
         .catch((err) => {
           console.log(err)
-          alert('형식이 잘못 되었습니다ㅠㅅㅠ')
+          const Swal = require('sweetalert2')
+          Swal.fire({
+            title: '받아줄 수 없다',
+            text: ' ',
+            width: 600,
+            padding: 'em',
+            color: '#fff',
+            className: "alert-text",
+            background: '#fff url(https://media.tenor.com/2roX3uxz_68AAAAM/cat-space.gif)',
+            backdrop:`
+              rgba(0,0,123,0.4)
+              url("")
+              left top
+              no-repeat
+            `
+          })
         })
     },
     logIn(context, payload) {
@@ -200,13 +253,14 @@ export default new Vuex.Store({
           // console.log(res)
           // console.log(JSON.parse(res.config.data).username)
           context.commit('SAVE_TOKEN', res)
+          context.dispatch('getUserInfo', payload.username)
         })
         .catch((err) => {
           console.log(err)
           const Swal = require('sweetalert2')
           Swal.fire({
-            title: '삐빅-',
-            text: '저희가 가진 정보와 다른데요!?',
+            title: '누구세요?',
+            text: ' ',
             width: 600,
             padding: 'em',
             color: '#fff',
