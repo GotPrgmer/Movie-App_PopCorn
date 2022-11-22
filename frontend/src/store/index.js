@@ -65,7 +65,8 @@ export default new Vuex.Store({
     },
     SAVE_TOKEN(state, res) {
       state.token = res.data.key
-      state.username = JSON.parse(res.config.data).username
+      // console.log(res)
+      // state.username = JSON.parse(res.config.data).username
       // console.log(state.username)
       router.push({ name: 'MainView' })
     },
@@ -163,23 +164,43 @@ export default new Vuex.Store({
           console.log('게시글에러')
         })
     },
-    signUp(context, payload) {
-      axios({
+    async signUp(context, payload) {
+      console.log(payload)
+      const formData = new FormData();
+            
+      formData.append('username', payload.username);
+      formData.append('nickname', payload.nickname);
+      formData.append('password1', payload.password1);
+      formData.append('password2', payload.password2);
+      formData.append('profile_image', payload.profileimg);
+      // formData.append('first_name', payload.firstname);
+      // formData.append('last_name', payload.lastname);
+      // formData.append('email', payload.email);
+
+      await axios({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
-        data: {
-          username: payload.username,
-          nickname: payload.nickname,
-          password1: payload.password1,
-          password2: payload.password2,
-          profile_image: payload.profileimg
-          // first_name: payload.firstname,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: formData
+      }
+      )
+      // first_name: payload.firstname,
           // last_name: payload.lastname,
-          // email: payload.email,
-        }
-      })
+          // email: payload.email
+
+      // axios
+      //         .post(`${API_URL}/accounts/signup/`,
+      //             formData,
+      //             {
+      //                 headers: {"Content-Type": "multipart/form-data"}, 
+      //                 withCredentials: true
+      //             }
+      //         )
         .then((res) => {
           // console.log(res.data)
+          context.state.username = payload.username
           context.commit('SAVE_TOKEN', res)
         })
         .catch((err) => {
