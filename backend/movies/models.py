@@ -14,7 +14,7 @@ class Movie(models.Model):
     director = models.CharField(max_length=30)
     rate = models.FloatField()
     released_date = models.DateField(auto_now=False, auto_now_add=False)
-    overview = models.TextField()
+    overview = models.TextField(blank=True)
     posterpath = models.TextField()
     backdrop = models.TextField()
     genres = models.ManyToManyField( Genre , related_name='genre')
