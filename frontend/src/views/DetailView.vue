@@ -160,7 +160,6 @@ export default {
       axios({
         method: 'get',
         url: `${API_URL}/movies/manylikemovie/${this.$route.params.id}/`,
-        
       })
         .then((res) => {
           // console.log(res.data.userslike) // 리스트

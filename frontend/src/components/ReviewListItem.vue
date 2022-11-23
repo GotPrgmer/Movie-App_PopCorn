@@ -1,6 +1,5 @@
 <template>
   <article>
-    {{articles}}
     <aside v-if="!isedit">
       <p style="font-weight:bold;">{{ article?.review_title }}</p>
       <p>{{ article?.review_content }}</p>

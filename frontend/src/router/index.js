@@ -5,11 +5,13 @@ import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import GameResultView from '@/views/GameResultView'
-// import CardCard from '@/components/CardCard'
+import FriendList from '@/views/FriendList'
 import GameView from '@/views/GameView'
 import ProfileView from '@/views/ProfileView'
+// import Store from '@/store/index/Store'
 
 Vue.use(VueRouter)
+// const isLogin = Store.getters.isLogin
 
 const routes = [
   {
@@ -20,13 +22,27 @@ const routes = [
   {
     path: '/signup',
     name: 'SignUpView',
-    component: SignUpView
+    component: SignUpView,
+    // beforeEnter(to, from, next) {
+    //   console.log(Vue)
+    //   if (isLogin) {
+    //     next({ name: 'MainView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
   },
   {
     path: '/login',
     name: 'LogInView',
     component: LogInView,
-    
+    // beforeEnter(to, from, next) {
+    //   if (isLogin) {
+    //     next({ name: 'MainView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
   },  
   // 로그인이 필요한 페이지
   // 메뉴
@@ -34,13 +50,27 @@ const routes = [
     path: '/movies/:id',
     name: 'DetailView',
     component: DetailView,
-    props: true
+    props: true,
+    // beforeEnter(to, from, next) {
+    //   if (!isLogin) {
+    //     next({ name: 'LogInView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
   },
   {
     path: '/create/:id',
     name: 'CreateView',
     component: () => import('@/views/CreateView'),
-    props: true
+    props: true,
+    // beforeEnter(to, from, next) {
+    //   if (!isLogin) {
+    //     next({ name: 'LogInView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
   },
   // 게임
   {
@@ -65,6 +95,26 @@ const routes = [
     name: 'ProfileView',
     component: ProfileView,
     props: true,
+    // beforeEnter(to, from, next) {
+    //   if (!isLogin) {
+    //     next({ name: 'LogInView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
+  },
+  {
+    path: '/profile/:username/friends',
+    name: 'FriendList',
+    component: FriendList,
+    props: true,
+    // beforeEnter(to, from, next) {
+    //   if (!isLogin) {
+    //     next({ name: 'LogInView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
   },
   // {
   //   path: '/about',
