@@ -30,7 +30,7 @@ export default new Vuex.Store({
     token: null,
     //GET_USER_LIKES
     userLikes: null,
-    userImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy0HhhQ-N7_AmPj4ExJoue4xxXdMGcvXWfMrfC0XcDGg&s',
+    userImg: null,
 
     // 익명의 정보
     firendInfo: null,
@@ -57,8 +57,10 @@ export default new Vuex.Store({
       state.movieList.popularMovie = popularMovie.splice(11, 10)
     },
     GET_USER_INFO(state, userInfo) {
+      // console.log(userInfo.profile_image)
       state.userId = userInfo.id
-      state.nickname = userInfo.nickname      
+      state.nickname = userInfo.nickname
+      state.userImg = userInfo.profile_image     
       router.push({ name: 'MainView' })
     },
     GET_FRIEND_INFO(state, friendinfo) {
@@ -181,9 +183,9 @@ export default new Vuex.Store({
         url: `${API_URL}/accountsinfo/${username}/`,
       })
         .then((res) => {
-          console.log('친구 정보 가져옴')
+          // console.log('친구 정보 가져옴')
           context.commit('GET_FRIEND_INFO', res.data)
-          console.log(context.state.firendInfo)
+          // console.log(context.state.firendInfo)
           // console.log(this.info.nickname)
         })
         .catch((err) => {

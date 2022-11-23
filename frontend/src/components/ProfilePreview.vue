@@ -8,8 +8,7 @@
       <span>
         <BedgeGraph/>
       </span>
-        <img :src="userImg" alt="">
-      
+        <img :src="`http://127.0.0.1:8000${userImg}`" alt="">
     </div>
   </div>
 </template>
@@ -26,10 +25,13 @@ export default {
     return {
       nickname : this.$store.state.nickname,
       userImg : this.$store.state.userImg,
+      userInfo: this.$store.state.userInfo,
       bedges: null,
     }
   },
-  
+  created() {
+    // console.log(this.$store.state.userImg)
+  }
 }
 </script>
 
