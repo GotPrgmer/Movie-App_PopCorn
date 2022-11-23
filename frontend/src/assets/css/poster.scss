@@ -1,40 +1,24 @@
-$primary: hsl(222,80%,50%);
-$primary-light: hsl(222,50%,95%);
+// $primary: hsl(222,80%,50%);
+// $primary-light: hsl(222,50%,95%);
 
-$secondary: hsl(350,80%,50%);
+// $secondary: hsl(350,80%,50%);
 
-$red: hsl(10,80%,50%);
-$orange: hsl(50,80%,50%);
+// $red: hsl(10,80%,50%);
+// $orange: hsl(50,80%,50%);
 
-// *, *:before, *:after {
-//   box-sizing: border-box;
-// }
+// // *, *:before, *:after {
+// //   box-sizing: border-box;
+// // }
 
-@mixin mobile ($size: 640px) {
-  @media screen and (max-width: $size) {
-    @content;
-  }
-}
-
-// html {
-//   font-size: 18px;
-//   line-height: 1.5;
-//   font-weight: 300;
-//   color: #333;
-//   font-family: "Nunito Sans", sans-serif;
-// }
-
-// body {
-//   margin: 0;
-//   padding: 0;
-//   height: 100vh;
-//   background-color: $primary-light;
-//   background-attachment: fixed;
+// @mixin mobile ($size: 640px) {
+//   @media screen and (max-width: $size) {
+//     @content;
+//   }
 // }
 
 .poster-content {
   display: flex;
-  margin: 0 auto;
+  margin: 3px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -133,6 +117,11 @@ $orange: hsl(50,80%,50%);
 
 .poster-header {
   color: white;
+  font-family: 'PopcornFont';
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 1000;
+  font-size: 40px;
+  // background-color: $dark;
+  background-color: rgba(6, 3, 41, 0.116);
+  text-shadow:2px 2px 6px $primary;
 }

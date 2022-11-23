@@ -11,7 +11,7 @@
       <p class="nickname">
         <label for="nickname">nickname <span>*</span></label>
         <input class="input" required type="text" id="nickname" name="nickname" v-model="nickname"/>
-        <span class="validation error"> Please enter a valid id</span>0
+        <span class="validation error"> Please enter a valid id</span>
         <span class="validation req"> This field is required</span>
       </p>
       <p class="password">

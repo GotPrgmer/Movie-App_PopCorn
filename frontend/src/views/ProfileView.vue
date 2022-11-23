@@ -1,22 +1,28 @@
 <template>
-  <div>
-    <div>
-      <h1>{{ this.info.nickname }}님 프로필</h1>
-      <div v-if="info?.profile_image"><img :src="`http://127.0.0.1:8000${info.profile_image}`" alt="내 사진"></div>
-      <!-- <input type="file" name="" accept="image/*" id="" @change="getImageFile"> -->
+  <div class="column-box">
+    <h1>{{ this.info.nickname }}님 프로필</h1>
+    <div v-if="info?.profile_image"><img :src="`http://127.0.0.1:8000${info.profile_image}`" alt="내 사진"></div>
+    <!-- <input type="file" name="" accept="image/*" id="" @change="getImageFile"> -->
+    
+    <span class="bedge-box">
       <BedgeGraph/>
-      <button v-if="!isMyProfile && !isFollowing" type="submit" @click="clickFollow">팔로우</button>
-      <button v-if="!isMyProfile && isFollowing" type="submit" @click="clickFollow">팔로우 취소</button>
+    </span>
 
-      <router-link v-if="isMyProfile" :to="{ name: 'FriendList', params: { username: username } }">
-        <p>
-          <input type="submit" value="친구들 영화 구경하기" />
-        </p>
-      </router-link>
-
+    <div class="followbtn">
+      <button v-if="!isMyProfile && !isFollowing" class="yellow-box" @click="clickFollow">팔로우</button>
+      <button v-if="!isMyProfile && isFollowing" class="yellow-box" @click="clickFollow">팔로우 취소</button>
     </div>
+
+    <router-link v-if="isMyProfile" :to="{ name: 'FriendList', params: { username: username } }">
+      <p>
+        <input type="submit" value="친구들 영화 구경하기" />
+      </p>
+    </router-link>
+
+    <div>
     <button @click="toMovie">영화</button> | 
     <button @click="toReview">리뷰</button>
+    </div>
 
     <article v-if="show">
       <CardList :movies="movies"/>

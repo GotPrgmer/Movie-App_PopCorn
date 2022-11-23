@@ -9,7 +9,7 @@
         <div :class="`review-like-heart ${articleId}`" ></div>
         <div class="likes" id="review-like-text">{{ likes }}</div>
       </a> -->
-      <button v-if="isMyReview" @click="editReview">리뷰 수정</button>  
+      <button v-if="isMyReview" @click="editReview">리뷰 수정</button> | 
       <button v-if="isMyReview" @click="deleteReview">리뷰 삭제</button>
     </aside>
 

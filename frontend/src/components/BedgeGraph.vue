@@ -1,34 +1,32 @@
 <template>
   <article class="bedge-graph">
-      <div class="q-pa-md">
-        뱃지입니다
-          <div class="progress">
-            <button class="progress-bar"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" href="#collapseExample1"
-              role="progressbar button" aria-label="Segment one" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">액션</button>
-            <button  data-bs-target="#collapseExample2" data-bs-toggle="collapse"
-              class="progress-bar bg-success" role="progressbar" aria-label="Segment two" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">범죄</button>
-            <button  data-bs-target="#collapseExample3" data-bs-toggle="collapse"
-              class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">스릴러</button>
-          </div>
-      </div>
+    <div class="q-pa-md">
+        <div class="progress">
+          <button class="progress-bar"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" href="#collapseExample1"
+            role="progressbar button" aria-label="Segment one" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">액션</button>
+          <button  data-bs-target="#collapseExample2" data-bs-toggle="collapse"
+            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">범죄</button>
+          <button  data-bs-target="#collapseExample3" data-bs-toggle="collapse"
+            class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">스릴러</button>
+        </div>
+    </div>
 
-      <div class="collapse" id="collapseExample1">
-        <div class="card card-body">
-          장르1 영화 넣을 거임
-        </div>
+    <div class="collapse" id="collapseExample1">
+      <div class="card card-body">
+        장르1 영화 넣을 거임
       </div>
-      <div class="collapse" id="collapseExample2">
-        <div class="card card-body">
-          장르2 영화 넣을 거임
-        </div>
+    </div>
+    <div class="collapse" id="collapseExample2">
+      <div class="card card-body">
+        장르2 영화 넣을 거임
       </div>
-      <div class="collapse" id="collapseExample3">
-        <div class="card card-body">
-          장르3 영화 넣을 거임
-        </div>
+    </div>
+    <div class="collapse" id="collapseExample3">
+      <div class="card card-body">
+        장르3 영화 넣을 거임
       </div>
-      뱃지입니다
-    </article>
+    </div>
+  </article>
 </template>
 
 <script>

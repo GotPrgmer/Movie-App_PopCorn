@@ -8,12 +8,18 @@ import GameResultView from '@/views/GameResultView'
 import FriendList from '@/views/FriendList'
 import GameView from '@/views/GameView'
 import ProfileView from '@/views/ProfileView'
+import CardCard from '@/components/CardCard'
 // import Store from '@/store/index/Store'
 
 Vue.use(VueRouter)
 // const isLogin = Store.getters.isLogin
 
 const routes = [
+  {
+    path: '/cardcard',
+    name: 'CardCard',
+    component: CardCard
+  },
   {
     path: '/',
     name: 'MainView',

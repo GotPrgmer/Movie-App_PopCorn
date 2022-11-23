@@ -1,39 +1,36 @@
 <template>
   <div>
     <div>
-      <h1>메인</h1>
-    </div>
-    <!-- <div>
-      {{userInfo}}
-    </div> -->
-    <div >
       <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: { username: username } }"> <ProfilePreview/> </router-link>
     </div>
-    <article class="box">
-      <router-link v-if="isLogin" :to="{ name: 'GameView' }"> 취향을 찾아보자 </router-link>
-      <router-link v-if="!isLogin" :to="{ name: 'LogInView' }"> 회원이 되어 함께 취향을 찾아봐요! </router-link>
-      
+    <article class="bannerBox">
+      <!-- <img id="banner-img" :src="`https://image.tmdb.org/t/p/w500/${bannerImg}`"> -->
+      <router-link v-if="isLogin" :to="{ name: 'GameView' }" id="profileRec"> 취향을 찾아보자 </router-link>
+      <router-link v-if="!isLogin" :to="{ name: 'LogInView' }" id="profileRec"><h1>회원이 되어 함께 취향을 찾아봐요!</h1></router-link>      
     </article>
-    <article>
-      <CardList v-for="movies in movieList" :key="movies.id" :movies="movies"/>
-    </article>
-    <article>
-      <CardCard/>
+    <!-- <span class="minititle">캬라멜 팝콘의 추천 영화</span> -->
+    <article class="movieBox" v-for="movies in movieList" :key="movies.id">
+      <CardList :movies="movies"/>
     </article>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import ProfilePreview from '@/components/ProfilePreview'
 import CardList from '@/components/CardList'
-import CardCard from '@/components/CardCard'
 
 export default {
   name: 'MainView',
   components: {
     ProfilePreview,
     CardList,
-    CardCard
+  },
+  data() {
+    return {
+      bannerImg: null,
+      movieListTitle: ['캬라멜 팝콘의 추천 영화', '현재 상영작', '내 친구들이 좋아하는 영화']
+    }
   },
   computed: {
     isLogin() {
@@ -44,23 +41,29 @@ export default {
     },
     username() {
       return this.$store.state.username
-    }
-  },
-  created() {
-    this.getMovies()
-    // this.getUserInfo()
+    },
+    
   },
   methods: {
     getMovies() {
       this.$store.dispatch('getTotalMovie')
       this.$store.dispatch('getPopularMovie')
+      console.log(this.$store.state.movieList)
     },
-    // getUserInfo() {
-    //   if (this.isLogin === true) {
-    //     this.$store.dispatch('getUserInfo')
-    //   }
-    // }
+    getBannerImg() {
+      const firstList = _.sample(this.movieList)
+      const secondList = _.sample(firstList)
+      this.bannerImg = secondList.backdrop
+      console.log(this.bannerImg)
+      const bannerBox = document.querySelector('.bannerBox')
+      bannerBox.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500/${secondList.backdrop}')`
+    }
   },
+  created() {
+    this.getMovies()
+    this.getBannerImg()
+  },
+  
 }
 
 </script>

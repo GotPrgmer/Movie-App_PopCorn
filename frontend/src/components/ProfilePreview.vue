@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <div class="">
-      <span>
-        {{nickname}}님 환영합니다.
-      </span>
-      <hr>
-      <span>
-        <BedgeGraph/>
-      </span>
-        <img :src="`http://127.0.0.1:8000${userImg}`" alt="">
-    </div>
+  <div class="column-box">
+    <p id="profileRec">{{nickname}}님 환영합니다 </p>
+    <img :src="`http://127.0.0.1:8000${userImg}`" alt="">
+    <span class="bedge-box">
+      <BedgeGraph/>
+    </span>
   </div>
 </template>
 

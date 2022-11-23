@@ -1,18 +1,77 @@
 $primary: $main-yellow;
+$caramel: $main-caramel;
+$dark: $main-dark;
 $complementary: #5a3b5d;
 $lightsep: rgb(220, 220, 220);
 
-body {
-  padding-top: 64px;
+// 메인페이지
+@font-face {
+  font-family: 'CaramelFont';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff'),
+       url(../font/Kalam-Regular.ttf) format('truetype'),
+       url(../font/YeonSung-Regular.ttf) format('truetype');
+  // font-weight: normal;
+  // font-style: normal;
+}
+@font-face {
+  font-family: 'PopcornFont';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'),
+       url(../font/YeonSung-Regular.ttf) format('truetype'),
+       url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff'),;
+}
+@font-face {
+  font-family: 'MainFont';
+  src: url(../font/YeonSung-Regular.ttf) format('truetype'),
+       url(../font/Kalam-Regular.ttf) format('truetype'),
+       url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
 }
 
-.box {
-  border: 1px solid black;
-  width: 90%;
-  height: 50px;
-  padding: 50px;
-  margin: 50px;
+body {
+  background: white;
+  color: black;
+  font-family: 'CaramelFont';
+  // width: 100vw;
+  // height: 1888px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // margin-top: 16;
+  // overflow: hidden;
+}
+.id {
+  width: 100vw;
+}
+.minititle {
+  font-family: 'CaramelFont';
+  font-weight: bolder;
+  font-size: 25px;
+  color: $dark;
+  display: relative;
+  left: 10%;
+}
+a {
+  text-decoration:none;
+  color: $caramel;
+}
+a:hover {
+  color: $caramel;
+}
+#profileRec {
+  font-family: 'CaramelFont';
+  font-size: 35px;
+  text-shadow:2px 2px 6px $primary;
+}
+.bannerBox {
+  width: 100vw;
+  height: 550px;
+  padding: 0px;
+  margin-top: 0px;
   color: $main-caramel;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   
 //   .box_child {
 //     border: 1px dotted red;
@@ -24,41 +83,78 @@ body {
 //     }
 //   }
 }
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.movieBox {
+  width: 90vw;
+  margin-left: 5%;
 }
 
-// nav {
-//   padding: 30px;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #E0A21C;
-//     }
-//   }
+// #app {
+//   font-family: Avenir, Helvetica, Arial, sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   text-align: center;
+//   color: #2c3e50;
 // }
 
-.card_container {
+// 영화 목록의 포스터
+.swiper-container {
   display: flex;
   flex-direction: row;
-  // justify-content: space-evenly;
+  justify-content: space-evenly;
 }
-
-
+.swiper-slide {
+  text-align:center;
+  display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+  align-items:center; /* 위아래 기준 중앙정렬 */
+  justify-content:center; /* 좌우 기준 중앙정렬 */
+}
+.swiper-button-next::after,
+	.swiper-button-prev::after {
+		display: none;
+	}
+// 영화 디테일
+.movie-detail {
+  display: flex;
+  display: absolute;
+  top: 0;
+  flex-direction: column;
+  align-items: center; /* 위아래 기준 중앙정렬 */
+  justify-content: center; /* 좌우 기준 중앙정렬 */
+  font-family: 'PopcornFont';
+}
+.movie-title{
+  margin: 30px;
+}
+.backdropImg {
+  display: absolute;
+  z-index: -2;
+  width: 100vw;
+}
 .actor {
   width: 600px;
   height: 500px;
   object-fit: contain;
 }
 
+.column-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.bedge-box {
+  width: 80vh;
+  height: 25px;
+}
+.q-pa-md{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.followbtn {
+  // display: absolute;
+  // top: 1000px;
+}
 #yellow-box {
   display: block;
   color: $complementary;
@@ -70,7 +166,7 @@ body {
   border-radius: 3px;
   padding: 10px;
   width: 100px;
-  margin: 0 auto;
+  margin: 20px;
   transition: background 0.3s;
   &:hover {
     background: white;

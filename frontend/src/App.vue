@@ -1,44 +1,41 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
-      <span> 검색  | </span>
-      <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: { username: username } }">프로필 사진 |  </router-link>
-      <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }">Sign Up | </router-link>
-      <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">Log In | </router-link>
-      <button v-if="isLogin" @click="logOut">Log Out</button>
-
-      <!-- <body id="body" class="light-mode">
-      <h1>Dark &amp; Light Mode Switcher</h1>
-      
-      <div class="btn-group btn-group-toggle mb-3">
-        <button id="light" type="button" class="active btn pr-4 pl-4 border-0" onclick="toggleLight()">Light</button>
-        <button id="dark" type="button" class="btn pr-4 pl-4 border-0" onclick="toggleDark()">Dark</button>   
+    <nav id="navbar">
+      <div id="bubbleWrapper">
+        <router-link :to="{ name: 'MainView' }"><div id="bubble1" class="bubble"><span class="icon"><i class="fas fa-home"></i></span></div></router-link>
+        <div id="bubble2" class="bubble"><span class="icon"><i class="fa fa-search"></i></span></div>
+        <div id="bubble3" class="bubble"><span class="icon"><i class="fas fa-user"></i></span></div>
+        <div v-if="isLogin" id="bubble4" class="bubble"><span class="icon"><i class="fa fa-trash-o"></i></span></div>
+        <div v-if="!isLogin" id="bubble4" class="bubble"><span class="icon"><i class="fa fa-mouse-pointer"></i></span></div>
       </div>
-      
-      <p>Press the button above to toggle.</p>
-    </body> -->
-
+      <div id="menuWrapper">
+        <!-- 홈 -->
+        <router-link :to="{ name: 'MainView' }">
+          <div id="menu1" class="menuElement" @click="move('1', '50px', '#ffcc80')"><i class="fas fa-home"></i></div>
+        </router-link>
+        <!-- 검색 -->
+        <div id="menu2" class="menuElement" @click="move('2', '150px', '#81d4fa')"><i class="fa fa-search"></i></div>
+        <!-- 로그인 여부에 따라 회원가입, 프로필 -->
+        <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }">
+          <div id="menu3" class="menuElement" @click="move('3', '250px', '#c5e1a5')"><i class="fas fa-user"></i></div>
+        </router-link>
+        <router-link v-if="isLogin" :to="{ name: 'ProfileView', params: { username: username } }">
+          <div id="menu3" class="menuElement" @click="move('3', '250px', '#c5e1a5')"><i class="fas fa-user"></i></div>
+        </router-link>
+        <!-- 로그인 여부에 따라 로그인, 로그아웃 -->
+        <div id="menu4" class="menuElement" v-if="isLogin" @click="logOut"><i class="fa fa-trash"></i></div>
+        <router-link v-if="!isLogin" :to="{ name: 'LogInView' }">
+          <div id="menu4" class="menuElement" @click="move('4', '350px', '#ce93d8')"><i class="fa fa-mouse-pointer"></i></div>
+        </router-link>
+      </div>
     </nav>
-    <!-- <nav class="navbar navbar-dark bg-dark fixed-top">
-      <div class="container-fluid justify-content-start">
-        <router-link :to="{ name: 'MainView' }"><img src="../src/assets/logo-nav.png" alt="홈으로"></router-link>
-        <router-link v-if="isLogin" :to="{ name: 'ProfileView' }" style="color:white; margin-left:10px;">프로필 사진 |  </router-link>
-        <router-link v-if="!isLogin" :to="{ name: 'SignUpView' }" style="color:white; margin-left:10px;">Sign Up | </router-link>
-        <router-link v-if="!isLogin" :to="{ name: 'LogInView' }" style="color:white; margin-left:10px;">Log In | </router-link>
-        <button v-if="isLogin" @click="logOut" style="color:white; margin-left:10px;">Log Out</button>
-        <form class="d-flex ms-5" role="search">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </nav> -->
     <router-view/>
   </div>
 </template>
 
 <script>
 import "./assets/css/index.scss"
+import gsap from "gsap"
 
 export default {
   name: 'App',
@@ -65,22 +62,23 @@ export default {
         this.$router.push({ name: 'LogInView'})
       }
     },
+    move(id, position, color) {
+      var tl = gsap.timeline();
+      // tl.to("#bgBubble", {duration: 0.15, bottom: "-30px", ease: "ease-out"}, 0)
+      tl.to("#bubble1", {duration: 0.1, y: "-150%", boxShadow: 'none', ease: "ease-out",}, 0)
+        .to("#bubble2", {duration: 0.1, y: "-150%", boxShadow: 'none', ease: "ease-out",}, 0)
+        .to("#bubble3", {duration: 0.1, y: "-150%", boxShadow: 'none', ease: "ease-out",}, 0)
+        .to("#bubble4", {duration: 0.1, y: "-150%", boxShadow: 'none', ease: "ease-out",}, 0)
+        .to(".icon", {duration: 0.05, opacity: 0, ease: "ease-out",}, 0)
+        // .to("#bgBubble", {duration: 0.2, left: position, ease: "ease-in-out"}, 0.1)
+        // .to("#bgBubble", {duration: 0.15, bottom: "-50px", ease: "ease-out"}, '-=0.2')
+        .to(`#bubble${id}`, {duration: 0.15, y: "0%", opacity: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)', ease: "ease-out"}, '-=0.1')
+        .to(`#bubble${id}> span`, {duration: 0.15, y: "0%", opacity: 0.7, ease: "ease-out"}, '-=0.1')
+        .to("#navbarContainer", {duration: 0.3, backgroundColor: color, ease: "ease-in-out"}, 0)
+        // .to("#bg", {duration: 0.3, backgroundColor: color, ease: "ease-in-out"}, 0)
+        // .to("#bgBubble", {duration: 0.3, backgroundColor: color, ease: "ease-in-out"}, 0)
+    }
   }
-//     toggleLight() {
-//     var body = document.getElementById("body");
-//     var currentClass = body.className;
-//     body.className = currentClass == "dark-mode" ? "light-mode" : "light-mode";
-//     },
-//     toggleDark() {
-//     var body = document.getElementById("body");
-//     var currentClass = body.className;
-//     body.className = currentClass == "light-mode" ? "dark-mode" : "dark-mode";
-//     }
-//   },
-// $(".btn-group > .btn").click(function(){
-//   $(".btn-group > .btn").removeClass("active");
-//   $(this).addClass("active");
-// });
 }
 </script>
 <style>
