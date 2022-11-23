@@ -1,7 +1,10 @@
 <template>
   <div class="article-list">
     <p>이 영화에 대한 리뷰들을 소개합니다</p>
-    <ReviewListItem v-for="article in articles" :key="article.id" :article="article"/>
+    {{articles}}
+    <div v-if="articles">
+      <ReviewListItem v-for="article in articles" :key="article.id" :article="article"/>
+    </div>
     <hr>
   </div>
 </template>

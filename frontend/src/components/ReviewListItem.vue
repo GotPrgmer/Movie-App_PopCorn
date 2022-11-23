@@ -1,15 +1,16 @@
 <template>
   <article>
+    {{articles}}
     <aside v-if="!isedit">
       <p style="font-weight:bold;">{{ article?.review_title }}</p>
       <p>{{ article?.review_content }}</p>
-      <router-link :to="{ name: 'ProfileView', params: { username: article.username } }">{{ article?.username }}</router-link>
+      <router-link :to="{ name: 'ProfileView', params: { username: username } }">{{ article?.username }}</router-link>
       <p>마지막 수정 : {{ article?.updated_at }}</p>
-      <a v-if="isLogin" class="review-like-button" @click="clickLikeBtn">
+      <!-- <a v-if="isLogin" class="review-like-button" @click="clickLikeBtn">
         <div :class="`review-like-heart ${articleId}`" ></div>
         <div class="likes" id="review-like-text">{{ likes }}</div>
-      </a>
-      <button v-if="isMyReview" @click="editReview">리뷰 수정</button> | 
+      </a> -->
+      <button v-if="isMyReview" @click="editReview">리뷰 수정</button>  
       <button v-if="isMyReview" @click="deleteReview">리뷰 삭제</button>
     </aside>
 
@@ -39,8 +40,9 @@ export default {
     return {
       articleId : this.article.id,
       articles: this.$store.state.articles,
+      // username: this.article.username,
 
-      likes: this.article.like_users.length,
+      // likes: this.article.like_users.length,
       isClicked: false,
       userLikedList: [],
 
@@ -50,60 +52,63 @@ export default {
   },
   computed: {
     isLogin() {
-      console.log(this.article)
+      // console.log(this.$store.state.username)
       return this.$store.getters.isLogin
     },
+    username() {
+      return this.article.username
+    }
   },
   methods: {
-    clickLikeBtn(event) {
-      const heart = event.target.children[0]
-      if (this.isClicked) {
-        // 버튼 컬러 변환 좋아요 > 취소
-        heart.removeAttribute('id');
-        this.isClicked = false
-        this.isClicked = !this.isClicked
-        // 화면에 보여지는 데이터 변화
-        this.likes -= 1
+    // clickLikeBtn(event) {
+    //   const heart = event.target.children[0]
+    //   if (this.isClicked) {
+    //     // 버튼 컬러 변환 좋아요 > 취소
+    //     heart.removeAttribute('id');
+    //     this.isClicked = false
+    //     this.isClicked = !this.isClicked
+    //     // 화면에 보여지는 데이터 변화
+    //     this.likes -= 1
 
-      } else {
-        // 버튼 컬러 변환 취소 > 좋아요
-        heart.setAttribute('id', 'heart')
-        // document.querySelector('.review-like-button').id = 'button';
-        this.isClicked = true
-        // 화면에 보여지는 데이터 변화
-        this.likes += 1
-      }
-    },
-    getUserLikedList() {
-      axios({
-        method: 'get',
-        url: `${API_URL}/articles/onepersonlike/${this.$store.state.username}/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        }
-      })
-        .then((res) => {
-          for (const review of res.data.like_reviews) {
-            this.userLikedList.push(review.id)
-          }
-          console.log('유저가 좋아요한 리뷰들 가져옴')
-          console.log(this.userLikedList)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-      },
-    isLiked() {
-      const reviewId = this.article.id
-      const likes = this.userLikedList
-      if (likes.includes(reviewId)) {
-        console.log('좋아요한 게시물이다')
-        this.isClicked = true
-        const articleId = this.articleId
-        const inom = document.querySelector(`${articleId}`)
-        inom.setAttribute('id', 'heart')
-      }
-    },
+    //   } else {
+    //     // 버튼 컬러 변환 취소 > 좋아요
+    //     heart.setAttribute('id', 'heart')
+    //     // document.querySelector('.review-like-button').id = 'button';
+    //     this.isClicked = true
+    //     // 화면에 보여지는 데이터 변화
+    //     this.likes += 1
+    //   }
+    // },
+    // getUserLikedList() {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/articles/onepersonlike/${this.$store.state.username}/`,
+    //     headers: {
+    //       Authorization: `Token ${this.$store.state.token}`
+    //     }
+    //   })
+    //     .then((res) => {
+    //       for (const review of res.data.like_reviews) {
+    //         this.userLikedList.push(review.id)
+    //       }
+    //       console.log('유저가 좋아요한 리뷰들 가져옴')
+    //       console.log(this.userLikedList)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    //   },
+    // isLiked() {
+    //   const reviewId = this.article.id
+    //   const likes = this.userLikedList
+    //   if (likes.includes(reviewId)) {
+    //     console.log('좋아요한 게시물이다')
+    //     this.isClicked = true
+    //     const articleId = this.articleId
+    //     const inom = document.querySelector(`${articleId}`)
+    //     inom.setAttribute('id', 'heart')
+    //   }
+    // },
     editReview() {
       this.isedit = true
       console.log(this.isedit)
@@ -129,33 +134,33 @@ export default {
     },
   },
   created() {
-    this.getUserLikedList()
-    const nihao = document.querySelector(`${articleId}`)
-    console.log(nihao)
+    // this.getUserLikedList()
+    // const nihao = document.querySelector(`${articleId}`)
+    // console.log(nihao)
   },
   mounted() {
-    this.isLiked()
+    // this.isLiked()
   },
-  watch: {
-    likes() {
-      axios({
-        method: 'post',
-        url: `${API_URL}/articles/clicklike/${this.$store.state.userId}/${this.article.id}/`,
-        // data: { likes },
-        headers: {
-         Authorization: `Token ${this.$store.state.token}`
-        },
-      })
-        .then((res) => {
-          console.log('게시글 좋아요 성공')
-          this.isLiked()
-        })
-        .catch((err) => {
-          console.log(err)
-          console.log('게시글 좋아요 실패')
-        })
-    }
-  }
+  // watch: {
+  //   likes() {
+  //     axios({
+  //       method: 'post',
+  //       url: `${API_URL}/articles/clicklike/${this.$store.state.userId}/${this.article.id}/`,
+  //       // data: { likes },
+  //       headers: {
+  //        Authorization: `Token ${this.$store.state.token}`
+  //       },
+  //     })
+  //       .then((res) => {
+  //         console.log('게시글 좋아요 성공')
+  //         this.isLiked()
+  //       })
+  //       .catch((err) => {
+  //         console.log(err)
+  //         console.log('게시글 좋아요 실패')
+  //       })
+  //   }
+  // }
 }
 </script>
 

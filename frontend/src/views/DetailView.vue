@@ -34,7 +34,8 @@
       <CreateView :movie="movie"/>
     </aside>
     <aside v-if="!isCreate">
-      <ArticleView v-if="isLogin" :movieId="movie.id"/>
+      <!-- <ArticleView v-if="isLogin" :movieId="movie.id"/> -->
+      <ReviewListItem v-for="review in articles" :key="review.id" :article="review"/>
     </aside>
     <aside>
       <VideoList/>
@@ -45,18 +46,21 @@
 
 <script>
 import axios from 'axios'
-import ArticleView from '@/views/ArticleView'
+// import ArticleView from '@/views/ArticleView'
 import CreateView from '@/views/CreateView'
 import VideoList from '@/components/VideoList'
+import ReviewListItem from '@/components/ReviewListItem'
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'DetailView',
   components: {
-    ArticleView,
+    // ArticleView,
     VideoList,
     CreateView,
+    ReviewListItem
   },
   data() {
     return {
@@ -64,10 +68,14 @@ export default {
       isClicked: false,
       movie: {},
       actors: [],
-      likes: 0
+      likes: 0,
+      // reviews: null,
     }
   },
   computed: {
+    articles() {
+      return this.$store.state.articles
+    },
     isLogin() {
       return this.$store.getters.isLogin
     },
@@ -143,11 +151,11 @@ export default {
           console.log(err)
         })
     },
-    // getArticles() {
-    //   if (this.isLogin === true) {
-    //     this.$store.dispatch('getArticles', this.$route.params.id)
-    //   }
-    // },
+    getArticles() {
+      if (this.isLogin === true) {
+        this.$store.dispatch('getArticles', this.$route.params.id)
+      }
+    },
     getLikes() {
       axios({
         method: 'get',
@@ -172,9 +180,11 @@ export default {
     }
   },
   created() {
+    console.log('되고있음')
     this.getMovieDetail()
     this.getArticles()
     this.getLikes()
+    console.log(this.$store.state.username)
   },
 }
 </script>

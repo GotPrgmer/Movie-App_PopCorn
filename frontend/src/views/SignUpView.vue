@@ -80,7 +80,8 @@ export default {
       this.$store.dispatch('signUp', payload)
       .then((res) => {
             this.$store.dispatch('getUserInfo', this.username)
-            console.log(1)
+            console.log(this.$store.state.username)
+            console.log(this.$store.state.nickname)
           })
     },
     previewFile() {
