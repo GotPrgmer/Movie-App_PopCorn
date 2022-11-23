@@ -64,6 +64,7 @@ const routes = [
     path: '/profile/:username',
     name: 'ProfileView',
     component: ProfileView,
+    props: true,
   },
   // {
   //   path: '/about',
