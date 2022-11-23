@@ -188,3 +188,4 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+OLD_PASSWORD_FIELD_ENABLED = True

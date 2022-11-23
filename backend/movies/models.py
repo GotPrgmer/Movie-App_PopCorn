@@ -9,8 +9,9 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     movietitle = models.CharField(max_length=100)
+    original_title = models.CharField(max_length=100)
     actors = models.TextField()
-    director = models.CharField(max_length=20)
+    director = models.CharField(max_length=30)
     rate = models.FloatField()
     released_date = models.DateField(auto_now=False, auto_now_add=False)
     overview = models.TextField()

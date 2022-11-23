@@ -1,18 +1,21 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from rest_framework import status
+
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, get_list_or_404
-from .serializers import MovieSerializer, WatchSerializer, OneMovieChosenSerializer, SpecificMovieReviewSerializer
-from articles.serializers import ReviewSerializer
-from .models import Movie
-from articles.models import Review
 from django.http import JsonResponse
+from django.db.models import Q
+from django.shortcuts import render
+
+from articles.serializers import ReviewSerializer
+from articles.models import Review
+
+from .serializers import MovieSerializer, WatchSerializer, OneMovieChosenSerializer, SpecificMovieReviewSerializer
+from .models import Movie
+
 
 
 
@@ -20,21 +23,21 @@ from django.http import JsonResponse
 #전체영화를 평점순으로
 @api_view(['GET'])
 def total(request):
-    movies = Movie.objects.all().order_by('-rate')
+    movies = Movie.objects.all().order_by('-rate')[:10]
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
 #전체영화를 개봉순, 평점순으로
 @api_view(['GET'])    
 def nowplaying(request):
-    movies = Movie.objects.all().order_by('-released_date','-rate')
+    movies = Movie.objects.all().order_by('-released_date','-rate')[:10]
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
 #전체영화를 장르별 평점순, 개봉일자 순으로
 @api_view(['GET'])    
 def moviebygenre(request,genre_id):
-    movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')
+    movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')[:10]
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
@@ -43,6 +46,15 @@ def moviebygenre(request,genre_id):
 def moviedetail(request, movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
     serializer = MovieSerializer(movie)
+    return Response(serializer.data)
+
+
+#한글 검색 안됨
+@api_view(['GET'])
+def searchmovie(request, keyword):
+    movie = Movie.objects.all().filter(Q(movietitle__contains=keyword)|Q(original_title_contains=keyword))[:10]
+    print(movie)
+    serializer = MovieSerializer(movie,many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -71,11 +83,8 @@ def moviereviews(request,movie_id):
         #한영화에 해당되는 모든 리뷰들 다 보여주기
         reviews = Review.objects.filter(movie_id=movie_id).order_by('-updated_at')
         # reviews = Review.objects.()
-        # print(len(reviews))
         username_list = []
         for i in reviews:
-
-            print(i.user_id)
             user = User.objects.get(pk=i.user_id)
             likeusers = []
             for j in i.like_users.all():
@@ -146,11 +155,3 @@ def movieclicklike(request,user_id,movie_id):
         'likecnt': movie.userslike.count()
     }
     return JsonResponse(context)
-
-#     article = get_object_or_404(Article, pk=article_pk)
-#     serializer = CommentSerializer(data=request.data)
-#     if serializer.is_valid(raise_exception=True):
-#         serializer.save(article=article)
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-

@@ -71,7 +71,7 @@ for key, value in genre.items():
     }
     json_data.append(e)
 
-for i in range(1,10):
+for i in range(1,200):
   params = {"api_key": '94de22f213abfdca42d59ca86f1deb34',
             "language": "ko-KR",
             "page" : i,
@@ -93,6 +93,7 @@ for i in range(1,10):
 
       
       movietitle = obj.get('title','')
+      original_title = obj.get('original_title','')
       actors = obj.get('actors',[])
       rate = obj.get('vote_average',0)
 
@@ -138,6 +139,7 @@ for i in range(1,10):
         "model": "movies.movie",
         "fields" : {
         'movietitle' : movietitle,
+        'original_title' : original_title,
         'actors' : actors,
         'director' : director,
         'rate' : rate,
@@ -148,11 +150,11 @@ for i in range(1,10):
         'genres': genre_ids,
         }
       }
-      if '' in e['fields'].values() or e['fields']['released_date'] == '1900-01-01':
+      if '' in e['fields'].values() or e['fields']['released_date'] == '1900-01-01' or e['fields']['backdrop'] == None:
         continue
       else:
           json_data.append(e)
-  with open("./movies/fixtures/movie_popular.json", "w", encoding="utf-8") as w:
+  with open("./movies/fixtures/totalmovie.json", "w", encoding="utf-8") as w:
           json.dump(json_data, w, indent="\t", ensure_ascii=False)
 
 
