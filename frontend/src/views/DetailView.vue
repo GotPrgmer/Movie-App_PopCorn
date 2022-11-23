@@ -1,45 +1,47 @@
 <template>
   <div>
-    <article>
-      <h1>Detail</h1>
-      <img :src="`https://image.tmdb.org/t/p/w500/${movie?.posterpath}`" :alt="movie.title">
-      <p>영화 제목 : {{ movie?.movietitle }}</p>
-      <a class="movie-like-button" v-if="isLogin" @click="clickLikeBtn">
-        <div class="heart" ></div>
-        <div class="likes">{{ likes }}</div>
-      </a>
+    <img class="backdropImg" :src="`https://image.tmdb.org/t/p/w500/${movie?.backdrop}`" :alt="movie.title">
+    <article class="movie-detail">
+      <div>
+        <h1 class="movie-title">{{ movie?.movietitle }}</h1>
+        <a class="movie-like-button" v-if="isLogin" @click="clickLikeBtn">
+          <div class="heart" ></div>
+          <div class="likes">{{ likes }}</div>
+        </a>
+
+      </div>
       <p>평점 : {{ movie?.rate }}</p>
       <p>줄거리 : {{ movie?.overview }}</p>
       <p>개봉일 : {{ movie?.released_date }}</p>
       <p>감독 : {{ movie?.director }}</p>
       <p v-if="actors.length">출연진 : {{ actors }}</p>
       <hr>
+      <button  id="yellow-box"
+        v-if="(isLogin && !isCreate)"
+        @click="createMethod" 
+      >리뷰 작성하기</button>
+      <button  id="yellow-box"
+        v-if="!isLogin && !isCreate" 
+        @click="createMethod"
+      >로그인하고 리뷰 쓰기</button>
+      <button id="yellow-box"
+        v-if="isCreate"
+        @click="createMethod">
+        리뷰 보기
+      </button>
+
+      <aside v-if="isCreate">
+        <CreateView :movie="movie"/>
+      </aside>
+        <!-- <ArticleView v-if="isLogin" :movieId="movie.id"/> -->
+      <aside v-if="!isCreate">
+        <ReviewListItem v-for="review in articles" :key="review.id" :article="review"/>
+      </aside>
     </article>
 
-    <button 
-      v-if="(isLogin && !isCreate)"
-      @click="createMethod" 
-    >리뷰 작성하기</button>
-    <button 
-      v-if="!isLogin && !isCreate" 
-      @click="createMethod"
-    >로그인하고 리뷰 쓰기</button>
-    <button
-      v-if="isCreate"
-      @click="createMethod">
-      리뷰 보기
-    </button>
-
-    <aside v-if="isCreate">
-      <CreateView :movie="movie"/>
-    </aside>
-    <aside v-if="!isCreate">
-      <!-- <ArticleView v-if="isLogin" :movieId="movie.id"/> -->
-      <ReviewListItem v-for="review in articles" :key="review.id" :article="review"/>
-    </aside>
-    <aside>
+    <!-- <aside>
       <VideoList/>
-    </aside>
+    </aside> -->
 
   </div>
 </template>

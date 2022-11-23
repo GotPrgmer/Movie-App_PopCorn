@@ -1,16 +1,19 @@
 <template>
-  <swiper class="swiper card_container" :options="swiperOption">
-     <swiper-slide
-        class="swiper-slide"
-        v-for="movie in movies"
-        :key="movie.id"
-      >
-        <CardListItem :movie="movie"/>
-      </swiper-slide>
-      <!-- <div class="swiper-pagination" slot="pagination"></div> -->
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-  </swiper>
+  <div>
+    <!-- <span class="minititle">{{subtitle}}</span> -->
+    <swiper class="swiper card_container" :options="swiperOption">
+      <swiper-slide
+          class="swiper-slide"
+          v-for="movie in movies"
+          :key="movie.id"
+        >
+          <CardListItem :movie="movie"/>
+        </swiper-slide>
+        <!-- <div class="swiper-pagination" slot="pagination"></div> -->
+        <div class="swiper-button-prev" slot="button-prev"></div>
+        <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+  </div>
 </template>
 
 <script>
@@ -28,13 +31,16 @@ export default {
   },
   props: {
     movies: Array,
+    subtitle: String,
   },
   data() {
     return {
       swiperOption: { 
         slidesPerView: 2,
-        spaceBetween: 0, 
-        // loop: true, 
+        spaceBetween: 200, 
+        resistance : false,
+        watchOverflow : true,
+        loop: true,
         mousewheel: true,
         navigation: { 
             nextEl: '.swiper-button-next', 

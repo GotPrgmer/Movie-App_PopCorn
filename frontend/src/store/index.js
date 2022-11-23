@@ -54,7 +54,7 @@ export default new Vuex.Store({
       state.movieList.totalMovie = totalMovie
     },
     GET_POPULAR_MOVIE(state, popularMovie) {
-      state.movieList.popularMovie = popularMovie.splice(11, 10)
+      state.movieList.popularMovie = popularMovie
     },
     GET_USER_INFO(state, userInfo) {
       // console.log(userInfo.profile_image)
