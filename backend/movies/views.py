@@ -19,18 +19,20 @@ from .models import Movie
 
 
 
+
 # Create your views here.
-#전체영화를 평점순으로
 @api_view(['GET'])
 def total(request):
-    movies = Movie.objects.all().order_by('-rate')[:10]
+    movies = Movie.objects.all().order_by('-released_date')[:10]
+    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
 #전체영화를 개봉순, 평점순으로
 @api_view(['GET'])    
 def nowplaying(request):
-    movies = Movie.objects.all().order_by('-released_date','-rate')[:10]
+    movies = Movie.objects.all().order_by('-rate')[:10]
+    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
@@ -38,6 +40,7 @@ def nowplaying(request):
 @api_view(['GET'])    
 def moviebygenre(request,genre_id):
     movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')[:10]
+    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
@@ -53,7 +56,7 @@ def moviedetail(request, movie_id):
 @api_view(['GET'])
 def searchmovie(request, keyword):
     movie = Movie.objects.all().filter(Q(movietitle__contains=keyword)|Q(original_title_contains=keyword))[:10]
-    print(movie)
+    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movie,many=True)
     return Response(serializer.data)
 
@@ -155,3 +158,4 @@ def movieclicklike(request,user_id,movie_id):
         'likecnt': movie.userslike.count()
     }
     return JsonResponse(context)
+

@@ -8,6 +8,7 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
+    adult = models.BooleanField()
     movietitle = models.CharField(max_length=100)
     original_title = models.CharField(max_length=100)
     actors = models.TextField()
