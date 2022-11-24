@@ -101,12 +101,12 @@ def mygenrescore(request,username):
         score.users = user
         genre = Genre.objects.get(genre_name = genre_item[0])
         score.genres = genre
-        score.score = genre_item[1][0]
+        score.score = genre_item[1]
         score.save()
         context = {
            'success':'성공',
         }
-        return JsonResponse(context, safe=False)
+      return JsonResponse(context, safe=False)
         # return Response(context, status=status.HTTP_201_CREATED)
       # print(serializer)
       # if serializer.is_valid(raise_exception=True):
@@ -117,10 +117,12 @@ def mygenrescore(request,username):
     genre_dic = dict(request.data)
     for genre_item in genre_dic.items():
         genre = Genre.objects.get(genre_name = genre_item[0])
-        score = Score(user.id,genre.id)
+        score = Score.objects.get(users=user,genres=genre)
         score.users = user
         score.genres = genre
-        score.score = genre_item[1][0]
+        # score.score = 5
+        print(genre_item)
+        score.score = int(genre_item[1])
         score.save()
         context = {
            'success':'성공',
