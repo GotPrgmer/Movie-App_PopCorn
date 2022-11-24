@@ -58,7 +58,7 @@ export default {
       this.$store.dispatch('getUserMovie')
     },
     getImageFile(event) {
-      console.log(event)
+      // console.log(event)
       // this.$store.dispatch('getImageFile', event)
     },
     clickFollow() {

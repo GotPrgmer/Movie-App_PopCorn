@@ -53,7 +53,7 @@ export default {
           .catch((err) => {
             console.log(err)
             console.log('게시글 수정 실패')
-            console.log(this.$route.params.id)
+            // console.log(this.$route.params.id)
           })
       }
     }

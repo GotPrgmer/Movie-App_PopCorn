@@ -17,7 +17,7 @@
     </div>
     <div v-if="!isMyProfile && isFollowing" @click="clickFollow">
       <p>
-        <input class="mt-4" type="submit" value="팔로우" />
+        <input class="mt-4" type="submit" value="팔로우취소" />
       </p>
     </div>
 
@@ -29,17 +29,18 @@
 
     <div class="d-flex flex-row justify-content-around m-3">
       <!-- <span style="margin:0px; width:50px;"> -->
-    <button class="item" id="yellow-box" @click="toMovie" style="display:inline-block;">영화</button>
+    <button class="item" id="yellow-box" @click="toMovie" style="display:inline-block;">내 영화</button>
 
       <!-- </span> -->
       <!-- <span style="margin:0px; width:50px;"> -->
-    <button class="item" id="yellow-box" @click="toReview" style="display:inline-block;">리뷰</button>
+    <button class="item" id="yellow-box" @click="toReview" style="display:inline-block;">내 리뷰</button>
 
       <!-- </span> -->
     </div>
 
-    <article class="" v-if="show">
-      <CardList :movies="movies"/>
+    <article class="d-flex flex-row justify-content-center flex-wrap" v-if="show">
+      <!-- <CardList :movies="movies"/> -->
+      <CardListItem class="mymoviecard" v-for="movie in movies" :key="movie.id" :movie="movie"/>
     </article>
     <article class="" v-if="!show">
       <ReviewListItem v-for="review in reviews" :key="review.id" :article="review"/>
@@ -57,7 +58,7 @@
 
 <script>
 import axios from 'axios'
-import CardList from '@/components/CardList.vue'
+import CardListItem from '@/components/CardListItem.vue'
 import ReviewListItem from '@/components/ReviewListItem'
 import BedgeGraph from '@/components/BedgeGraph.vue'
 import FriendList from '@/views/FriendList.vue'
@@ -68,7 +69,7 @@ export default {
 name: 'ProfileView',
 components: {
     BedgeGraph,
-    CardList,
+    CardListItem,
     ReviewListItem,
     FriendList,
   },
@@ -193,5 +194,8 @@ created() {
 </script>
 
 <style>
-
+.mymoviecard{
+  width: 250px;
+  height: 400px;
+}
 </style>

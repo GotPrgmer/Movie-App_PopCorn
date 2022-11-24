@@ -19,6 +19,7 @@ export default new Vuex.Store({
     movieList: {
       totalMovie: ['영화1', '영화2', '전체영화'],
       popularMovie:['인기영화', '인기영화', '인기영화'],
+      genreMovies:[]
     },
 
     // 유저 정보
@@ -126,6 +127,11 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err)
         })
+    },
+    saveGenreMovie(context, genreMovies) {
+      console.log('왔다')
+      
+      context.state.movieList.genreMovies = genreMovies
     },
     getUserInfo(context, username) {
       axios({
@@ -240,7 +246,7 @@ export default new Vuex.Store({
         .then((res) => {
           // console.log(res)
           // console.log(JSON.parse(res.config.data).username)
-          console.log('성공')
+          // console.log('성공')
         })
         .catch((err) => {
           console.log(err,'실패')
@@ -269,7 +275,7 @@ export default new Vuex.Store({
         })
     },
     async signUp(context, payload) {
-      console.log(payload)
+      // console.log(payload)
       const formData = new FormData();
             
       formData.append('username', payload.username);

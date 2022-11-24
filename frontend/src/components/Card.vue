@@ -28,7 +28,7 @@ export default {
     movie: Object,
   },
   mounted() {
-    console.log(this.$refs.card.offsetWidth)
+    // console.log(this.$refs.card.offsetWidth)
     this.width = this.$refs.card.offsetWidth;
     this.height = this.$refs.card.offsetHeight;
   },

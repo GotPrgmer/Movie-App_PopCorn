@@ -80,14 +80,14 @@ export default {
       this.$store.dispatch('signUp', payload)
       .then((res) => {
             this.$store.dispatch('getUserInfo', this.username)
-            console.log(this.$store.state.username)
-            console.log(this.$store.state.nickname)
+            // console.log(this.$store.state.username)
+            // console.log(this.$store.state.nickname)
           })
     },
     previewFile() {
       // 1. axios 요청 보낼 데이터
       this.profileimg = this.$refs.profileimg.files[0]
-      console.log(this.$refs.profileimg.files[0])
+      // console.log(this.$refs.profileimg.files[0])
       // 2. 이미지 미리보기
   //     const preview = document.querySelector('img');
   //     const file = document.querySelector('input[type=file]').files[0];

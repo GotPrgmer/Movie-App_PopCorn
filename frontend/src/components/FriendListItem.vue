@@ -3,19 +3,21 @@
     <router-link :to="{ name: 'ProfileView', params: { username: follow } }">
     <h1>{{follow}}</h1>
     </router-link>
-    <CardList :movies="movies"/>
+    <div class="d-flex flex-row justify-content-center">
+      <CardListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>
+    </div>
   </div>
 </template>
 
 <script>import axios from 'axios'
-import CardList from '@/components/CardList'
+import CardListItem from '@/components/CardListItem'
 
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'FriendListItem',
   components: {
-    CardList,
+    CardListItem,
   },
   props: {
     follow: String,
@@ -52,9 +54,9 @@ export default {
 </script>
 
 <style>
-/* #followbox {
-  height: 100px;
-  width: 50px;
-  position: relative;
-} */
+/* #followbox { */
+  /* height: 100px; */
+  /* width: 850px; */
+  /* position: relative; */
+/* } */
 </style>

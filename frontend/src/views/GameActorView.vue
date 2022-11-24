@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 export default {
   name: 'GameActorView',
   data() {
@@ -69,7 +67,7 @@ export default {
   },
   watch: {
     num(newNum) {
-      console.log('매초', this.num)
+      // console.log('매초', this.num)
 
       if ( [1, 5, 9, 13, 17].includes(newNum) ) {
         // console.log('들어있따', this.num)
