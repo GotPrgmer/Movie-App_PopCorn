@@ -106,7 +106,7 @@ def mygenrescore(request,username):
         context = {
            'success':'성공',
         }
-        return JsonResponse(context, safe=False)
+      return JsonResponse(context, safe=False)
         # return Response(context, status=status.HTTP_201_CREATED)
       # print(serializer)
       # if serializer.is_valid(raise_exception=True):

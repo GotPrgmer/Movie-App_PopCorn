@@ -192,6 +192,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+
     // getUserLikes(context) {
     //     axios({
     //       method: 'post',
@@ -207,6 +208,45 @@ export default new Vuex.Store({
     //         console.log(err)
     //       })
     //   },
+    initializeScore(context, username){
+      axios({
+        method: 'post',
+        url: `${API_URL}/accountsinfo/scores/${username}/`,
+        headers: {
+                  Authorization: `Token ${context.state.token}`
+                },
+        data: {
+          '모험': '0',
+          '판타지': '0',
+          '애니메이션': '0',
+          '드라마': '0',
+          '공포': '0',
+          '액션': '0',
+          '코미디': '0',
+          '역사': '0',
+          '서부': '0',
+          '스릴러': '0',
+          '범죄': '0',
+          '다큐멘터리': '0',
+          'SF': '0',
+          '미스터리': '0',
+          '음악': '0',
+          '로맨스': '0',
+          '가족': '0',
+          '전쟁': '0',
+          'TV 영화': '0',
+        }
+      })
+        .then((res) => {
+          // console.log(res)
+          // console.log(JSON.parse(res.config.data).username)
+          console.log('성공')
+        })
+        .catch((err) => {
+          console.log(err,'실패')
+          
+        })
+    },
     getArticles(context, movieId) {
       // console.log(movieId)
       axios({
@@ -269,6 +309,7 @@ export default new Vuex.Store({
           context.state.username = payload.username
           context.commit('SAVE_TOKEN', res)
           context.dispatch('getUserInfo', payload.username)
+          context.dispatch('initializeScore', payload.username)
         })
         .catch((err) => {
           console.log(err)
