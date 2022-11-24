@@ -89,7 +89,7 @@ def mygenrescore(request,username):
   user = User.objects.get(username=username)
   #score접근
   #여러개의 score 레코드 나옴
-  score = user.user_genre.filter(users=user.id).order_by('-score')
+  score = user.user_genre.filter(users=user.id)
   #score접근
   #여러개의 score 레코드 나옴
   if request.method == 'POST':
@@ -101,12 +101,12 @@ def mygenrescore(request,username):
         score.users = user
         genre = Genre.objects.get(genre_name = genre_item[0])
         score.genres = genre
-        score.score = genre_item[1][0]
+        score.score = genre_item[1]
         score.save()
         context = {
            'success':'성공',
         }
-        return JsonResponse(context, safe=False)
+      return JsonResponse(context, safe=False)
         # return Response(context, status=status.HTTP_201_CREATED)
       # print(serializer)
       # if serializer.is_valid(raise_exception=True):
@@ -117,10 +117,12 @@ def mygenrescore(request,username):
     genre_dic = dict(request.data)
     for genre_item in genre_dic.items():
         genre = Genre.objects.get(genre_name = genre_item[0])
-        score = Score(user.id,genre.id)
+        score = Score.objects.get(users=user,genres=genre)
         score.users = user
         score.genres = genre
-        score.score = genre_item[1][0]
+        # score.score = 5
+        print(genre_item)
+        score.score = int(genre_item[1])
         score.save()
         context = {
            'success':'성공',
@@ -135,7 +137,7 @@ def mygenrescore(request,username):
       scorebygenre[e.genres.genre_name] = e.score
     genre_check = ['모험','판타지','애니메이션','드라마','공포','액션','코미디','역사','서부','스릴러','범죄','다큐멘터리','SF','미스터리','음악','로맨스','가족','전쟁','TV 영화']
     for check in genre_check:
-      scorebygenre[check] = scorebygenre.get(check,0)
+      scorebygenre[check] = int(scorebygenre.get(check,0))
     context = {
       'user':user.id,
       'score' : scorebygenre

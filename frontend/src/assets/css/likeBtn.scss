@@ -33,6 +33,7 @@
   transition: 0.2s ease-in;
   margin-left: 47%; // 대충 가운데로 맞춰놓음
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .movie-like-button:active {
   background: var(--yellow);

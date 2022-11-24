@@ -49,7 +49,10 @@ export default {
       }
     })
       .then((res) => {
+        console.log(res['score'],'scoreCa들어가기전1')
+
         this.scores = res.data.score
+        console.log(this.scores,'scoreCa들어가기전2')
         this.scoreCal()
       })
       .catch((err) => {
@@ -62,7 +65,8 @@ export default {
       const fantasy = ['다니엘 래드클리프', '해리포터', '김향기']
       const music = ['강하늘', '키이라 나이틀리']
       const romance = ['손예진', '레이첼 맥아담스']
-      for ( const name in this.useranswer ) {
+      console.log(this.useranswer)
+      for ( const name of this.useranswer ) {
         console.log(name)
         if ( this.answer.includes(name) ) {
           if (action.includes(name)) {
@@ -77,7 +81,15 @@ export default {
             this.scores['로맨스'] += 1
           }
         }
-      } this.editScores()
+      } 
+      console.log(this.scores,'원래꺼')
+      for (const key in this.scores ){
+        
+        this.scores[key] = String(this.scores[key])
+        
+      }
+      console.log(this.scores,'변환값')
+      this.editScores()
     },
     editScores() {
       axios({
@@ -99,9 +111,7 @@ export default {
     },
   },
   created() {
-    console.log(this.$store.state.username)
     this.getGenreScore()
-    console.log(this.scores)
   }
 }
 </script>
