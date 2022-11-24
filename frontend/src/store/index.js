@@ -115,7 +115,7 @@ export default new Vuex.Store({
     getPopularMovie(context) {
       axios({
         method: 'get',
-        url: `${API_URL}/movies/total_movie/`,
+        url: `${API_URL}/movies/nowplaying_movie/`,
         // headers: {
         //   Authorization: `Token ${context.state.token}`
         // }

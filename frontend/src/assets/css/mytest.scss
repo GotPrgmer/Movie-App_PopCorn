@@ -52,19 +52,53 @@ body {
 }
 a {
   text-decoration:none;
-  color: $caramel;
+  // color: $caramel;
+  color: rgb(54, 54, 54);
+  &:hover {
+    color:rgb(48, 48, 48)
+  }
 }
-a:hover {
-  color: $caramel;
+// a:hover {
+//   color: $caramel;
+// }
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-#profileRec {
+#profileReco {
+  position: absolute;
   font-family: 'CaramelFont';
   font-size: 35px;
   text-shadow:2px 2px 6px $primary;
+  z-index: 1;
+  background-color: rgba(255, 255, 249, 0.527);
+  box-shadow: 0 0 10px rgba(255, 255, 249, 0.308),
+                0 0 20px rgba(255, 255, 249, 0.308),
+                0 0 30px rgba(255, 255, 249, 0.308),
+                0 0 40px rgba(255, 255, 249, 0.308),
+                0 0 50px rgba(255, 255, 249, 0.308),
+                0 0 60px rgba(255, 255, 249, 0.308);
+                // 0 0 70px rgba(255, 255, 249, 0.308),
+                // 0 0 80px rgba(255, 255, 249, 0.308),
+                // 0 0 90px rgba(255, 255, 249, 0.308),
+                // 0 0 100px rgba(255, 255, 249, 0.308);
+  opacity: 0;
+  animation: fadein 2s 1s forwards;
+}
+#profileRec {
+  position: absolute;
+  font-family: 'CaramelFont';
+  font-size: 35px;
+  text-shadow:2px 2px 6px $primary;
+  z-index: 1;
 }
 .bannerBox {
   width: 100vw;
-  height: 550px;
+  height: 200px;
   padding: 0px;
   margin-top: 0px;
   color: $main-caramel;
@@ -72,7 +106,16 @@ a:hover {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  
+  overflow: hidden;
+}
+#banner-img {
+  position: absolute;
+  top: 75px;
+  width: 100%;
+  display: cover;
+  z-index: -1;
+  // background-attachment: fixed;
+}
 //   .box_child {
 //     border: 1px dotted red;
 //     width: 50px;
@@ -82,7 +125,12 @@ a:hover {
 //       color: $my-red;
 //     }
 //   }
+
+#preview-box {
+  height: 120px;
+  background-color: rgba(255, 255, 249, 0.356);
 }
+
 .movieBox {
   width: 90vw;
   margin-left: 5%;
@@ -137,24 +185,80 @@ a:hover {
 }
 
 .column-box {
+  // display: static;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
 }
+.profile-img {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+// 뱃지
 .bedge-box {
   width: 80vh;
-  height: 25px;
+  height: 100px;
+}
+.progress {
+  // width: 99%;
+  height: 50px;
+  padding: 1px;
+  // border-radius: 2px;
+  box-shadow: 0 0 10px #E0A21C,
+                // 0 0 20px #FFD460,
+                // 0 0 30px #f8e1a1,
+                // 0 0 40px #fae9bc,
+                // 0 0 50px #ffd972,
+                // 0 0 60px #f8d679,
+                // 0 0 70px #ffda72,
+                // 0 0 80px #fdda78,
+                // 0 0 90px #fcd771,
+                // 0 0 100px #fada83;
 }
 .q-pa-md{
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.followbtn {
-  // display: absolute;
-  // top: 1000px;
+#collapseid1 {
+background-color: #EA5455;
+border-radius: 3px;
+  &:hover {
+    opacity: 0.7;
+  }
 }
+#collapseid2 {
+  background-color: #F07B3F;
+  border-radius: 3px;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+#collapseid3 {
+  background-color: $primary;
+  border-radius: 3px;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.genre-name {
+  font-family: 'PopcornFont';
+}
+
+.usermovie {
+width: 100%;
+}
+
 #yellow-box {
   display: block;
   color: $complementary;
@@ -166,7 +270,7 @@ a:hover {
   border-radius: 3px;
   padding: 10px;
   width: 100px;
-  margin: 20px;
+  // margin: 20px;
   transition: background 0.3s;
   &:hover {
     background: white;

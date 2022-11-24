@@ -1,37 +1,52 @@
 <template>
-  <div class="column-box">
-    <h1>{{ this.info.nickname }}님 프로필</h1>
-    <div v-if="info?.profile_image"><img :src="`http://127.0.0.1:8000${info.profile_image}`" alt="내 사진"></div>
-    <!-- <input type="file" name="" accept="image/*" id="" @change="getImageFile"> -->
+  <div class="flex flex-column" style="min-width:700px; max-width:700px">
+    <div class="flex flex-column justify-content-center">
+      <h1>{{ this.info.nickname }}님 프로필</h1>
+      <img class="profile-img" :src="`http://127.0.0.1:8000${info.profile_image}`" alt="내 사진">
+      <!-- <input type="file" name="" accept="image/*" id="" @change="getImageFile"> -->
+    </div>
     
-    <span class="bedge-box">
+    <span class="">
       <BedgeGraph/>
     </span>
 
-    <div class="followbtn">
-      <button v-if="!isMyProfile && !isFollowing" class="yellow-box" @click="clickFollow">팔로우</button>
-      <button v-if="!isMyProfile && isFollowing" class="yellow-box" @click="clickFollow">팔로우 취소</button>
+    <div v-if="!isMyProfile && !isFollowing"  @click="clickFollow">
+      <p>
+        <input class="mt-4" type="submit" value="팔로우" />
+      </p>
+    </div>
+    <div v-if="!isMyProfile && isFollowing" @click="clickFollow">
+      <p>
+        <input class="mt-4" type="submit" value="팔로우" />
+      </p>
     </div>
 
     <router-link v-if="isMyProfile" :to="{ name: 'FriendList', params: { username: username } }">
       <p>
-        <input type="submit" value="친구들 영화 구경하기" />
+        <input class="mt-4" type="submit" value="친구들 영화 구경하기" />
       </p>
     </router-link>
 
-    <div>
-    <button @click="toMovie">영화</button> | 
-    <button @click="toReview">리뷰</button>
+    <div class="d-flex flex-row justify-content-around m-3">
+      <!-- <span style="margin:0px; width:50px;"> -->
+    <button class="item" id="yellow-box" @click="toMovie" style="display:inline-block;">영화</button>
+
+      <!-- </span> -->
+      <!-- <span style="margin:0px; width:50px;"> -->
+    <button class="item" id="yellow-box" @click="toReview" style="display:inline-block;">리뷰</button>
+
+      <!-- </span> -->
     </div>
 
-    <article v-if="show">
+    <article class="" v-if="show">
       <CardList :movies="movies"/>
     </article>
-    <article v-if="!show">
+    <article class="" v-if="!show">
       <ReviewListItem v-for="review in reviews" :key="review.id" :article="review"/>
     </article>
 
     <article v-if="show">
+      <hr>
       <p>좋아하는 영화를 모아보세요</p>
     </article>  
     <article v-if="!show">
@@ -103,6 +118,7 @@ methods: {
     })
       .then((res) => {
         this.movies = res.data.userlike
+        // console.log('내좋영', this.movies)
       })
       .catch((err) => {
         console.log(err)
@@ -138,8 +154,8 @@ methods: {
       }
     })
       .then((res) => {
-        console.log(res.data)
-        console.log('팔로우 성공')
+        // console.log(res.data)
+        // console.log('팔로우 성공')
       })
       .catch((err) => {
         console.log(err)
@@ -155,7 +171,7 @@ methods: {
       }
     })
       .then((res) => {
-        console.log(res.data.followingusers)
+        // console.log(res.data.followingusers)
         const followings = res.data.followingusers
         if (followings.includes(this.$route.params.username)) {
           this.isFollowing = true
