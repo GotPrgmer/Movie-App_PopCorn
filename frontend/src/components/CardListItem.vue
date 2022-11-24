@@ -29,9 +29,6 @@ export default {
       }
     }
   },
-  created() {
-    console.log('하나씩',movie)
-  }
 }
 
 </script>

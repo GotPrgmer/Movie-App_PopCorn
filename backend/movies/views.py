@@ -39,7 +39,7 @@ def nowplaying(request):
 #전체영화를 장르별 평점순, 개봉일자 순으로
 @api_view(['GET'])    
 def moviebygenre(request,genre_id):
-    movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')[:10]
+    movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')[:5]
     # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
