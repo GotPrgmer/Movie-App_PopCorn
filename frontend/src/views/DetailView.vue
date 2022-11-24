@@ -14,7 +14,10 @@
       <p>줄거리 : {{ movie?.overview }}</p>
       <p>개봉일 : {{ movie?.released_date }}</p>
       <p>감독 : {{ movie?.director }}</p>
-      <p v-if="actors.length">출연진 : {{ actors }}</p>
+      <p v-if="actors.length">
+        출연진 : <span > {{actors}}
+        </span>
+        </p>
       <hr>
       <button  id="yellow-box"
         v-if="(isLogin && !isCreate)"
@@ -146,6 +149,8 @@ export default {
         .then((res) => {
           this.movie = res.data
           this.actors = this.movie.actors
+          console.log(this.actors)
+          console.log('hi')
           this.likes = this.movie.userslike.length
           console.log(this.likes,'likes')
         })
