@@ -76,30 +76,11 @@ export default {
       .then((res) => {
         // console.log('내점수', res.data.score)
         this.scores = res.data.score
-        this.scoreToGraph()
       })
       .catch((err) => {
         console.log(err)
       })
     },
-    scoreToGraph() {
-      const scoreNum = []
-      for (const score in this.scores) {
-        scoreNum.push(this.scores[score])
-      }
-      scoreNum.sort((a, b) => b - a);
-      console.log('sortNum', scoreNum);
-        // const scoreSort = scoreNum.sort()
-      for ( let i = 1; i < 5; i++ ) {
-        const num = scoreNum.slice(0)
-        for (const score in this.scores) {
-          if (num === this.scores[score]) {
-            this.scoreTop3.push({score:num})
-          }
-        }
-      console.log('answer', this.scoreTop3)
-      }
-    }
   },
   created() {
     this.getGenreScore()

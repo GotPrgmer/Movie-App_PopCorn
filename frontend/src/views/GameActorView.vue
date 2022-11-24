@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <label v-if="!isFinished" class="rounded mx-auto d-block m-3" for="userinput"><img class="actor" :src="`${answer.imgurl}`" alt="인물사진"></label><br>
-    <button v-if="!isStarted && !isFinished" class="startGameBtn" @click="startGame">시작하기</button>
-    <input v-if="!isFinished && isStarted" class="userinput" type="text" id="userinput" v-model="userinput" @keyup.enter="pressEnter" placeholder="이 배우의 이름은?">
-    <router-link v-if="isFinished" :to="{ name: 'GameActorView' }">다시 하기</router-link><br>
-    <router-link v-if="isFinished" :to="{ name: 'GameResultView', params: { useranswer: useranswer, answer: actor} }">결과 보기</router-link>
+  <div class="d-flex flex-column justify-content-center align-items-center" style="display:relative min-width:700px; max-width:700px">
+    <label v-if="!isFinished" class="rounded mx-auto d-block m-3" for="userinput"><img class="game-actor-img" :src="`${answer.imgurl}`" alt="인물사진"></label><br>
+    <button v-if="!isStarted && !isFinished" class="startGameBtn yb-replace" @click="startGame" id="yellow-box">시작하기</button>
+    <div>
+      <input v-if="!isFinished && isStarted" class="userinput yb-replace" type="text" id="userinput" v-model="userinput" @keyup.enter="pressEnter" placeholder="이 배우의 이름은?">
+      <router-link v-if="isFinished" :to="{ name: 'GameActorView' }" class="yb-replace" id="yellow-box">다시 하기</router-link><br>
+    </div>
+    <router-link v-if="isFinished" :to="{ name: 'GameResultView', params: { useranswer: useranswer, answer: answer.actor} }" class="yb-replace" id="yellow-box">결과 보기</router-link>
   </div>
 
 </template>
@@ -18,10 +20,12 @@ export default {
     return {
       isFinished: false,
       isStarted: false,
-      timerFlag: null,
-      num : 0,
       userinput: '',
       useranswer: [],
+
+      timerFlag: null,
+      num : 0,
+
       answer : {
         actor: [],
         imgurl: 'https://steamuserimages-a.akamaihd.net/ugc/1281786203421688972/2E1A37012CBC1C1C3637027BB280C879C00AC455/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false',
@@ -42,17 +46,16 @@ export default {
   },
   methods: {
     selectAcotr() {
-      const pickOne = _.sample(this.actorGame)
+      const pickOne = this.actorGame.pop()
       const actor = Object.keys(pickOne)[0]
       this.answer.actor.push(actor)
       this.answer.imgurl = pickOne[actor]
-      this.actorGame.splice(this.actorGame.indexOf(actor), 1)
-      this.num += 1
-      console.log(this.answer.actor)
-      console.log(this.actorGame)
     },
     fiveSecond() {
-      this.timerFlag = setInterval(this.selectAcotr, 4000)
+      this.timerFlag = setInterval(this.timer, 1000)
+    },
+    timer() {
+      this.num++
     },
     startGame() {
       this.isStarted = true
@@ -66,60 +69,35 @@ export default {
   },
   watch: {
     num(newNum) {
-      this.useranswer.push(this.userinput)
-      this.userinput = ''
-      if (newNum >= 5) {
+      console.log('매초', this.num)
+
+      if ( [1, 5, 9, 13, 17].includes(newNum) ) {
+        // console.log('들어있따', this.num)
+        this.userinput = ''
+        this.selectAcotr()
+      }
+      if (newNum > 20) {
         clearInterval(this.timerFlag)
         this.num = 0
         this.isFinished = true
-        console.log(this.useranswer)
-        console.log(this.answer.actor)
+        this.useranswer.push(this.userinput)
+        this.userinput = ''
       }
     }
   }
-      // const genre = this.gameinfo
-      // console.log(genre)
-      // const actions = genre.[0]
-      // const crime = genre.[1]
-      // const fantasy = genre.[2]
-      // const music = genre.[3]
-      // const romance = genre.[4]
-      //     this.actorImg = _.sampleSize(actorgame, 6)
-        // },
-    // async getActorName () {
-    //   const TMDB = process.env.TMDB
-    //   const YOUTUBE = process.env.YOUTUBE
-    //   const NAVER = process.env.NAVER
-
-    //   const MOVIE_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB}&language=en-US&page=1`
-    //   // let movieCd = ''
-    //   // const ACTOR_URL = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=${$KOREAN_MOVIE}&movieCd=${movieCd}`
-    //   const ACTOR_IMAGE_URL = `https://openapi.naver.com/v1/search/movie/${NAVER}`
-
-    //   // const movieData = await axios.get(MOVIE_URL)
-    //   // movieCd = movieData.id
-      
-    //   const actorData = await axios.get(ACTOR_IMAGE_URL)
-    //   let imgUrl = ''
-    //   imgUrl = actorData.actorimgurl
-    //   return imgUrl
-    // },
-  // computed: {
-  //   gameinfo() {
-  //     console.log(this.$store.state.actorGame)
-  //     return this.$store.state.actorGame
-  //   },
-  // },
-  // mounted() {
-    // console.log(gameinfo)
-    // getActorName().then(res=> console.log(res))
-  // }
 }
-
-  
-  // setTimeout(() => console.log(infos), 1000)
 </script>
 
 <style>
-
+.game-actor-img {
+  max-width: 600px;
+  max-height: 500px;
+  background-size: contain;
+  /* overflow: hidden; */
+  border-radius: 10%;
+}
+.yb-replace {
+  display: absolute;
+  top:600px;
+}
 </style>

@@ -2,7 +2,7 @@
   <div>
     <img class="backdropImg" :src="`https://image.tmdb.org/t/p/original/${movie?.backdrop}`" :alt="movie.title">
     <article class="movie-detail">
-      <div>
+      <div style="d-flex flex-row">
         <h1 class="movie-title">{{ movie?.movietitle }}</h1>
         <a class="movie-like-button" v-if="isLogin" @click="clickLikeBtn">
           <div class="heart" ></div>
@@ -194,5 +194,7 @@ export default {
 #heart {
   background-color: #EA5455;
 }
-
+.backdropImg{
+  background-attachment: fixed;
+}
 </style>
