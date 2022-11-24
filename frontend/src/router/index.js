@@ -90,6 +90,11 @@ const routes = [
     component: () => import('@/views/GameActorView')
   },
   {
+    path: '/game/scenegame',
+    name: 'GameSceneView',
+    component: () => import('@/views/GameSceneView')
+  },
+  {
     path: '/game/result',
     name: 'GameResultView',
     component: GameResultView,

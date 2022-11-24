@@ -111,9 +111,7 @@ export default {
     },
   },
   created() {
-    console.log(this.$store.state.username)
     this.getGenreScore()
-    console.log(this.scores)
   }
 }
 </script>

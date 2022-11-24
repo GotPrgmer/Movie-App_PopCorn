@@ -3,15 +3,15 @@
     <div class="q-pa-md">
         <div class="progress">
           <button id="collapseid1" data-bs-target="#collapseExample1" data-bs-toggle="collapse"
-            class="progress-bar" role="progressbar" aria-label="Segment two" :style="`width: ${score1/total}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar" role="progressbar" aria-label="Segment two" :style="`width: ${score1/total*100}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre1 }}</div>
             </button>
           <button id="collapseid2" data-bs-target="#collapseExample2" data-bs-toggle="collapse"
-            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" :style="`width: ${score2/total}`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" :style="`width: ${score2/total*100}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre2 }}</div>
             </button>
           <button id="collapseid3" data-bs-target="#collapseExample3" data-bs-toggle="collapse"
-            class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" :style="`width: ${score3/total}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" :style="`width: ${score3/total*100}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre3 }}</div>
             </button>
         </div>
@@ -38,7 +38,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import CardList from '@/components/CardList'
-import _ from 'lodash'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -96,19 +95,22 @@ export default {
     getGenreMovie() {
       for (var i = 0; i < this.genres.length; i++){
         axios({
-          method: 'get',
-          url: `${API_URL}/movies/bygenre/${this.genre[this.genres[i]]}/`,
-          headers: {
-            Authorization: `Token ${this.$store.state.token}`
-          }
-        })
-          .then((res) => {
-            this.mymovies.push(res.data)
-            this.$store.dispatch('saveGenreMovie', this.mymovies[0])
-          })
-          .catch((err) => {
-            console.log(err)
-       })
+      method: 'get',
+      url: `${API_URL}/movies/bygenre/${this.genre[this.genres[i]]}/`,
+      headers: {
+        Authorization: `Token ${this.$store.state.token}`
+      }
+    })
+      .then((res) => {
+        this.mymovies.push(res.data)
+        this.$store.dispatch('saveGenreMovie', this.mymovies[0])
+        // console.log('내점수', res.data.score)
+        // console.log(res.data,'영화불러오기 성공')
+      })
+      .catch((err) => {
+        console.log(err)
+        // console.log(this.scores,'점수 불러오기 실패')
+      })
       }
     },
     getGenreScore() {
@@ -122,25 +124,35 @@ export default {
       .then((res) => {
         // console.log('내점수', res.data.score)
         this.scores = res.data.score
-        // console.log(this.scores)
-        this.score1 = Object.values(this.scores)[0]
-        this.score2 = Object.values(this.scores)[1]
-        this.score3 = Object.values(this.scores)[2]
-        // console.log(Object.keys(this.scores).slice(0,3))
+        console.log(this.scores)
+
+        const sorted_scores = Object.fromEntries(
+        Object.entries(this.scores).sort(([,a],[,b]) => parseInt(a) > parseInt(b)? -1: 1 )
+        );
+        this.scores = sorted_scores
+        console.log(Object.values(sorted_scores),'점수')
+        this.score1 = Object.values(sorted_scores)[0]
+        this.score2 = Object.values(sorted_scores)[1]
+        this.score3 = Object.values(sorted_scores)[2]
+        console.log(typeof(this.score1))
+        
+        this.total = this.score1 + this.score2 + this.score3
+        console.log(Object.keys(this.scores).slice(0,3))
         this.genres = Object.keys(this.scores).slice(0,3)
-        // console.log(this.genres,'내 장르 불러오기 성공')
+        console.log(this.genres,'내 장르 불러오기 성공')
         this.getGenreMovie()
       })
       .catch((err) => {
         console.log(err)
-        console.log(this.scores,'점수 불러오기 실패')
+                console.log(this.scores,'점수 불러오기 실패')
 
       })
     },
+    
   },
   created() {
     this.getGenreScore()
-    this.total = this.score1 + this.score2 + this.score3
+    
   },
   setup () {
     return {

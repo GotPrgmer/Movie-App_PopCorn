@@ -89,7 +89,7 @@ def mygenrescore(request,username):
   user = User.objects.get(username=username)
   #score접근
   #여러개의 score 레코드 나옴
-  score = user.user_genre.filter(users=user.id).order_by('-score')
+  score = user.user_genre.filter(users=user.id)
   #score접근
   #여러개의 score 레코드 나옴
   if request.method == 'POST':
@@ -137,7 +137,7 @@ def mygenrescore(request,username):
       scorebygenre[e.genres.genre_name] = e.score
     genre_check = ['모험','판타지','애니메이션','드라마','공포','액션','코미디','역사','서부','스릴러','범죄','다큐멘터리','SF','미스터리','음악','로맨스','가족','전쟁','TV 영화']
     for check in genre_check:
-      scorebygenre[check] = scorebygenre.get(check,0)
+      scorebygenre[check] = int(scorebygenre.get(check,0))
     context = {
       'user':user.id,
       'score' : scorebygenre
