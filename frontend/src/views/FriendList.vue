@@ -1,14 +1,17 @@
 <template>
-  <div>
-    <p>내가 좋아하는 친구</p>
-    <span>
-      <FriendListItem v-for="follow in following" :key="follow.id" :follow="follow"/>
-    </span>
-
-    <p>나를 따르는 친구</p>
-    <span>
-      <FriendListItem v-for="follow in follower" :key="follow.id" :follow="follow"/>
-    </span>
+  <div class="flex flex-column justify-content-center align-items-center" style="min-width:700px; max-width:700px">
+    <div style="min-height:250px">
+      <p>내가 좋아하는 친구</p>
+      <span>
+        <FriendListItem v-for="follow in following" :key="follow.id" :follow="follow"/>
+      </span>
+    </div>
+    <div style="min-height:250px">
+      <p>나를 따르는 친구</p>
+      <span>
+        <FriendListItem v-for="follow in follower" :key="follow.id" :follow="follow"/>
+      </span>
+    </div>
   </div>
 </template>
 

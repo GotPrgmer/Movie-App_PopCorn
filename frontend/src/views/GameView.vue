@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game-box" style="min-width:700px; max-width:700px">
     게임을 시작하지
     <GameActorView/>
   </div>
@@ -16,5 +16,7 @@ export default {
 </script>
 
 <style>
+/* .game-box {
 
+} */
 </style>
