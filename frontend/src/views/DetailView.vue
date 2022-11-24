@@ -110,7 +110,7 @@ export default {
           },
         })
           .then((res) => {
-            console.log('좋아요 요청 성공')
+            // console.log('좋아요 요청 성공')
           })
           .catch((err) => {
             console.log(err)
@@ -132,7 +132,7 @@ export default {
           },
         })
           .then((res) => {
-            console.log('성공')
+            // console.log('성공')
           })
           .catch((err) => {
             console.log(err)
@@ -149,10 +149,10 @@ export default {
         .then((res) => {
           this.movie = res.data
           this.actors = this.movie.actors
-          console.log(this.actors)
-          console.log('hi')
+          // console.log(this.actors)
+          // console.log('hi')
           this.likes = this.movie.userslike.length
-          console.log(this.likes,'likes')
+          // console.log(this.likes,'likes')
         })
         .catch((err) => {
           console.log(err)
@@ -186,11 +186,11 @@ export default {
     }
   },
   created() {
-    console.log('되고있음')
+    // console.log('되고있음')
     this.getMovieDetail()
     this.getArticles()
     this.getLikes()
-    console.log(this.$store.state.username)
+    // console.log(this.$store.state.username)
   },
 }
 </script>

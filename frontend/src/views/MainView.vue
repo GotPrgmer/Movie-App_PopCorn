@@ -54,7 +54,7 @@ export default {
       const firstList = _.sample(this.movieList)
       const secondList = _.sample(firstList)
       this.bannerImg = secondList.posterpath
-      console.log(this.bannerImg)
+      // console.log(this.bannerImg)
       const bannerBox = document.querySelector('.bannerBox')
       bannerBox.style.backgroundImage = `url('https://image.tmdb.org/t/p/w1280/${secondList.posterpath}')`
     }

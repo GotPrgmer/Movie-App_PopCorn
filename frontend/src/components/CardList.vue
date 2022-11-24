@@ -36,8 +36,8 @@ export default {
   data() {
     return {
       swiperOption: { 
-        slidesPerView: 2,
-        spaceBetween: 200, 
+        slidesPerView: 0,
+        spaceBetween: 100, 
         resistance : false,
         watchOverflow : true,
         slidesOffsetBefore : 115,

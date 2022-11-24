@@ -1,15 +1,15 @@
 <template>
   <article>
     <aside v-if="!isedit">
-      <p style="font-weight:bold;">{{ article?.review_title }}</p>
-      <p>{{ article?.review_content }}</p>
-      <router-link :to="{ name: 'ProfileView', params: { username: username } }">{{ article?.username }}</router-link>
-      <p>마지막 수정 : {{ article?.updated_at }}</p>
+      <h1 class="popcorn-font" style="font-weight:bold;">{{ article?.review_title }}</h1>
+      <h2 class="popcorn-font">{{ article?.review_content }}</h2>
+      <router-link class="popcorn-font" :to="{ name: 'ProfileView', params: { username: username } }">{{ article?.username }}</router-link>
+      <p class="popcorn-font">{{ updateDate }}</p>
       <!-- <a v-if="isLogin" class="review-like-button" @click="clickLikeBtn">
         <div :class="`review-like-heart ${articleId}`" ></div>
         <div class="likes" id="review-like-text">{{ likes }}</div>
       </a> -->
-      <button v-if="isMyReview" @click="editReview">리뷰 수정</button> | 
+      <button v-if="isMyReview" @click="editReview">리뷰 수정 | </button> 
       <button v-if="isMyReview" @click="deleteReview">리뷰 삭제</button>
     </aside>
 
@@ -56,6 +56,9 @@ export default {
     },
     username() {
       return this.article.username
+    },
+    updateDate() {
+      return this.timeForToday(this.article.updated_at)
     }
   },
   methods: {
@@ -110,7 +113,7 @@ export default {
     // },
     editReview() {
       this.isedit = true
-      console.log(this.isedit)
+      // console.log(this.isedit)
     },
     deleteReview() {
       const review_id = this.article.id
@@ -128,8 +131,30 @@ export default {
           .catch((err) => {
             console.log(err)
             console.log('게시글 수정 실패')
-            console.log(this.$route.params.id)
+            // console.log(this.$route.params.id)
           })
+    },
+    timeForToday(value) {
+      const today = new Date();
+      const timeValue = new Date(value);
+
+      const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+      if (betweenTime < 1) return '방금전';
+      if (betweenTime < 60) {
+          return `${betweenTime}분전`;
+      }
+
+      const betweenTimeHour = Math.floor(betweenTime / 60);
+      if (betweenTimeHour < 24) {
+          return `${betweenTimeHour}시간전`;
+      }
+
+      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+      if (betweenTimeDay < 365) {
+          return `${betweenTimeDay}일전`;
+      }
+
+      return `${Math.floor(betweenTimeDay / 365)}년전`;
     },
   },
   created() {
@@ -166,5 +191,8 @@ export default {
 <style>
 #heart {
   background-color: #EA5455;
+}
+.popcorn-font {
+  font-family: 'PopcornFont';
 }
 </style>

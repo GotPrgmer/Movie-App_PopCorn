@@ -7,7 +7,7 @@
               <div class="ms-2 genre-name">{{ genre1 }}</div>
             </button>
           <button id="collapseid2" data-bs-target="#collapseExample2" data-bs-toggle="collapse"
-            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" :style="`width: ${score2/total}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" :style="`width: ${score2/total}`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre2 }}</div>
             </button>
           <button id="collapseid3" data-bs-target="#collapseExample3" data-bs-toggle="collapse"
@@ -16,20 +16,19 @@
             </button>
         </div>
     </div>
-
     <div class="collapse m-1" id="collapseExample1">
       <div class="card card-body">
-        장르1 영화 넣을 거임
+        <CardList :movies="mymovies[0]"/>
       </div>
     </div>
     <div class="collapse m-1" id="collapseExample2">
       <div class="card card-body">
-        장르2 영화 넣을 거임
+        <CardList :movies="mymovies[1]"/>
       </div>
     </div>
     <div class="collapse m-1" id="collapseExample3">
       <div class="card card-body">
-        장르3 영화 넣을 거임
+        <CardList :movies="mymovies[2]"/>
       </div>
     </div>
   </article>
@@ -38,11 +37,16 @@
 <script>
 import axios from 'axios'
 import { ref } from 'vue'
+import CardList from '@/components/CardList'
+import _ from 'lodash'
 
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'BedgeGraph',
+  components: {
+    CardList,
+  },
   data() {
     return {
       scores: {},
@@ -76,7 +80,8 @@ export default {
         '전쟁':10752,
         'TV 영화':10770,
       },
-      movies:[]
+      movies:[],
+      mymovies: [],
     }
   },
   methods: {
@@ -91,24 +96,20 @@ export default {
     getGenreMovie() {
       for (var i = 0; i < this.genres.length; i++){
         axios({
-      method: 'get',
-      url: `${API_URL}/movies/bygenre/${this.genre[this.genres[i]]}/`,
-      headers: {
-        Authorization: `Token ${this.$store.state.token}`
+          method: 'get',
+          url: `${API_URL}/movies/bygenre/${this.genre[this.genres[i]]}/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          }
+        })
+          .then((res) => {
+            this.mymovies.push(res.data)
+            this.$store.dispatch('saveGenreMovie', this.mymovies[0])
+          })
+          .catch((err) => {
+            console.log(err)
+       })
       }
-    })
-      .then((res) => {
-        // console.log('내점수', res.data.score)
-        // console.log(res.data,'영화불러오기 성공')
-      })
-      .catch((err) => {
-        console.log(err)
-                // console.log(this.scores,'점수 불러오기 실패')
-
-      })
-      }
-
-      
     },
     getGenreScore() {
     axios({
@@ -121,22 +122,21 @@ export default {
       .then((res) => {
         // console.log('내점수', res.data.score)
         this.scores = res.data.score
-        console.log(this.scores)
+        // console.log(this.scores)
         this.score1 = Object.values(this.scores)[0]
         this.score2 = Object.values(this.scores)[1]
         this.score3 = Object.values(this.scores)[2]
-        console.log(Object.keys(this.scores).slice(0,3))
+        // console.log(Object.keys(this.scores).slice(0,3))
         this.genres = Object.keys(this.scores).slice(0,3)
-        console.log(this.genres,'내 장르 불러오기 성공')
+        // console.log(this.genres,'내 장르 불러오기 성공')
         this.getGenreMovie()
       })
       .catch((err) => {
         console.log(err)
-                console.log(this.scores,'점수 불러오기 실패')
+        console.log(this.scores,'점수 불러오기 실패')
 
       })
     },
-    
   },
   created() {
     this.getGenreScore()
