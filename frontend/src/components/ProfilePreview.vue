@@ -1,8 +1,8 @@
 <template>
-  <div class="column-box">
-    <p id="profileRec">{{nickname}}님 환영합니다 </p>
-    <img :src="`http://127.0.0.1:8000${userImg}`" alt="">
-    <span class="bedge-box">
+  <div class="column-box" id="preview-box">
+    <!-- <img class="profile-img position-absolute" style="top:10%;" :src="`http://127.0.0.1:8000${userImg}`" alt=""> -->
+    <!-- <p id="profileRec">{{nickname}}님 환영합니다 </p> -->
+    <span class="bedge-box position-absolute" style="top:6;">
       <BedgeGraph/>
     </span>
   </div>

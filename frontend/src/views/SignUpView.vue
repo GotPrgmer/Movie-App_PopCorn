@@ -1,7 +1,7 @@
 <template>
   <div class="form" id="loginform">
     <h1> Sign Up </h1>
-    <form @submit.prevent="signUp">
+    <form novalidate @submit.prevent="signUp">
       <p class="username">
         <label for="username">ID <span>*</span></label>
         <input class="input" required type="text" id="username" name="username" v-model="username"/>

@@ -40,7 +40,8 @@ export default {
         spaceBetween: 200, 
         resistance : false,
         watchOverflow : true,
-        loop: true,
+        slidesOffsetBefore : 115,
+        // loop: true,
         mousewheel: true,
         navigation: { 
             nextEl: '.swiper-button-next', 
@@ -73,7 +74,10 @@ export default {
         }
       },
     }
-  }
+  },
+  // created() {
+    // console.log('받음', this.movies)
+  // }
 }
 </script>
 

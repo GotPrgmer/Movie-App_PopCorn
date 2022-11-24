@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="backdropImg" :src="`https://image.tmdb.org/t/p/w500/${movie?.backdrop}`" :alt="movie.title">
+    <img class="backdropImg" :src="`https://image.tmdb.org/t/p/original/${movie?.backdrop}`" :alt="movie.title">
     <article class="movie-detail">
       <div>
         <h1 class="movie-title">{{ movie?.movietitle }}</h1>
