@@ -89,7 +89,7 @@ def mygenrescore(request,username):
   user = User.objects.get(username=username)
   #score접근
   #여러개의 score 레코드 나옴
-  score = user.user_genre.filter(users=user.id)
+  score = user.user_genre.filter(users=user.id).order_by('-score')
   #score접근
   #여러개의 score 레코드 나옴
   if request.method == 'POST':
@@ -106,7 +106,7 @@ def mygenrescore(request,username):
         context = {
            'success':'성공',
         }
-      return JsonResponse(context, safe=False)
+        return JsonResponse(context, safe=False)
         # return Response(context, status=status.HTTP_201_CREATED)
       # print(serializer)
       # if serializer.is_valid(raise_exception=True):
@@ -125,7 +125,7 @@ def mygenrescore(request,username):
         context = {
            'success':'성공',
         }
-        return JsonResponse(context, safe=False)    
+    return JsonResponse(context, safe=False)    
   else:
   # print(score[1].genres.genre_name)
   #genre별 점수 호출

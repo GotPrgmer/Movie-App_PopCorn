@@ -3,15 +3,15 @@
     <div class="q-pa-md">
         <div class="progress">
           <button id="collapseid1" data-bs-target="#collapseExample1" data-bs-toggle="collapse"
-            class="progress-bar" role="progressbar" aria-label="Segment two" :style="`width: ${score1}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar" role="progressbar" aria-label="Segment two" :style="`width: ${score1/total}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre1 }}</div>
             </button>
           <button id="collapseid2" data-bs-target="#collapseExample2" data-bs-toggle="collapse"
-            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" :style="`width: ${score2}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar bg-success" role="progressbar" aria-label="Segment two" :style="`width: ${score2/total}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre2 }}</div>
             </button>
           <button id="collapseid3" data-bs-target="#collapseExample3" data-bs-toggle="collapse"
-            class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" :style="`width: ${score3}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+            class="progress-bar bg-warning" role="progressbar" aria-label="Segment two" :style="`width: ${score3/total}%`" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
               <div class="ms-2 genre-name">{{ genre3 }}</div>
             </button>
         </div>
@@ -53,7 +53,30 @@ export default {
       score1: 50,
       score2: 40,
       score3: 10,
-
+      total: 0,
+      genres:[],
+      genre:{
+        '모험':12,
+        '판타지':14,
+        '애니메이션':16,
+        '드라마':18,
+        '공포':27,
+        '액션':28,
+        '코미디':35,
+        '역사':36,
+        '서부':37,
+        '스릴러':53,
+        '범죄':80,
+        '다큐멘터리':99,
+        'SF':878,
+        '미스터리':9648,
+        '음악':10402,
+        '로맨스':10749,
+        '가족':10751,
+        '전쟁':10752,
+        'TV 영화':10770,
+      },
+      movies:[]
     }
   },
   methods: {
@@ -65,10 +88,32 @@ export default {
         t++ >= totalMinwon && clearInterval(barAnimation)
       }, 10)
     },
+    getGenreMovie() {
+      for (var i = 0; i < this.genres.length; i++){
+        axios({
+      method: 'get',
+      url: `${API_URL}/movies/bygenre/${this.genre[this.genres[i]]}/`,
+      headers: {
+        Authorization: `Token ${this.$store.state.token}`
+      }
+    })
+      .then((res) => {
+        // console.log('내점수', res.data.score)
+        // console.log(res.data,'영화불러오기 성공')
+      })
+      .catch((err) => {
+        console.log(err)
+                // console.log(this.scores,'점수 불러오기 실패')
+
+      })
+      }
+
+      
+    },
     getGenreScore() {
     axios({
       method: 'get',
-      url: `${API_URL}/accountsinfo/scores/${this.$route.params.username}/`,
+      url: `${API_URL}/accountsinfo/scores/${this.$store.state.username}/`,
       headers: {
         Authorization: `Token ${this.$store.state.token}`
       }
@@ -76,33 +121,26 @@ export default {
       .then((res) => {
         // console.log('내점수', res.data.score)
         this.scores = res.data.score
-        this.scoreToGraph()
+        console.log(this.scores)
+        this.score1 = Object.values(this.scores)[0]
+        this.score2 = Object.values(this.scores)[1]
+        this.score3 = Object.values(this.scores)[2]
+        console.log(Object.keys(this.scores).slice(0,3))
+        this.genres = Object.keys(this.scores).slice(0,3)
+        console.log(this.genres,'내 장르 불러오기 성공')
+        this.getGenreMovie()
       })
       .catch((err) => {
         console.log(err)
+                console.log(this.scores,'점수 불러오기 실패')
+
       })
     },
-    scoreToGraph() {
-      const scoreNum = []
-      for (const score in this.scores) {
-        scoreNum.push(this.scores[score])
-      }
-      scoreNum.sort((a, b) => b - a);
-      console.log('sortNum', scoreNum);
-        // const scoreSort = scoreNum.sort()
-      for ( let i = 1; i < 5; i++ ) {
-        const num = scoreNum.slice(0)
-        for (const score in this.scores) {
-          if (num === this.scores[score]) {
-            this.scoreTop3.push({score:num})
-          }
-        }
-      console.log('answer', this.scoreTop3)
-      }
-    }
+    
   },
   created() {
     this.getGenreScore()
+    this.total = this.score1 + this.score2 + this.score3
   },
   setup () {
     return {
