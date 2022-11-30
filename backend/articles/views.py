@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from django.http import JsonResponse
 from django.shortcuts import render
 
-# from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer
 from .serializers import ReviewLikeSerializer, UserLikeSerializer
 from accounts.models import User
 from .models import Review
@@ -43,10 +42,7 @@ def reviewclicklike(request,user_id,review_id):
     likepeople = []
     for e in users:
         likepeople.append(e.username)
-    # for user in review.like_users.id:
-    # for e in users:
-    #     print(e,1)
-    # print(len(users))
+
     context = {
         'is_liked':is_liked,
         'likepeople': likepeople,

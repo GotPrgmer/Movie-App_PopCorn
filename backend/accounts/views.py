@@ -65,22 +65,6 @@ def userinfo(request,username):
   serializer = UserSerializer(user)
   return Response(serializer.data)
 
-#사용자 정보수정
-# @api_view(['PUT'])
-# def changemyinfo(request):
-#   user = get_object_or_404(User,pk=request.user.id)
-#   genre_dic = dict(request.data)
-#     for genre_item in genre_dic.items():
-#         genre = Genre.objects.get(genre_name = genre_item[0])
-#         score = Score(user.id,genre.id)
-#         score.users = user
-#         score.genres = genre
-#         score.score = genre_item[1][0]
-#         score.save()
-#         context = {
-#            'success':'성공',
-#         }
-#         return JsonResponse(context, safe=False)  
 
 
 #장르별 점수
@@ -107,12 +91,7 @@ def mygenrescore(request,username):
            'success':'성공',
         }
       return JsonResponse(context, safe=False)
-        # return Response(context, status=status.HTTP_201_CREATED)
-      # print(serializer)
-      # if serializer.is_valid(raise_exception=True):
-      #     # serializer.save()
-      #     serializer.save(movie=movie,user=user)
-      #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
   elif request.method == 'PUT':
     genre_dic = dict(request.data)
     for genre_item in genre_dic.items():
@@ -129,10 +108,8 @@ def mygenrescore(request,username):
         }
     return JsonResponse(context, safe=False)    
   else:
-  # print(score[1].genres.genre_name)
   #genre별 점수 호출
     scorebygenre = {}
-    # genreName = score.genrename.filter(pk=score.genres)
     for e in score:
       scorebygenre[e.genres.genre_name] = e.score
     genre_check = ['모험','판타지','애니메이션','드라마','공포','액션','코미디','역사','서부','스릴러','범죄','다큐멘터리','SF','미스터리','음악','로맨스','가족','전쟁','TV 영화']
@@ -166,11 +143,9 @@ def followclick(request, myname, user_pk):
       myfollowings = me.followings.all()
       for i in myfollowers:
         followers.append(i.username)
-        # print(i.username)
       for i in myfollowings:
         followings.append(i.username)
-      # for e in users:
-      #     likepeople.append(e.username)
+
       context = {
           'is_followed': is_followed,
           'followersCnt': len(myfollowers),

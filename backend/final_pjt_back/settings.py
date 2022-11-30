@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
 
 #     # OpenAPI 3.0
-#     'drf_spectacular',
 
 
     'django.contrib.admin',
@@ -76,7 +75,6 @@ REST_FRAMEWORK = {
 
     # permission
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
     ],
 
@@ -100,8 +98,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080', 
 ]
 
-# CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:8080' ,'http://localhost:8080']
-# CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'final_pjt_back.urls'
 

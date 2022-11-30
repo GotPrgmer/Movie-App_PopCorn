@@ -139,6 +139,9 @@ export default {
         this.total = this.score1 + this.score2 + this.score3
         console.log(Object.keys(this.scores).slice(0,3))
         this.genres = Object.keys(this.scores).slice(0,3)
+        this.genre1 = this.genres[0]
+        this.genre2 = this.genres[1]
+        this.genre3 = this.genres[2]
         console.log(this.genres,'내 장르 불러오기 성공')
         this.getGenreMovie()
       })

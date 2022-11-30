@@ -24,7 +24,6 @@ from .models import Movie
 @api_view(['GET'])
 def total(request):
     movies = Movie.objects.all().order_by('-released_date')[:10]
-    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
@@ -32,7 +31,6 @@ def total(request):
 @api_view(['GET'])    
 def nowplaying(request):
     movies = Movie.objects.all().order_by('-rate')[:10]
-    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
@@ -40,7 +38,6 @@ def nowplaying(request):
 @api_view(['GET'])    
 def moviebygenre(request,genre_id):
     movies = Movie.objects.filter(genres= genre_id).order_by('-rate','-released_date')[:5]
-    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
@@ -56,16 +53,13 @@ def moviedetail(request, movie_id):
 @api_view(['GET'])
 def searchmovie(request, keyword):
     movie = Movie.objects.all().filter(Q(movietitle__contains=keyword)|Q(original_title_contains=keyword))[:10]
-    # movies = random.sample(movies, 10)
     serializer = MovieSerializer(movie,many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def watchlist(request,username):
     User = get_user_model()
-    # print(User)
     user = User.objects.get(username=username)
-    # print(user.nickname)
     serializer = WatchSerializer(user)
     return Response(serializer.data)
 
@@ -81,11 +75,9 @@ def moviereviews(request,movie_id):
     movie = get_object_or_404(Movie,pk=movie_id)
     User = get_user_model()
     user = request.user
-    # print(request.data)
     if request.method == 'GET':
         #한영화에 해당되는 모든 리뷰들 다 보여주기
         reviews = Review.objects.filter(movie_id=movie_id).order_by('-updated_at')
-        # reviews = Review.objects.()
         username_list = []
         for i in reviews:
             user = User.objects.get(pk=i.user_id)
@@ -107,15 +99,11 @@ def moviereviews(request,movie_id):
 
             }
             username_list.append(review_info)
-        # serializer = SpecificMovieReviewSerializer(movie)
-        # return Response(serializer.data)
         return JsonResponse(username_list,  safe=False)
 
     elif request.method == 'POST':
         serializer = ReviewSerializer(data=request.data)
-        # print(serializer)
         if serializer.is_valid(raise_exception=True):
-            # serializer.save()
             serializer.save(movie=movie,user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -127,7 +115,6 @@ def moviereviewsedit(request,review_id):
     review = get_object_or_404(Review, pk=review_id)
     if request.method == 'PUT':
         serializer = ReviewSerializer(review, data=request.data)
-        # print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
@@ -136,7 +123,6 @@ def moviereviewsedit(request,review_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
 def movieclicklike(request,user_id,movie_id):
     User = get_user_model()
     user = User.objects.get(pk=user_id)

@@ -20,24 +20,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields =('id','username','nickname','last_name','first_name','profile_image')
-
-
-# class OtherUserSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = User
-#         fields = ('username','nickname',)
-
-# class FollowingSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = 
-
-#내가 작성한 리뷰들
-
-
-
-# class UserGenreScoreSerializer(serializers.ModelSerializer):
-#     user_genre = ScoreSerializer(many=True, read_only=True)
-    
-#     class Meta:
-#         model = User

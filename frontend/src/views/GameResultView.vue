@@ -60,11 +60,11 @@ export default {
       })
     },
     scoreCal() {
-      const action = ['톰홀랜드', '스파이더맨', '닥터 스트레인지', '베네딕트 컴버배치', '오이형']
-      const crime = ['류승범, 키아누 리브스']
-      const fantasy = ['다니엘 래드클리프', '해리포터', '김향기']
-      const music = ['강하늘', '키이라 나이틀리']
-      const romance = ['손예진', '레이첼 맥아담스']
+      const action = ['닥터 스트레인지', '아저씨','톰홀랜드', '스파이더맨', '닥터 스트레인지', '베네딕트 컴버배치', '오이형']
+      const crime = ['류승범, 키아누 리브스','부당거래','범죄도시']
+      const fantasy = ['다니엘 래드클리프', '해리포터', '김향기','반지의 제왕']
+      const music = ['강하늘', '키이라 나이틀리','보헤미안 랩소디','싱 스트리트']
+      const romance = ['이프 온리','남자가 사랑할 때','손예진', '레이첼 맥아담스']
       console.log(this.useranswer)
       for ( const name of this.useranswer ) {
         console.log(name)
