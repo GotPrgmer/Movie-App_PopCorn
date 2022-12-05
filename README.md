@@ -36,50 +36,61 @@
 ## 📚 데이터베이스 모델링
 
 erd구조
-![캬라멜팝콘.png](./캬라멜팝콘.png)
+![캬라멜팝콘](https://user-images.githubusercontent.com/55742497/205604650-90472aa9-9055-49d8-ba4b-d2851dea8501.png)
 ---
 
 ## 🧮 컴포넌트 구조
 
 컴포넌트 구조
-![뷰컴포넌트구조.png](./뷰컴포넌트구조.png)
+![뷰컴포넌트구조](https://user-images.githubusercontent.com/55742497/205604780-1fa40034-2df4-4cbd-abe3-2f7a0995702c.png)
 ---
 
 ## 📌 서비스 구현
 
 - 메인 페이지 ( 간단한 게임을 통한 개인별 맞춤 추천 / 평점 순 영화 추천)
-![메인화면.png](./메인화면.png)
-사진 첨부(게이지바 채워진 상태로)
+<img width="1440" alt="메인화면" src="https://user-images.githubusercontent.com/55742497/205604840-02bca1b7-dbe1-42c0-b09a-d032ed9f8145.png">
+<img width="1439" alt="메인화면2" src="https://user-images.githubusercontent.com/55742497/205605101-eece9546-5fb3-4084-bb7f-8b0ccb32e884.png">
+<img width="1439" alt="취향에맞춘영화" src="https://user-images.githubusercontent.com/55742497/205604952-00680a90-25a9-4701-ac84-4e19b8743e3f.png">
 
 - 회원가입 및 로그인 페이지
-![회원가입.png](./회원가입.png)
-![로그인.png](./로그인.png)
+<img width="1439" alt="회원가입" src="https://user-images.githubusercontent.com/55742497/205605011-03f7e5ef-9ba9-431f-87bf-064165c15529.png">
 
-![받아주지않는고양이.png](./받아주지않는고양이.png)
-![누구시냐는고양이.png](./누구시냐는고양이.png)
+<img width="1439" alt="로그인" src="https://user-images.githubusercontent.com/55742497/205605172-31e783fe-d05c-43b2-826e-7f17daaf5bdb.png">
+
+
+<img width="1439" alt="받아주지않는고양이" src="https://user-images.githubusercontent.com/55742497/205605240-9cbf578c-aa2e-455b-a51d-4b51340c5088.png">
+<img width="1439" alt="누구시냐는고양이" src="https://user-images.githubusercontent.com/55742497/205605288-14a31f59-90b6-43bf-9b1a-282c41b28c1f.png">
+
 
 
 
 - 영화 상세정보 페이지 및 댓글
-![무비테이블.png](./무비테이블.png)
+<img width="1439" alt="무비테이블" src="https://user-images.githubusercontent.com/55742497/205605371-874d4837-326b-4967-942e-65209bdae1b1.png">
+
+-사용자가 작성한 댓글
+<img width="1439" alt="사용자가쓴댓글" src="https://user-images.githubusercontent.com/55742497/205605780-e883e190-1757-4cbd-aefd-7addb81ee402.png">
+
 
   
-  - 댓글 좋아요 구현 & 댓글 작성 · 수정 · 삭제 
-![댓글좋아요작성수정삭제.png](./댓글좋아요작성수정삭제.png)
+- 댓글 좋아요 구현 & 댓글 작성 · 수정 · 삭제 
+<img width="1439" alt="댓글좋아요작성수정삭제" src="https://user-images.githubusercontent.com/55742497/205605468-cf3b6e6c-bfcf-45e8-ab99-a0e05887d297.png">
+
 
 
 
 
 - 영화 맞춤 콘텐츠 
   
-  - 배우 맞추기 게임, 영화 명장면으로 제목 맞추기
-  ![배우맞추기.png](./배우맞추기.png)
-  ![게임첫씬.png](./게임첫씬.png)
+- 배우 맞추기 게임, 영화 명장면으로 제목 맞추기
+  <img width="1439" alt="배우맞추기" src="https://user-images.githubusercontent.com/55742497/205604528-f9cc52e8-5b4c-42a7-9020-5e90f4f9317c.png">
+  <img width="1439" alt="게임첫씬" src="https://user-images.githubusercontent.com/55742497/205604081-b20a9bbb-8b2d-4da1-a77c-b486d21db14d.png">
 
 - 프로필 페이지 (마이페이지, 상대방 페이지)
-    ![친구가좋아요한영화.png](./친구가좋아요한영화.png)
-  - 팔로우 정보 & 찜한 영화 목록 확인 가능
-    ![취향에맞춘영화.png](./취향에맞춘영화.png)
+<img width="1439" alt="친구가좋아한영화" src="https://user-images.githubusercontent.com/55742497/205605547-475fe501-72c5-4464-85be-589cc890fb26.png">
+
+- 팔로우 정보 & 찜한 영화 목록 확인 가능
+<img width="1439" alt="취향에맞춘영화" src="https://user-images.githubusercontent.com/55742497/205605602-c5d2ef73-e4e9-411d-8489-fd8139dacce1.png">
+
 
 
 ---
