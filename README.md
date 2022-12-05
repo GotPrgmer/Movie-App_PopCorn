@@ -36,7 +36,7 @@
 ## 📚 데이터베이스 모델링
 
 erd구조
-![캬라멜팝콘](https://user-images.githubusercontent.com/55742497/205604650-90472aa9-9055-49d8-ba4b-d2851dea8501.png)
+![Screen Shot 2022-12-05 at 7 04 16 PM](https://user-images.githubusercontent.com/55742497/205609809-06ac1906-6db4-4276-bd1c-f5765e94abc8.png)
 ---
 
 ## 🧮 컴포넌트 구조
