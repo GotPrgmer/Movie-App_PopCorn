@@ -91,9 +91,27 @@ erd구조
 - 팔로우 정보 & 찜한 영화 목록 확인 가능
 <img width="1439" alt="취향에맞춘영화" src="https://user-images.githubusercontent.com/55742497/205605602-c5d2ef73-e4e9-411d-8489-fd8139dacce1.png">
 
-
-
 ---
+
+## 💻 프로젝트 실행 순서
+백엔드
+```
+python -m venv venv
+source venv/bin/activate
+python -m pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py loaddata totalmovie.json
+python manage.py runserver
+```
+
+
+프론트엔드
+```
+npm install or npm i
+npm run serve
+```
+
 
 ## 🤔 프로젝트 후기
 
